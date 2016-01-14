@@ -100,9 +100,12 @@ musicplr   = terminal .. " -g 130x34-320+16 -e ncmpcpp "
 
 local layouts = {
     awful.layout.suit.tile,
+    awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
+    awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
+    awful.layout.suit.max,
     awful.layout.suit.floating,
 }
 -- }}}
@@ -430,7 +433,7 @@ globalkeys = awful.util.table.join(
             awful.client.focus.bydirection("left")
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey }, "l",
+    awful.key({ altkey, "Control" }, "l",
         function()
             awful.client.focus.bydirection("right")
             if client.focus then client.focus:raise() end
