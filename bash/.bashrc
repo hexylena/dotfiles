@@ -120,7 +120,7 @@ fi
 shopt -s histappend
 export GOPATH=$HOME/work/go
 export GOROOT=$HOME/.go
-export PATH=$PATH:$GOROOT/bin
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export PATH=/home/hxr/.linuxbrew/bin:$PATH
 
 . /home/hxr/.ssh-sock
