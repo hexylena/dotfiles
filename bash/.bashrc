@@ -91,7 +91,8 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-
+# Vim without swap, setting, plugins
+alias svim='vim -n -u NONE -i NONE -N'
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -141,6 +142,10 @@ function day(){
 
 function keygen(){
     ssh-keygen -t rsa -b 4096 -f .ssh/keys/id_rsa_$1
+}
+
+function _sshload(){
+    ssh-add $(find ~/.ssh/keys -not -name '*.pub' -type f)
 }
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
