@@ -148,6 +148,9 @@ function _sshload(){
     ssh-add $(find ~/.ssh/keys -not -name '*.pub' -type f)
 }
 
+TF_ALIAS=fuck
+alias fuck='PYTHONIOENCODING=utf-8 eval $(thefuck $(fc -ln -1)); history -r'
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/hxr/.sdkman"
 [[ -s "/home/hxr/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hxr/.sdkman/bin/sdkman-init.sh"
