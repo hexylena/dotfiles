@@ -46,8 +46,6 @@ function run_once(cmd)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
 end
 
-run_once("urxvtd")
-run_once("unclutter -root")
 run_once("xscreensaver &")
 run_once("nm-applet &")
 -- }}}
@@ -88,15 +86,16 @@ beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-darker/t
 modkey     = "Mod4"
 altkey     = "Mod1"
 fnkey      = "Mod2"
-terminal   = "sakura"
+terminal   = ""
 editor     = os.getenv("EDITOR") or "nano" or "vi"
 editor_cmd = terminal .. " -e " .. editor
 
 -- user defined
 browser    = "firefox"
 browser2   = "google-chrome"
-iptraf     = terminal .. " -g 180x54-20+34 -e sudo iptraf-ng -i all "
-musicplr   = terminal .. " -g 130x34-320+16 -e ncmpcpp "
+-- TODO
+iptraf     = terminal .. " -e sudo iftop -i wlo1 "
+musicplr   = terminal .. " -e ncmpcpp "
 
 local layouts = {
     awful.layout.suit.tile,
@@ -145,7 +144,7 @@ clockicon = wibox.widget.imagebox(beautiful.widget_clock)
 
 mytextclock = lain.widgets.abase({
     timeout  = 60,
-    cmd      = "date +'%a %d %b %R'",
+    cmd      = "date --rfc-3339=seconds",
     settings = function()
         widget:set_text(" " .. output)
     end
@@ -175,38 +174,6 @@ mpdwidget = lain.widgets.mpd({
         end
 
         widget:set_markup(markup("#EA6F81", artist) .. title)
-    end
-})
-
--- MEM
-memicon = wibox.widget.imagebox(beautiful.widget_mem)
-memwidget = lain.widgets.mem({
-    settings = function()
-        widget:set_text(" " .. mem_now.used .. "MB ")
-    end
-})
-
--- CPU
-cpuicon = wibox.widget.imagebox(beautiful.widget_cpu)
-cpuwidget = lain.widgets.cpu({
-    settings = function()
-        widget:set_text(" " .. cpu_now.usage .. "% ")
-    end
-})
-
--- Coretemp
-tempicon = wibox.widget.imagebox(beautiful.widget_temp)
-tempwidget = lain.widgets.temp({
-    settings = function()
-        widget:set_text(" " .. coretemp_now .. "°C ")
-    end
-})
-
--- / fs
-fsicon = wibox.widget.imagebox(beautiful.widget_hdd)
-fswidget = lain.widgets.fs({
-    settings  = function()
-        widget:set_text(" " .. fs_now.used .. "% ")
     end
 })
 
@@ -366,11 +333,7 @@ for s = 1, screen.count() do
     right_layout:add(arrl)
     right_layout_add(mpdicon, mpdwidget)
     right_layout_add(volicon, volumewidget)
-    right_layout_add(memicon, memwidget)
-    right_layout_add(cpuicon, cpuwidget)
     right_layout_add(kbdcfg.widget)
-    right_layout_add(tempicon, tempwidget)
-    right_layout_add(fsicon, fswidget)
     right_layout_add(baticon, batwidget)
     right_layout_add(neticon,netwidget)
     right_layout_add(mytextclock, spr)
@@ -638,24 +601,12 @@ awful.rules.rules = {
                      focus = awful.client.focus.filter,
                      keys = clientkeys,
                      buttons = clientbuttons,
-	                   size_hints_honor = false } },
-    { rule = { class = "URxvt" },
-          properties = { opacity = 0.99 } },
-
-    { rule = { class = "MPlayer" },
-          properties = { floating = true } },
-
-    { rule = { class = "Dwb" },
-          properties = { tag = tags[1][1] } },
-
-    { rule = { class = "Iron" },
-          properties = { tag = tags[1][1] } },
-
+                     size_hints_honor = false } },
     { rule = { instance = "plugin-container" },
           properties = { tag = tags[1][1] } },
 
-	  { rule = { class = "Gimp" },
-     	    properties = { tag = tags[1][4] } },
+    { rule = { class = "Gimp" },
+          properties = { tag = tags[1][4] } },
 
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized_horizontal = true,

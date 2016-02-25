@@ -148,6 +148,14 @@ function _sshload(){
     ssh-add $(find ~/.ssh/keys -not -name '*.pub' -type f)
 }
 
+function logme(){
+    sudo /home/hxr/work/go/bin/client --standalone
+}
+
+function mirror(){
+    vlc v4l2:///dev/video0
+}
+
 TF_ALIAS=fuck
 alias fuck='PYTHONIOENCODING=utf-8 eval $(thefuck $(fc -ln -1)); history -r'
 
