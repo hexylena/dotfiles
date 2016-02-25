@@ -86,14 +86,14 @@ beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-darker/t
 modkey     = "Mod4"
 altkey     = "Mod1"
 fnkey      = "Mod2"
-terminal   = ""
+terminal   = "sakura"
 editor     = os.getenv("EDITOR") or "nano" or "vi"
 editor_cmd = terminal .. " -e " .. editor
 
 -- user defined
 browser    = "firefox"
 browser2   = "google-chrome"
--- TODO
+-- TOD
 iptraf     = terminal .. " -e sudo iftop -i wlo1 "
 musicplr   = terminal .. " -e ncmpcpp "
 
