@@ -121,8 +121,7 @@ fi
 shopt -s histappend
 export GOPATH=$HOME/work/go
 export GOROOT=$HOME/.go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-export PATH=/home/hxr/.linuxbrew/bin:$PATH
+export PATH=$HOME/.local/bin/:/home/hxr/.linuxbrew/bin:$PATH:$GOROOT/bin:$GOPATH/bin
 
 . /home/hxr/.ssh-sock
 . /home/hxr/work/docker-recipes/node-dev/command.sh
@@ -156,8 +155,20 @@ function mirror(){
     vlc v4l2:///dev/video0
 }
 
+function jw(){
+    tmp=$(mktemp)
+    cat $1 | json_pp > $tmp;
+    mv $tmp $1;
+}
+
+function docker_cleanup() {
+    docker images | grep '<none' | awk '{print $3}' | xargs docker rmi;
+    docker ps -a |grep -v 'Up' | awk '{print $1}' | xargs docker rm;
+}
+
 TF_ALIAS=fuck
 alias fuck='PYTHONIOENCODING=utf-8 eval $(thefuck $(fc -ln -1)); history -r'
+alias sl='ls'
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/hxr/.sdkman"

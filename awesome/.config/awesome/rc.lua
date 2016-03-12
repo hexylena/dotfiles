@@ -151,7 +151,12 @@ mytextclock = lain.widgets.abase({
 })
 
 -- calendar
-lain.widgets.calendar:attach(mytextclock, { font_size = 10 })
+lain.widgets.calendar:attach(mytextclock, {
+    font = "Ubuntu Mono",
+    font_size = 12,
+    cal = "/usr/bin/ncal",
+    post_cal = "-M"
+})
 
 
 
