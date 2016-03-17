@@ -53,14 +53,16 @@ run_once("nm-applet &")
 -- {{{ Keyboard maps
 
 -- Keyboard map indicator and changer
-kbdcfg = {}
-kbdcfg.cmd = "setxkbmap"
-kbdcfg.layout = {
-    { "us", "-option compose:caps" , "en" },
-    { "ua", "-variant phonetic" , "ua" }
+kbdcfg = {
+    cmd = "setxkbmap",
+    layout = {
+        { "us", "-option compose:caps" , "en" },
+        { "ua", "-variant phonetic" , "ua" }
+    },
+    current = 1,
+    widget = wibox.widget.textbox(),
+
 }
-kbdcfg.current = 1  -- us is our default layout
-kbdcfg.widget = wibox.widget.textbox()
 kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current][3] .. " ")
 
 kbdcfg.switch = function ()
@@ -72,7 +74,7 @@ end
 
  -- Mouse bindings
 kbdcfg.widget:buttons(
- awful.util.table.join(awful.button({ }, 1, function () kbdcfg.switch() end))
+    awful.util.table.join(awful.button({ }, 1, function () kbdcfg.switch() end))
 )
 
 -- }}}
@@ -158,6 +160,15 @@ lain.widgets.calendar:attach(mytextclock, {
     post_cal = "-M"
 })
 
+
+--myipaddr = lain.widgets.abase({
+    --timeout = 240,
+    --cmd = "curl --silent icanhazip.com",
+    --widget = wibox.widget.textbox(),
+    --settings = function()
+        --widget:set_text(" " .. output .. " ")
+    --end
+--})
 
 
 -- MPD
@@ -339,6 +350,7 @@ for s = 1, screen.count() do
     right_layout_add(mpdicon, mpdwidget)
     right_layout_add(volicon, volumewidget)
     right_layout_add(kbdcfg.widget)
+    --right_layout_add(myipaddr.widget)
     right_layout_add(baticon, batwidget)
     right_layout_add(neticon,netwidget)
     right_layout_add(mytextclock, spr)
