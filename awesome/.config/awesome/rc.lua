@@ -145,7 +145,7 @@ clockicon = wibox.widget.imagebox(beautiful.widget_clock)
 --mytextclock = awful.widget.textclock(" %a %d %b  %H:%M")
 
 mytextclock = lain.widgets.abase({
-    timeout  = 60,
+    timeout  = 20,
     cmd      = "date --rfc-3339=seconds",
     settings = function()
         widget:set_text(" " .. output)
@@ -515,7 +515,7 @@ globalkeys = awful.util.table.join(
     -- User programs
     awful.key({  }, "XF86MonBrightnessDown", function () awful.util.spawn("xbacklight -dec 5") end),
     awful.key({  }, "XF86MonBrightnessUp",   function () awful.util.spawn("xbacklight -inc 5") end),
-    awful.key({ modkey }, "l", function() awful.util.spawn("xscreensaver-command -lock") end),
+    awful.key({ modkey }, "q", function() awful.util.spawn("xscreensaver-command -lock") end),
 
     awful.key({  }, "XF86AudioLowerVolume",   function () awful.util.spawn("amixer -D pulse sset Master 5%-") end),
     awful.key({  }, "XF86AudioRaiseVolume",   function () awful.util.spawn("amixer -D pulse sset Master 5%+") end),
