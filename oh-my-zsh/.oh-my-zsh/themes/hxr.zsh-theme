@@ -13,8 +13,9 @@ if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="white"; fi
 local user="%B%n%b"
 local host="%m"
 local etc="%{$fg[white]%}%~%{$reset_color%}"
+return_code="%(?..%{$fg[red]%}%?%{$reset_color%})"
 
-PROMPT='[%{$fg[$NCOLOR]%}$user@$host%{$reset_color%}:$etc]%(!.#.$) '
+PROMPT='[%{$fg[$NCOLOR]%}$user@$host%{$reset_color%}:$etc]$return_code%(!.#.$) '
 RPROMPT='$(git_prompt_info)'
 
 # git theming
