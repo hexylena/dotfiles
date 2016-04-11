@@ -4,3 +4,5 @@
 [push]
 	default = current
 
+[commit]
+	gpgsign = true
