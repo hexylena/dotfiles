@@ -125,8 +125,8 @@ end
 -- {{{ Wallpaper
 if beautiful.wallpaper then
     for s = 1, screen.count() do
-        gears.wallpaper.maximized("/home/hxr/Pictures/wallpaper/c2a896b02fb4f57de236c0935b454705.jpg", s, true)
-        --gears.wallpaper.maximized(beautiful.wallpaper, s, true)
+        --gears.wallpaper.maximized("/home/hxr/Pictures/wallpaper/c2a896b02fb4f57de236c0935b454705.jpg", s, true)
+        gears.wallpaper.maximized("/home/hxr/Pictures/wallpaper/9d713337b55f84a8418e631b56247fb9.png", s, true)
     end
 end
 -- }}}
