@@ -1,0 +1,33 @@
+#!/bin/bash
+SSH_AGENT_TYPE="ssh"
+SSH_AGENT_INFO="${HOME}/.ssh-agent"
+
+source_agent_info() {
+  export SSH_AUTH_SOCK=''
+  export SSH_AGENT_PID=''
+
+  if [[ -f ${SSH_AGENT_INFO} ]]; then
+    source ${SSH_AGENT_INFO}
+  fi
+}
+
+agent_running() {
+  source_agent_info
+  proc_file="/proc/${SSH_AGENT_PID}/cmdline"
+  if [[ "${SSH_AGENT_PID}" =~ ^[0-9]+$ ]] && \
+     stat "${proc_file}" &> /dev/null && \
+     grep ssh-agent "${proc_file}" &> /dev/null; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+run_ssh_agent() {
+  ssh-agent 2>&1 | grep -v echo > "${SSH_AGENT_INFO}"
+  source_agent_info
+}
+
+if ! agent_running; then
+  run_ssh_agent
+fi
