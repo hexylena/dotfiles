@@ -20,3 +20,5 @@
     amend = commit --amend
     graph = log --graph -10 --branches --remotes --tags --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
     precommit = diff --cached --diff-algorithm=minimal -w
+    # http://blog.jessitron.com/2015/05/git-handy-alias-to-find-repository-root.html
+    home = rev-parse --show-toplevel
