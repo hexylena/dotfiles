@@ -9,6 +9,7 @@
 theme                               = {}
 
 themes_dir                          = os.getenv("HOME") .. "/.config/awesome/theme"
+theme.wallpaper                     = themes_dir .. "/wall.png"
 
 theme.font                          = "Terminus 9"
 theme.fg_normal                     = "#DDDDFF"

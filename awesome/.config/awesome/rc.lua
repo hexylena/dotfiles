@@ -102,17 +102,14 @@ local layouts = {
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
-    awful.layout.suit.max,
-    awful.layout.suit.floating,
 }
 -- }}}
 
 -- {{{ Tags
 tags = {
-   names = { "1", "2", "3", "4", "5"},
+   names = { "Com", "Net", "Dev", "Net", "Sec"},
    layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1] }
 }
 
@@ -124,7 +121,7 @@ end
 -- {{{ Wallpaper
 if beautiful.wallpaper then
     for s = 1, screen.count() do
-        gears.wallpaper.maximized("/home/hxr/Pictures/wallpaper/.current-wallpaper.png", s, true)
+        gears.wallpaper.maximized(os.getenv("HOME") .. "/Pictures/wallpaper/.current-wallpaper-1.png", s, true)
     end
 end
 -- }}}
@@ -144,7 +141,7 @@ clockicon = wibox.widget.imagebox(beautiful.widget_clock)
 
 mytextclock = lain.widgets.abase({
     timeout  = 20,
-    cmd      = "date --rfc-3339=seconds",
+    cmd      = "date '+%Y-%m-%d %H:%M %Z'",
     settings = function()
         widget:set_text(" " .. output)
     end
@@ -159,16 +156,6 @@ lain.widgets.calendar:attach(mytextclock, {
 })
 
 
---myipaddr = lain.widgets.abase({
-    --timeout = 240,
-    --cmd = "curl --silent icanhazip.com",
-    --widget = wibox.widget.textbox(),
-    --settings = function()
-        --widget:set_text(" " .. output .. " ")
-    --end
---})
-
-
 -- MPD
 mpdicon = wibox.widget.imagebox(beautiful.widget_music)
 mpdicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn_with_shell(musicplr) end)))
@@ -177,10 +164,13 @@ mpdwidget = lain.widgets.mpd({
         if mpd_now.state == "play" then
             artist = " " .. mpd_now.artist .. " "
             title  = mpd_now.title  .. " "
+            if string.len(title) > 30 then
+                title = string.sub(title, 0, 30) .. ".."
+            end
             mpdicon:set_image(beautiful.widget_music_on)
         elseif mpd_now.state == "pause" then
             artist = " mpd "
-            title  = "paused "
+            title  = "▮▮ "
         else
             artist = ""
             title  = ""
@@ -276,22 +266,6 @@ mytasklist.buttons = awful.util.table.join(
                                                   client.focus = c
                                                   c:raise()
                                               end
-                                          end),
-                     awful.button({ }, 3, function ()
-                                              if instance then
-                                                  instance:hide()
-                                                  instance = nil
-                                              else
-                                                  instance = awful.menu.clients({ width=250 })
-                                              end
-                                          end),
-                     awful.button({ }, 4, function ()
-                                              awful.client.focus.byidx(1)
-                                              if client.focus then client.focus:raise() end
-                                          end),
-                     awful.button({ }, 5, function ()
-                                              awful.client.focus.byidx(-1)
-                                              if client.focus then client.focus:raise() end
                                           end))
 
 for s = 1, screen.count() do
@@ -303,8 +277,8 @@ for s = 1, screen.count() do
     mylayoutbox[s] = awful.widget.layoutbox(s)
     mylayoutbox[s]:buttons(awful.util.table.join(
                             awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
-                            awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
                             awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
+                            awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
                             awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
 
     -- Create a taglist widget
@@ -377,11 +351,6 @@ globalkeys = awful.util.table.join(
     -- Tag browsing
     awful.key({ modkey }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey }, "Right",  awful.tag.viewnext       ),
-    awful.key({ modkey }, "Escape", awful.tag.history.restore),
-
-    -- Non-empty tag browsing
-    --awful.key({ altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end),
-    --awful.key({ altkey }, "Right", function () lain.util.tag_view_nonempty(1) end),
 
     -- Default client focus
     awful.key({ altkey }, "k",

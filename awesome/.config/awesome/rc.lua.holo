@@ -460,14 +460,10 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
-    -- Take a screenshot
-    -- https://github.com/copycat-killer/dots/blob/master/bin/screenshot
-    awful.key({ altkey }, "p", function() os.execute("screenshot") end),
-
     -- Tag browsing
     awful.key({ modkey }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey }, "Right",  awful.tag.viewnext       ),
-    awful.key({ modkey }, "Escape", awful.tag.history.restore),
+    --awful.key({ modkey }, "Escape", awful.tag.history.restore),
 
     -- Non-empty tag browsing
     awful.key({ altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end),
@@ -476,7 +472,7 @@ globalkeys = awful.util.table.join(
     -- Default client focus
     awful.key({ altkey }, "k",
         function ()
-            awful.client.focus.byidx( 1)
+            awful.client.focus.byidx( "1)
             if client.focus then client.focus:raise() end
         end),
     awful.key({ altkey }, "j",
