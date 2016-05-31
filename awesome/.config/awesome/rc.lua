@@ -47,6 +47,7 @@ end
 
 run_once("xscreensaver &")
 run_once("nm-applet &")
+run_once("nohup python3 /home/hxr/projects/WeatherDesk/WeatherDesk.py -c '77845' -t 4 -w 1200 &")
 -- }}}
 
 -- {{{ Keyboard maps
@@ -112,7 +113,6 @@ tags = {
    names = { "Com", "Net", "Dev", "Net", "Sec"},
    layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1] }
 }
-
 for s = 1, screen.count() do
    tags[s] = awful.tag(tags.names, s, tags.layout)
 end
