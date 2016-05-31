@@ -454,22 +454,22 @@ globalkeys = awful.util.table.join(
     -- MPD control
     awful.key({ altkey, "Control" }, "Up",
         function ()
-            awful.util.spawn_with_shell("mpc toggle || ncmpc toggle || pms toggle")
+            awful.util.spawn_with_shell("mpc toggle")
             mpdwidget.update()
         end),
     awful.key({ altkey, "Control" }, "Down",
         function ()
-            awful.util.spawn_with_shell("mpc stop || ncmpc stop || pms stop")
+            awful.util.spawn_with_shell("mpc stop")
             mpdwidget.update()
         end),
     awful.key({ altkey, "Control" }, "Left",
         function ()
-            awful.util.spawn_with_shell("mpc prev || ncmpc prev || pms prev")
+            awful.util.spawn_with_shell("mpc prev")
             mpdwidget.update()
         end),
     awful.key({ altkey, "Control" }, "Right",
         function ()
-            awful.util.spawn_with_shell("mpc next || ncmpc next || pms next")
+            awful.util.spawn_with_shell("mpc next")
             mpdwidget.update()
         end),
 
@@ -487,7 +487,6 @@ globalkeys = awful.util.table.join(
 
     awful.key({  }, "Print",   function () awful.util.spawn("shutter -s") end),
 
-
     -- Prompt
     awful.key({ modkey }, "r", function () mypromptbox[mouse.screen]:run() end),
     awful.key({ modkey }, "x",
@@ -502,21 +501,7 @@ globalkeys = awful.util.table.join(
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
-    awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
-    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
-    awful.key({ modkey,           }, "n",
-        function (c)
-            -- The client currently has the input focus, so it cannot be
-            -- minimized, since minimized clients can't have the focus.
-            c.minimized = true
-        end),
-    awful.key({ modkey,           }, "m",
-        function (c)
-            c.maximized_horizontal = not c.maximized_horizontal
-            c.maximized_vertical   = not c.maximized_vertical
-        end)
+    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end)
 )
 
 -- Bind all key numbers to tags.
@@ -586,12 +571,12 @@ awful.rules.rules = {
     { rule = { instance = "plugin-container" },
           properties = { tag = tags[1][1] } },
 
-    { rule = { class = "Gimp" },
-          properties = { tag = tags[1][4] } },
+    --{ rule = { class = "Gimp" },
+          --properties = { tag = tags[1][4] } },
 
-    { rule = { class = "Gimp", role = "gimp-image-window" },
-          properties = { maximized_horizontal = true,
-                         maximized_vertical = true } },
+    --{ rule = { class = "Gimp", role = "gimp-image-window" },
+          --properties = { maximized_horizontal = true,
+                         --maximized_vertical = true } },
 }
 -- }}}
 
