@@ -1,6 +1,6 @@
 --[[
      Powerarrow Darker Awesome WM config 2.0 
-     github.com/copycat-killer               
+     github.com/copycat-killer
 --]]
 
 -- {{{ Required libraries
@@ -11,7 +11,6 @@ awful.rules     = require("awful.rules")
 local wibox     = require("wibox")
 local beautiful = require("beautiful")
 local naughty   = require("naughty")
-local drop      = require("scratchdrop")
 local lain      = require("lain")
 -- }}}
 
@@ -82,14 +81,14 @@ kbdcfg.widget:buttons(
 -- {{{ Variable definitions
 
 -- beautiful init
-beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-darker/theme.lua")
+beautiful.init(os.getenv("HOME") .. "/.config/awesome/theme/theme.lua")
 
 -- common
 modkey     = "Mod4"
 altkey     = "Mod1"
 fnkey      = "Mod2"
 terminal   = "sakura"
-editor     = os.getenv("EDITOR") or "nano" or "vi"
+editor     = "vim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- user defined
@@ -125,8 +124,7 @@ end
 -- {{{ Wallpaper
 if beautiful.wallpaper then
     for s = 1, screen.count() do
-        --gears.wallpaper.maximized("/home/hxr/Pictures/wallpaper/c2a896b02fb4f57de236c0935b454705.jpg", s, true)
-        gears.wallpaper.maximized("/home/hxr/Pictures/wallpaper/9d713337b55f84a8418e631b56247fb9.png", s, true)
+        gears.wallpaper.maximized("/home/hxr/Pictures/wallpaper/.current-wallpaper.png", s, true)
     end
 end
 -- }}}
@@ -457,9 +455,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r",      awesome.restart),
     awful.key({ modkey, "Shift"   }, "q",      awesome.quit),
-
-    -- Dropdown terminal
-    awful.key({ modkey,	          }, "z",      function () drop(terminal) end),
 
     -- Widgets popups
     awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end),
