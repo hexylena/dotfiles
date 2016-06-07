@@ -164,9 +164,6 @@ mpdwidget = lain.widgets.mpd({
         if mpd_now.state == "play" then
             artist = " " .. mpd_now.artist .. " "
             title  = mpd_now.title  .. " "
-            if string.len(title) > 30 then
-                title = string.sub(title, 0, 30) .. ".."
-            end
             mpdicon:set_image(beautiful.widget_music_on)
         elseif mpd_now.state == "pause" then
             artist = " mpd "

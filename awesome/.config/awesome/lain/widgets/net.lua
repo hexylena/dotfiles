@@ -80,15 +80,6 @@ local function worker(args)
         then
             if helpers.get_map(iface)
             then
-                naughty.notify({
-                    title    = iface,
-                    text     = "no carrier",
-                    timeout  = 7,
-                    position = "top_left",
-                    icon     = helpers.icons_dir .. "no_net.png",
-                    fg       = notify_fg or "#FFFFFF",
-                    screen   = screen
-                })
                 helpers.set_map(iface, false)
             end
         else
