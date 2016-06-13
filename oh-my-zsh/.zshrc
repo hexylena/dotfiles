@@ -154,3 +154,6 @@ setopt no_check_jobs
 export SDKMAN_DIR="/home/hxr/.sdkman"
 [[ -s "/home/hxr/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hxr/.sdkman/bin/sdkman-init.sh"
 . /home/hxr/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# added by Miniconda2 4.0.5 installer
+export PATH="/home/hxr/.miniconda/bin:$PATH"
