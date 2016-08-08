@@ -47,7 +47,7 @@ end
 
 run_once("xscreensaver &")
 run_once("nm-applet &")
-run_once("nohup python3 /home/hxr/projects/WeatherDesk/WeatherDesk.py -c '77845' -t 4 -w 1200 &")
+run_once("nohup python3 /home/hxr/projects/WeatherDesk/WeatherDesk.py -c 'The Hague' -t 4 -w 1200 &")
 -- }}}
 
 -- {{{ Keyboard maps
