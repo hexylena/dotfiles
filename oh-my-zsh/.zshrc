@@ -139,6 +139,21 @@ function jw(){
     mv $tmp $1;
 }
 
+function yt(){
+    youtube -i $@
+}
+
+function vol(){
+    amixer -D pulse sset Master $@
+}
+
+function volu(){
+    amixer -D pulse sset Master 5%+
+}
+function vold(){
+    amixer -D pulse sset Master 5%-
+}
+
 function docker_cleanup() {
     docker images | grep '<none' | awk '{print $3}' | xargs docker rmi;
     docker ps -a |grep -v 'Up' | awk '{print $1}' | xargs docker rm;
