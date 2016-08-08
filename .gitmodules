@@ -1,0 +1,3 @@
+[submodule "my-udev-notify"]
+	path = my-udev-notify
+	url = https://github.com/dimonomid/my-udev-notify
