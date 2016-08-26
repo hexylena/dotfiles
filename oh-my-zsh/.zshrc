@@ -172,3 +172,4 @@ export SDKMAN_DIR="/home/hxr/.sdkman"
 
 # added by Miniconda2 4.0.5 installer
 export PATH="/home/hxr/.miniconda/bin:$PATH"
+. /home/hxr/.env.secret

@@ -21,3 +21,5 @@ au FileType go nmap <Leader>e <Plug>(go-rename)
 
 let g:syntastic_python_checkers = ['pylint']
 set nospell
+
+set noexpandtab
