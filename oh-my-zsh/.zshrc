@@ -140,7 +140,7 @@ function jw(){
 }
 
 function yt(){
-    youtube -i $@
+    youtube -i -x $@
 }
 
 function vol(){
