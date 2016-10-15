@@ -53,7 +53,7 @@ plugins=(git)
 
 # User configuration
 
-export PATH="/home/hxr/.local/bin/:/home/hxr/.linuxbrew/bin:/home/hxr/.bin:/usr/local/texlive/2015/bin/x86_64-linux:/home/hxr/.sdkman/candidates/groovy/current/bin:/home/hxr/.sdkman/candidates/grails/current/bin:/home/hxr/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/hxr/.go/bin:/home/hxr/work/go/bin"
+export PATH="/home/hxr/.local/bin/:/home/hxr/.bin:/usr/local/texlive/2015/bin/x86_64-linux:/home/hxr/.sdkman/candidates/groovy/current/bin:/home/hxr/.sdkman/candidates/grails/current/bin:/home/hxr/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/hxr/.go/bin:/home/hxr/work/go/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -159,6 +159,10 @@ function docker_cleanup() {
     docker ps -a |grep -v 'Up' | awk '{print $1}' | xargs docker rm;
 }
 
+if [ -x /usr/games/cowsay -a -x /usr/games/fortune -a -x /usr/games/lolcat  ]; then
+	fortune | cowsay -W 60
+fi
+
 # I know what I'm doing, thank you.
 setopt rmstarsilent
 setopt nomatch
@@ -170,6 +174,4 @@ export SDKMAN_DIR="/home/hxr/.sdkman"
 [[ -s "/home/hxr/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hxr/.sdkman/bin/sdkman-init.sh"
 . /home/hxr/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
-# added by Miniconda2 4.0.5 installer
-export PATH="/home/hxr/.miniconda/bin:$PATH"
 . /home/hxr/.env.secret

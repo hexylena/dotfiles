@@ -121,7 +121,7 @@ fi
 shopt -s histappend
 export GOPATH=$HOME/work/go
 export GOROOT=$HOME/.go
-export PATH=$HOME/.local/bin/:/home/hxr/.linuxbrew/bin:$PATH:$GOROOT/bin:$GOPATH/bin
+export PATH=$HOME/.local/bin/:$PATH:$GOROOT/bin:$GOPATH/bin
 
 . /home/hxr/.ssh-sock
 . /home/hxr/work/docker-recipes/node-dev/command.sh
