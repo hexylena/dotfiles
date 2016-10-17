@@ -93,9 +93,6 @@ export PATH=$HOME/.local/bin/:/home/hxr/.linuxbrew/bin:$PATH:$GOROOT/bin:$GOPATH
 
 . /home/hxr/.ssh-sock
 . /home/hxr/.gpg-sock
-. /home/hxr/work/docker-recipes/node-dev/command.sh
-#. /home/hxr/.sdkman/bin/sdkman-init.sh
-#. /home/hxr/projects/torch/install/bin/torch-activate
 
 function logme(){
     sudo /home/hxr/work/go/bin/client --standalone
@@ -140,7 +137,7 @@ function jw(){
 }
 
 function yt(){
-    youtube -i -x $@
+    youtube-dl -i -x $@
 }
 
 function vol(){
@@ -163,9 +160,17 @@ if [ -x /usr/games/cowsay -a -x /usr/games/fortune -a -x /usr/games/lolcat  ]; t
 	fortune | cowsay -W 60
 fi
 
+function _haskell(){
+	docker run -it -v `pwd`:/data haskell 'bash' -c 'cd /data; bash'
+}
+
+function _rust(){
+	docker run -it -v `pwd`:/data schickling/rust 'bash' -c 'cd /data; bash'
+}
+
 # I know what I'm doing, thank you.
 setopt rmstarsilent
-setopt nomatch
+setopt no_nomatch
 # Feck off with huping my stuff.
 setopt nohup
 setopt no_check_jobs

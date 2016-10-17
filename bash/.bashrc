@@ -124,7 +124,7 @@ export GOROOT=$HOME/.go
 export PATH=$HOME/.local/bin/:$PATH:$GOROOT/bin:$GOPATH/bin
 
 . /home/hxr/.ssh-sock
-. /home/hxr/work/docker-recipes/node-dev/command.sh
+#. /home/hxr/work/docker-recipes/node-dev/command.sh
 #. /home/hxr/.sdkman/bin/sdkman-init.sh
 #. /home/hxr/projects/torch/install/bin/torch-activate
 
