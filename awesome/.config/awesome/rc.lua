@@ -109,8 +109,8 @@ local layouts = {
 
 -- {{{ Tags
 tags = {
-   names = { "Com", "Net", "Dev", "Net", "Sec"},
-   layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1] }
+   names = { "Net", "Dev", "Net", "Sec"},
+   layout = { layouts[1], layouts[1], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
    tags[s] = awful.tag(tags.names, s, tags.layout)
@@ -136,7 +136,6 @@ separators = lain.util.separators
 
 -- Textclock
 clockicon = wibox.widget.imagebox(beautiful.widget_clock)
---mytextclock = awful.widget.textclock(" %a %d %b  %H:%M")
 
 mytextclock = lain.widgets.abase({
     timeout  = 20,
@@ -234,7 +233,6 @@ arrl_ld = separators.arrow_left("alpha", beautiful.bg_focus)
 
 -- Create a wibox for each screen and add it
 mywibox = {}
-mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
 mytaglist.buttons = awful.util.table.join(
@@ -262,21 +260,38 @@ mytasklist.buttons = awful.util.table.join(
                                                   client.focus = c
                                                   c:raise()
                                               end
+                                          end),
+                     awful.button({ }, 3, function ()
+                                              if instance then
+                                                  instance:hide()
+                                                  instance = nil
+                                              else
+                                                  instance = awful.menu.clients({
+                                                      theme = { width = 250 }
+                                                  })
+                                              end
+                                          end),
+                     awful.button({ }, 4, function ()
+                                              awful.client.focus.byidx(1)
+                                              if client.focus then client.focus:raise() end
+                                          end),
+                     awful.button({ }, 5, function ()
+                                              awful.client.focus.byidx(-1)
+                                              if client.focus then client.focus:raise() end
                                           end))
 
 for s = 1, screen.count() do
 
     -- Create a promptbox for each screen
-    mypromptbox[s] = awful.widget.prompt()
+    -- Create an imagebox widget which will contains an icon indicating which layout we're using.
 
     -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
     mylayoutbox[s]:buttons(awful.util.table.join(
-                            awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
-                            awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
-                            awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
-                            awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
-
+                           awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
+                           awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
+                           awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
+                           awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
     -- Create a taglist widget
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
@@ -284,53 +299,67 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s, height = 18 })
+    mywibox[s] = awful.wibox({ position = "left", orientation="north", screen = s })
 
-    -- Widgets that are aligned to the upper left
-    local left_layout = wibox.layout.fixed.horizontal()
-    left_layout:add(spr)
-    left_layout:add(mytaglist[s])
-    left_layout:add(mypromptbox[s])
-    left_layout:add(spr)
+    -- Widgets that are aligned to the bottom
+    local bottom_layout = wibox.layout.fixed.horizontal()
+    --bottom_layout:add(wibox.layout.margin(mytextclock,0,5))
+    bottom_layout:add(spr)
+    bottom_layout:add(mytaglist[s])
+    bottom_layout:add(spr)
 
     -- Widgets that are aligned to the upper right
-    local right_layout_toggle = true
-    local function right_layout_add (...)
+    local top_layout_toggle = true
+    local function top_layout_add (...)
         local arg = {...}
-        if right_layout_toggle then
-            right_layout:add(arrl_ld)
+        if top_layout_toggle then
+            top_layout:add(arrl_ld)
             for i, n in pairs(arg) do
-                right_layout:add(wibox.widget.background(n ,beautiful.bg_focus))
+                top_layout:add(wibox.widget.background(n ,beautiful.bg_focus))
             end
         else
-            right_layout:add(arrl_dl)
+            top_layout:add(arrl_dl)
             for i, n in pairs(arg) do
-                right_layout:add(n)
+                top_layout:add(n)
             end
         end
-        right_layout_toggle = not right_layout_toggle
+        top_layout_toggle = not top_layout_toggle
     end
 
-    right_layout = wibox.layout.fixed.horizontal()
-    if s == 1 then right_layout:add(wibox.widget.systray()) end
-    right_layout:add(spr)
-    right_layout:add(arrl)
-    right_layout_add(mpdicon, mpdwidget)
-    right_layout_add(volicon, volumewidget)
-    right_layout_add(kbdcfg.widget)
-    --right_layout_add(myipaddr.widget)
-    right_layout_add(baticon, batwidget)
-    right_layout_add(neticon,netwidget)
-    right_layout_add(mytextclock, spr)
-    right_layout_add(mylayoutbox[s])
+    top_layout = wibox.layout.fixed.horizontal()
+
+    if s == 1 then top_layout:add(wibox.widget.systray()) end
+    --top_layout:add(arrl)
+    top_layout_add(mpdicon)
+    top_layout_add(volicon)
+    top_layout_add(kbdcfg.widget)
+    --top_layout_add(myipaddr.widget)
+    top_layout_add(batwidget)
+    top_layout_add(netwidget)
+    top_layout_add(mytextclock, spr)
+    top_layout_add(mylayoutbox[s])
+
+    --if s == 1 then bottom_layout:add(wibox.widget.systray()) end
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
-    layout:set_left(left_layout)
-    layout:set_middle(mytasklist[s])
-    layout:set_right(right_layout)
-    mywibox[s]:set_widget(layout)
+    layout:set_first(bottom_layout)
+    layout:set_second(wibox.layout.margin(mytasklist[s],5,5))
+    layout:set_third(top_layout)
 
+    -- Rotate
+    -- http://comments.gmane.org/gmane.comp.window-managers.awesome/9676
+    local rotate = wibox.layout.rotate()
+    rotate:set_direction("east")
+    rotate:set_widget(layout)
+
+    -- Widgets from top to bottom
+    local wibox_layout = wibox.layout.fixed.vertical()
+    --wibox_layout:add(mylauncher)
+    --wibox_layout:add(wibox.layout.margin(mylayoutbox[s],0,0,5,5))
+    wibox_layout:add(rotate)
+
+    mywibox[s]:set_widget(wibox_layout)
 end
 -- }}}
 
@@ -387,11 +416,6 @@ globalkeys = awful.util.table.join(
         function ()
             mymainmenu:show({ keygrabber = true })
         end),
-
-    -- Show/Hide Wibox
-    awful.key({ modkey }, "b", function ()
-        mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
-    end),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
