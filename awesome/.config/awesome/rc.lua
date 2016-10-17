@@ -13,6 +13,7 @@ local beautiful = require("beautiful")
 local naughty   = require("naughty")
 local lain      = require("lain")
 -- }}}
+local menubar = require("menubar")
 
 -- {{{ Error handling
 if awesome.startup_errors then
@@ -87,7 +88,8 @@ beautiful.init(os.getenv("HOME") .. "/.config/awesome/theme/theme.lua")
 modkey     = "Mod4"
 altkey     = "Mod1"
 fnkey      = "Mod2"
-terminal   = "sakura"
+--terminal   = "sakura"
+terminal   = "xfce4-terminal"
 editor     = "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -508,7 +510,7 @@ globalkeys = awful.util.table.join(
     awful.key({  }, "Print",   function () awful.util.spawn("shutter -s") end),
 
     -- Prompt
-    awful.key({ modkey }, "r", function () mypromptbox[mouse.screen]:run() end),
+    awful.key({ modkey }, "r", function() menubar.show() end, "Applications menu bar"),
     awful.key({ modkey }, "x",
               function ()
                   awful.prompt.run({ prompt = "Run Lua code: " },

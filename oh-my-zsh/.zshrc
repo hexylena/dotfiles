@@ -175,8 +175,8 @@ setopt no_nomatch
 setopt nohup
 setopt no_check_jobs
 
-export SDKMAN_DIR="/home/hxr/.sdkman"
-[[ -s "/home/hxr/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hxr/.sdkman/bin/sdkman-init.sh"
-. /home/hxr/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
+export ANSIBLE_NOCOWS=1
+#export SDKMAN_DIR="/home/hxr/.sdkman"
+#[[ -s "/home/hxr/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hxr/.sdkman/bin/sdkman-init.sh"
+#. /home/hxr/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 . /home/hxr/.env.secret
