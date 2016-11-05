@@ -152,8 +152,8 @@ function vold(){
 }
 
 function docker_cleanup() {
-    docker images | grep '<none' | awk '{print $3}' | xargs docker rmi;
-    docker ps -a |grep -v 'Up' | awk '{print $1}' | xargs docker rm;
+    docker images | grep '<none' | awk '{print $3}' | xargs --no-run-if-empty docker rmi;
+	docker ps -a |grep -v 'Up' | awk '(NR>1){print $1}' | xargs --no-run-if-empty docker rm;
 }
 
 if [ -x /usr/games/cowsay -a -x /usr/games/fortune -a -x /usr/games/lolcat  ]; then

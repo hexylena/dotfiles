@@ -48,6 +48,7 @@ end
 
 run_once("xscreensaver &")
 run_once("nm-applet &")
+run_once("setxkbmap -option compose:caps")
 -- }}}
 
 -- {{{ Keyboard maps
