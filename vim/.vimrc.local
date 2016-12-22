@@ -23,3 +23,5 @@ let g:syntastic_python_checkers = ['pylint']
 set nospell
 
 set noexpandtab
+autocmd FileType javascript set backupcopy=yes
+inoremap jj <ESC>
