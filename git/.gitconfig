@@ -34,7 +34,13 @@
 	# Typos
 	psuh = push
 	comit = commit
+	commti = commit
 	cmomit = commit
 
 [core]
-	whitespace = trailing-space,space-before-tab,tab-in-indent
+	whitespace = trailing-space,space-before-tab
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
