@@ -168,6 +168,40 @@ function _rust(){
 	docker run -it -v `pwd`:/data schickling/rust 'bash' -c 'cd /data; bash'
 }
 
+function alog(){
+	arecord -f cd -t raw | lame -x -r - $(date "+%Y-%m-%dT%H:%M").mp3
+}
+
+alias python=python3
+alias travis='docker run --rm -it -v $PWD:/repo -v ~/.travis:/travis travis'
+function venv(){
+	if [ ! -d '.venv' ];
+	then
+		virtualenv .venv -p $(which python3);
+	fi
+
+	. .venv/bin/activate
+
+	if [ -e 'requirements.txt' ];
+	then
+		pip install -r requirements.txt;
+	fi
+}
+
+function venv2(){
+	if [ ! -d '.venv' ];
+	then
+		virtualenv .venv -p $(which python2.7);
+	fi
+	. .venv/bin/activate
+	unalias python
+
+	if [ -e 'requirements.txt' ];
+	then
+		pip install -r requirements.txt;
+	fi
+}
+
 # I know what I'm doing, thank you.
 setopt rmstarsilent
 setopt no_nomatch
