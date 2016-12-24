@@ -10,12 +10,21 @@ all: apt fix-origin $(TARGETS) ## Stow all folders
 %.x:
 	stow $(basename $@)
 
-apt:  ## Install packages
+UNAME:=$(shell uname -m)
+pre_apt: ## Repositories for use in APT
+	@if [ ! -f /etc/apt/sources.list.d/docker.list ]; then \
+		sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D; \
+		echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list; \
+		sudo apt update; \
+	fi
+
+apt: pre_apt ## Install packages
 	sudo apt-get install -q -y atop awesome byobu curl git-lfs keepassx \
 	pavucontrol python-dev python-pip python-virtualenv scrot \
 	secure-delete shutter stow wget xbacklight xdotool xscreensaver \
 	xscreensaver-gl xscreensaver-gl-extra xscreensaver-data-extra xsel \
-	zsh build-essential
+	zsh build-essential libsdl2-dev apt-transport-https ca-certificates \
+	docker-engine
 
 /home/hxr/.spf13-vim-3: ## Install spf13-vim
 	echo 'installing spf'
