@@ -1,13 +1,9 @@
 [user]
 	email = rasche.eric@gmail.com
 	name = Eric Rasche
-	signkey = 736B9013
 
 [push]
 	default = current
-
-[commit]
-	gpgsign = true
 
 [diff]
 	tool = vimdiff
