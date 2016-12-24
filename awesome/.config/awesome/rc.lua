@@ -124,7 +124,7 @@ end
 -- {{{ Wallpaper
 if beautiful.wallpaper then
     for s = 1, screen.count() do
-        gears.wallpaper.maximized(os.getenv("HOME") .. "/Pictures/wallpaper/.current-wallpaper-1.png", s, true)
+        gears.wallpaper.maximized(os.getenv("HOME") .. "/.wallpaper.jpg", s, true)
     end
 end
 -- }}}
