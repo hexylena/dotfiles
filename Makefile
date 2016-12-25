@@ -5,7 +5,7 @@ TARGETS:=$(filter-out media.x,$(TARGETS))
 help:
 	@egrep '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
-all: apt fix-origin $(TARGETS) ## Stow all folders
+all: apt fix-origin /home/hxr/.bin/youtube-dl $(TARGETS) ## Stow all folders
 
 %.x:
 	stow $(basename $@)
@@ -23,8 +23,13 @@ apt: pre_apt ## Install packages
 	pavucontrol python-dev python-pip python-virtualenv scrot \
 	secure-delete shutter stow wget xbacklight xdotool xscreensaver \
 	xscreensaver-gl xscreensaver-gl-extra xscreensaver-data-extra xsel \
-	zsh build-essential libsdl2-dev apt-transport-https ca-certificates \
-	docker-engine
+	zsh build-essential libsdl2-dev libsdl2-mixer-dev libsdl2-image-dev \
+	apt-transport-https ca-certificates docker-engine python3-dev python3-pip \
+	steam
+
+/home/hxr/.bin/youtube-dl: # Install youtube-dl
+	curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /home/hxr/.bin/youtube-dl
+	chmod +x /home/hxr/.bin/youtube-dl
 
 /home/hxr/.spf13-vim-3: ## Install spf13-vim
 	echo 'installing spf'
