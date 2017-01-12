@@ -26,3 +26,5 @@ set nospell
 set noexpandtab
 autocmd FileType javascript set backupcopy=yes
 inoremap jj <ESC>
+
+let g:spf13_no_omni_complete = 1
