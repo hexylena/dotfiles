@@ -3,7 +3,8 @@ set rtp+=~/.fzf
 set mouse=
 "color molokai
 "color Tomorrow
-color Monokai
+"color Monokai
+color summerfruit256
 set conceallevel=0 concealcursor=i
 let g:spf13_edit_config_mapping='<Leader>ev'
 let g:spf13_apply_config_mapping='<Leader>sv'
