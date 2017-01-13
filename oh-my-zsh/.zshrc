@@ -169,7 +169,10 @@ function _rust(){
 }
 
 function alog(){
-	arecord -f cd -t raw | lame -x -r - $(date "+%Y-%m-%dT%H:%M").mp3
+	user_description=$(echo "-$1 $2 $3 $4 $5 $6 $7 $8 $9" | sed 's/\s*$//g;s/ /_/g;s/[^A-Za-z0-9_-]//g')
+	name=$(date "+%Y-%m-%dT%H:%M")"$user_description".mp3
+	echo "Saving to $name"
+	arecord -f cd -t raw | lame -x -r - $name
 }
 
 alias python=python3
