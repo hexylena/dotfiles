@@ -19,14 +19,13 @@ apt_docker:
 		sudo apt update; \
 	fi
 
-#apt_node:
-	#@if [ ! -f /etc/apt/sources.list.d/nodesource.list ]; then \
-		#curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-	#fi
-
 apt_node:
+	@if [ ! -f /etc/apt/sources.list.d/nodesource.list ]; then \
+		curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - ; \
+	fi
 
 apt: apt_docker apt_node ## Install packages
+	sudo apt-get update --fix-missing
 	sudo apt-get install -q -y \
 	acpitool agedu apache2-utils apt-transport-https aptitude arandr aria2 atop \
 	awesome build-essential byobu ca-certificates cmake cowsay curl docker-engine \
@@ -47,6 +46,10 @@ apt: apt_docker apt_node ## Install packages
 	xscreensaver-screensaver-dizzy xscreensaver-screensaver-webcollage xsel zsh \
 	sqlite3
 	sudo npm install -g yarn
+
+update:
+	sudo apt-get dist-upgrade
+	sudo npm update -g yarn
 
 /home/hxr/.bin/youtube-dl: # Install youtube-dl
 	curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /home/hxr/.bin/youtube-dl
