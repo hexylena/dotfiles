@@ -44,7 +44,8 @@ apt: apt_docker apt_node ## Install packages
 	steam stow thunderbird tofrodos transmission-gtk unrar vim vlc wget wireshark \
 	wnorwegian xbacklight xdotool xscreensaver xscreensaver-data-extra \
 	xscreensaver-gl xscreensaver-gl-extra xscreensaver-screensaver-bsod \
-	xscreensaver-screensaver-dizzy xscreensaver-screensaver-webcollage xsel zsh
+	xscreensaver-screensaver-dizzy xscreensaver-screensaver-webcollage xsel zsh \
+	sqlite3
 	sudo npm install -g yarn
 
 /home/hxr/.bin/youtube-dl: # Install youtube-dl
