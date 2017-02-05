@@ -205,12 +205,30 @@ function venv2(){
 	fi
 }
 
+function ignore(){
+	curl https://www.gitignore.io/api/$1 >> .gitignore;
+	git add .gitignore;
+}
+function ignore_commit(){
+	curl https://www.gitignore.io/api/$1 >> .gitignore;
+	git add .gitignore;
+	git commit -m 'Added gitignore';
+}
+
+function license(){
+	cp /usr/share/R/share/licenses/$1 LICENSE;
+	git add LICENSE;
+	git commit -m 'Added LICENSE';
+}
+
 # I know what I'm doing, thank you.
 setopt rmstarsilent
 setopt no_nomatch
 # Feck off with huping my stuff.
 setopt nohup
 setopt no_check_jobs
+# The folders are too damn annoying.
+export PYTHONDONTWRITEBYTECODE=1
 
 export ANSIBLE_NOCOWS=1
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
