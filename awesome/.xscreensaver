@@ -40,8 +40,8 @@ selected:	-1
 textMode:	url
 textLiteral:	XScreenSaver
 textFile:	
-textProgram:	fortune
-textURL:	http://fridge.ubuntu.com/node/feed
+textProgram:	fortune startrek
+textURL:	https://wttr.in/Moon
 
 programs:								      \
 				maze -root				    \n\

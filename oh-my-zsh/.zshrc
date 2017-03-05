@@ -85,6 +85,8 @@ export EDITOR='vim'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias sl='ls'
 alias ll='ls -al'
+alias byobu_attach='byobu attach -t '
+alias byobu_new='byobu new -s'
 
 
 export GOPATH=$HOME/work/go
@@ -175,7 +177,6 @@ function alog(){
 	arecord -f cd -t raw | lame -x -r - $name
 }
 
-alias python=python3
 alias travis='docker run --rm -it -v $PWD:/repo -v ~/.travis:/travis travis'
 function venv(){
 	if [ ! -d '.venv' ];
@@ -192,12 +193,11 @@ function venv(){
 }
 
 function venv2(){
-	if [ ! -d '.venv' ];
+	if [ ! -d '.venv2' ];
 	then
-		virtualenv .venv -p $(which python2.7);
+		virtualenv .venv2 -p $(which python2.7);
 	fi
-	. .venv/bin/activate
-	unalias python
+	. .venv2/bin/activate
 
 	if [ -e 'requirements.txt' ];
 	then
@@ -219,6 +219,23 @@ function license(){
 	cp /usr/share/R/share/licenses/$1 LICENSE;
 	git add LICENSE;
 	git commit -m 'Added LICENSE';
+}
+
+function testUtf8(){
+	curl http://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt;
+}
+
+alias -g gzc='gzip | base64 | xsel -b'
+alias -g gzd='xsel -b | base64 -d | gzip -d'
+
+function activateConda(){
+	export PATH=/opt/miniconda3/bin:$PATH
+}
+
+function krup(){
+	docker-compose kill $1;
+	docker-compose rm -f $1;
+	docker-compose up -d $1;
 }
 
 # I know what I'm doing, thank you.

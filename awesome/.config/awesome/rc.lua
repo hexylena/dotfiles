@@ -51,6 +51,9 @@ run_once("nm-applet &")
 run_once("setxkbmap -option compose:caps")
 -- }}}
 
+-- I don't want sloppiness (mouse activating window based on position)
+makesloppy = 1
+
 -- {{{ Keyboard maps
 
 -- Keyboard map indicator and changer
