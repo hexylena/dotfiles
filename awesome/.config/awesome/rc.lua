@@ -51,6 +51,9 @@ run_once("nm-applet &")
 run_once("setxkbmap -option compose:caps")
 -- }}}
 
+-- I don't want sloppiness (mouse activating window based on position)
+makesloppy = 1
+
 -- {{{ Keyboard maps
 
 -- Keyboard map indicator and changer
@@ -113,8 +116,8 @@ local layouts = {
 
 -- {{{ Tags
 tags = {
-   names = { "Net", "Dev", "Net", "Sec"},
-   layout = { layouts[1], layouts[1], layouts[1], layouts[1] }
+   names = { "Net", "Dev", "Net", "Com", "Sec"},
+   layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
    tags[s] = awful.tag(tags.names, s, tags.layout)

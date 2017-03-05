@@ -85,6 +85,8 @@ export EDITOR='vim'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias sl='ls'
 alias ll='ls -al'
+alias byobu_attach='byobu attach -t '
+alias byobu_new='byobu new -s'
 
 
 export GOPATH=$HOME/work/go
@@ -169,10 +171,12 @@ function _rust(){
 }
 
 function alog(){
-	arecord -f cd -t raw | lame -x -r - $(date "+%Y-%m-%dT%H:%M").mp3
+	user_description=$(echo "-$1 $2 $3 $4 $5 $6 $7 $8 $9" | sed 's/\s*$//g;s/ /_/g;s/[^A-Za-z0-9_-]//g')
+	name=$(date "+%Y-%m-%dT%H:%M")"$user_description".mp3
+	echo "Saving to $name"
+	arecord -f cd -t raw | lame -x -r - $name
 }
 
-alias python=python3
 alias travis='docker run --rm -it -v $PWD:/repo -v ~/.travis:/travis travis'
 function venv(){
 	if [ ! -d '.venv' ];
@@ -189,17 +193,49 @@ function venv(){
 }
 
 function venv2(){
-	if [ ! -d '.venv' ];
+	if [ ! -d '.venv2' ];
 	then
-		virtualenv .venv -p $(which python2.7);
+		virtualenv .venv2 -p $(which python2.7);
 	fi
-	. .venv/bin/activate
-	unalias python
+	. .venv2/bin/activate
 
 	if [ -e 'requirements.txt' ];
 	then
 		pip install -r requirements.txt;
 	fi
+}
+
+function ignore(){
+	curl https://www.gitignore.io/api/$1 >> .gitignore;
+	git add .gitignore;
+}
+function ignore_commit(){
+	curl https://www.gitignore.io/api/$1 >> .gitignore;
+	git add .gitignore;
+	git commit -m 'Added gitignore';
+}
+
+function license(){
+	cp /usr/share/R/share/licenses/$1 LICENSE;
+	git add LICENSE;
+	git commit -m 'Added LICENSE';
+}
+
+function testUtf8(){
+	curl http://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt;
+}
+
+alias -g gzc='gzip | base64 | xsel -b'
+alias -g gzd='xsel -b | base64 -d | gzip -d'
+
+function activateConda(){
+	export PATH=/opt/miniconda3/bin:$PATH
+}
+
+function krup(){
+	docker-compose kill $1;
+	docker-compose rm -f $1;
+	docker-compose up -d $1;
 }
 
 # I know what I'm doing, thank you.
@@ -208,8 +244,11 @@ setopt no_nomatch
 # Feck off with huping my stuff.
 setopt nohup
 setopt no_check_jobs
+# The folders are too damn annoying.
+export PYTHONDONTWRITEBYTECODE=1
 
 export ANSIBLE_NOCOWS=1
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 #export SDKMAN_DIR="/home/hxr/.sdkman"
 #[[ -s "/home/hxr/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hxr/.sdkman/bin/sdkman-init.sh"
 #. /home/hxr/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
