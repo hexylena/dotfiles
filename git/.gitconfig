@@ -5,8 +5,6 @@
 [push]
 	default = current
 
-[commit]
-	gpgsign = true
 
 [diff]
 	tool = vimdiff

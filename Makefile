@@ -5,7 +5,7 @@ TARGETS:=$(filter-out media.x,$(TARGETS))
 help:
 	@egrep '^[^ ]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-all: apt fix-origin /home/hxr/.bin/youtube-dl $(TARGETS) ## Stow all folders
+all: apt fix-origin /home/hxr/.bin/youtube-dl /home/hxr/.bin/dockerize $(TARGETS) ## Stow all folders
 
 %.x:
 	stow $(basename $@)
@@ -39,12 +39,12 @@ apt: apt_docker apt_node ## Install packages
 	okular openconnect openjdk-8-jre openssh-client openssh-server openvpn pandoc \
 	pavucontrol pcmanfm pinentry-curses pm-utils postgresql-client-9.5 pv \
 	python-dev python-pip python-virtualenv python3-dev python3-pip redshift \
-	rtmpdump sakura screenfetch scrot secure-delete shotwell shutter spacefm stack \
+	rtmpdump sakura screenfetch scrot secure-delete shotwell shutter spacefm \
 	steam stow thunderbird tofrodos transmission-gtk unrar vim vlc wget wireshark \
 	wnorwegian xbacklight xdotool xscreensaver xscreensaver-data-extra \
 	xscreensaver-gl xscreensaver-gl-extra xscreensaver-screensaver-bsod \
 	xscreensaver-screensaver-dizzy xscreensaver-screensaver-webcollage xsel zsh \
-	sqlite3
+	sqlite3 silversearcher-ag texlive-full
 	sudo npm install -g yarn
 
 update:
@@ -54,6 +54,9 @@ update:
 /home/hxr/.bin/youtube-dl: # Install youtube-dl
 	curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /home/hxr/.bin/youtube-dl
 	chmod +x /home/hxr/.bin/youtube-dl
+
+/home/hxr/.bin/dockerize:
+	curl -L https://github.com/jwilder/dockerize/releases/download/v0.3.0/dockerize-linux-amd64-v0.3.0.tar.gz | tar xzf - -C /home/hxr/.bin/
 
 /home/hxr/.spf13-vim-3: ## Install spf13-vim
 	echo 'installing spf'
