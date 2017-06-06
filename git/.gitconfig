@@ -1,7 +1,7 @@
 [user]
-	email = rasche.eric@gmail.com
-	name = Eric Rasche
-	signkey = 736B9013
+	signingkey = C527B0FC0AF63592
+	name = E Rasche
+	email = hxr@hx42.org
 
 [push]
 	default = current
@@ -39,3 +39,10 @@
 
 [core]
 	whitespace = trailing-space,space-before-tab
+
+[transfer]
+	fsckobjects = true
+[fetch]
+	fsckobjects = true
+[receive]
+	fsckObjects = true

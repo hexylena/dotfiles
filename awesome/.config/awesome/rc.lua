@@ -61,7 +61,8 @@ kbdcfg = {
     cmd = "setxkbmap",
     layout = {
         { "us", "-option compose:caps" , "en" },
-        { "ua", "-variant phonetic" , "ua" }
+        { "ua", "-variant phonetic" , "ua" },
+        { "de", "-option compose:caps" , "de" }
     },
     current = 1,
     widget = wibox.widget.textbox(),

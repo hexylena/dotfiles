@@ -87,6 +87,7 @@ alias sl='ls'
 alias ll='ls -al'
 alias byobu_attach='byobu attach -t '
 alias byobu_new='byobu new -s'
+alias makep='make -f ~/dotfiles/oh-my-zsh/Makefile -f Makefile'
 
 
 export GOPATH=$HOME/work/go
@@ -97,7 +98,9 @@ export PATH=$HOME/.local/bin/:/home/hxr/.linuxbrew/bin:$PATH:$GOROOT/bin:$GOPATH
 . /home/hxr/.gpg-sock
 
 function logme(){
-    sudo /home/hxr/work/go/bin/client --standalone
+	sudo /home/hxr/work/go/bin/client --standalone;
+	# When we exit, please date so we know how much time we're missing.
+	date
 }
 
 fg() {
@@ -132,9 +135,15 @@ function mirror(){
     vlc v4l2:///dev/video0
 }
 
+function xw(){
+    tmp=$(mktemp)
+    cat $1 | xmllint --pretty 1 - > $tmp;
+    mv $tmp $1;
+}
+
 function jw(){
     tmp=$(mktemp)
-    cat $1 | json_pp > $tmp;
+    cat $1 | jq -S '.' > $tmp;
     mv $tmp $1;
 }
 
@@ -161,14 +170,6 @@ function docker_cleanup() {
 if [ -x /usr/games/cowsay -a -x /usr/games/fortune -a -x /usr/games/lolcat  ]; then
 	fortune | cowsay -W 60
 fi
-
-function _haskell(){
-	docker run -it -v `pwd`:/data haskell 'bash' -c 'cd /data; bash'
-}
-
-function _rust(){
-	docker run -it -v `pwd`:/data schickling/rust 'bash' -c 'cd /data; bash'
-}
 
 function alog(){
 	user_description=$(echo "-$1 $2 $3 $4 $5 $6 $7 $8 $9" | sed 's/\s*$//g;s/ /_/g;s/[^A-Za-z0-9_-]//g')
@@ -238,6 +239,26 @@ function krup(){
 	docker-compose up -d $1;
 }
 
+function jsfmt(){
+	eslint --fix -c ~/.eslintrc $1
+}
+
+function pipi(){
+	pip install $1;
+	echo $1 >> requirements.txt;
+}
+
+function aqr(){
+	tmpfile=$(mktemp --suffix .png)
+	qrencode -s 6 -m 2 -lH -o $tmpfile $1
+	feh $tmpfile
+	rm -f $tmpfile
+}
+
+function y2j(){
+	python -c 'import sys; import yaml; import json; sys.stdout.write(json.dumps(yaml.load(sys.stdin), indent=2))' < $1
+}
+
 # I know what I'm doing, thank you.
 setopt rmstarsilent
 setopt no_nomatch
@@ -253,3 +274,4 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 #[[ -s "/home/hxr/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hxr/.sdkman/bin/sdkman-init.sh"
 #. /home/hxr/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 . /home/hxr/.env.secret
+export PATH="$HOME/.cargo/bin:$PATH"
