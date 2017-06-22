@@ -5,7 +5,9 @@ TARGETS:=$(filter-out media.x,$(TARGETS))
 help:
 	@egrep '^[^ ]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-all: apt fix-origin /home/hxr/.bin/youtube-dl $(TARGETS) ## Stow all folders
+stow: $(TARGETS) ## Stow all folders
+
+all: apt fix-origin /home/hxr/.bin/youtube-dl $(TARGETS) ## Install / update
 
 %.x:
 	stow $(basename $@)
