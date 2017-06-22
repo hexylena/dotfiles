@@ -1,0 +1,37 @@
+# -*-muttrc-*-
+
+# Palette for use with the Linux console.  Black background.
+
+color hdrdefault blue default
+color quoted blue default
+color signature green default
+color attachment brightred default
+color prompt black default
+color message brightblack default
+color error brightred default
+color indicator default cyan
+color normal black default
+color markers green default
+color search black default
+color tilde brightmagenta default
+color index blue default ~F
+# Set by account change
+#color status default red
+
+
+# Colours for items in the index
+color index brightblue  default ~N|~O
+color index red         white ~F
+color index black       green ~T
+color index brightwhite black ~D
+
+# Highlights inside the body of a message.
+
+# URLs
+color body brightblue  default "(http|https|ftp|news|telnet|finger)://[^ \">\t\r\n]*"
+color body brightblue  default "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
+color body brightblue  default "news:[^ \">\t\r\n]*"
+
+# email addresses
+color body brightblue  white "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
+mono  body bold              "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
