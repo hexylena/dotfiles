@@ -1,5 +1,5 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-demo 5.34 for hxr on Sun Oct 16 20:25:25 2016.
+# Written by xscreensaver-demo 5.34 for hxr on Thu Apr  6 22:26:02 2017.
 # http://www.jwz.org/xscreensaver/
 
 timeout:	0:10:00
@@ -41,7 +41,7 @@ textMode:	url
 textLiteral:	XScreenSaver
 textFile:	
 textProgram:	fortune startrek
-textURL:	https://wttr.in/Moon
+textURL:	http://localhost:5000/
 
 programs:								      \
 				maze -root				    \n\
@@ -108,7 +108,7 @@ programs:								      \
 - GL: 				glplanet -root				    \n\
 -				interference -root			    \n\
 				kumppa -root				    \n\
-- GL: 				lament -root				    \n\
+  GL: 				lament -root				    \n\
 -				moire2 -root				    \n\
 - GL: 				sonar -root				    \n\
 - GL: 				stairs -root				    \n\
@@ -124,7 +124,8 @@ programs:								      \
 				loop -root -delay 14159 -ncolors 143	    \n\
 -				penetrate -root				    \n\
 				petri -root				    \n\
-				phosphor -root				    \n\
+				phosphor -root -delay 14159 -scale 1	      \
+				  -ticks 100 -fg #ff7900		    \n\
 - GL: 				pulsar -root				    \n\
 -				ripples -root				    \n\
 -				shadebobs -root				    \n\
@@ -177,7 +178,7 @@ programs:								      \
 - GL: 				atunnel -root				    \n\
 -				barcode -root				    \n\
 - GL: 				blinkbox -root				    \n\
-- GL: 				blocktube -root				    \n\
+  GL: 				blocktube -root				    \n\
 - GL: 				bouncingcow -root			    \n\
 				cloudlife -root				    \n\
 - GL: 				cubestorm -root				    \n\
@@ -222,7 +223,7 @@ programs:								      \
   GL: 				crackberg -root				    \n\
 - GL: 				cube21 -root				    \n\
 -				fiberlamp -root				    \n\
-- GL: 				fliptext -root				    \n\
+- DirectColor: 			fliptext -root				    \n\
 - GL: 				glhanoi -root				    \n\
 - GL: 				tangram -root				    \n\
   GL: 				timetunnel -root			    \n\
