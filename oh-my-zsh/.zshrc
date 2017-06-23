@@ -143,7 +143,7 @@ function xw(){
 
 function jw(){
     tmp=$(mktemp)
-    cat $1 | json_pp > $tmp;
+    cat $1 | jq -S '.' > $tmp;
     mv $tmp $1;
 }
 
