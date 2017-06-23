@@ -1,19 +1,19 @@
 # hxr's theme
 
 # if superuser make the username red
-if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="white"; fi
+if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="darkgray"; fi
 
 # prompt
 local user="%B%n%b"
 local host="%m"
-local etc="%{$fg[white]%}%~%{$reset_color%}"
+local etc="%{$fg[gray]%}%~%{$reset_color%}"
 return_code="%(?..%{$fg[red]%}%?%{$reset_color%})"
 
 PROMPT='[%{$fg[$NCOLOR]%}$user@$host%{$reset_color%}:$etc]$return_code%(!.#.$) '
 RPROMPT='$(git_prompt_info)'
 
 # git theming
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[gray]%}(%{$fg_no_bold[yellow]%}%B"
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[gray]%}(%{$fg_no_bold[red]%}%B"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%b%{$fg_bold[gray]%})%{$reset_color%} "
 ZSH_THEME_GIT_PROMPT_CLEAN=""
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[red]%}✱"

@@ -5,6 +5,8 @@ TARGETS:=$(filter-out media.x,$(TARGETS))
 help:
 	@egrep '^[^ ]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
+stow: $(TARGETS) ## Stow all folders
+
 all: apt fix-origin /home/hxr/.bin/youtube-dl /home/hxr/.bin/dockerize $(TARGETS) ## Stow all folders
 
 %.x:
@@ -44,7 +46,7 @@ apt: apt_docker apt_node ## Install packages
 	wnorwegian xbacklight xdotool xscreensaver xscreensaver-data-extra \
 	xscreensaver-gl xscreensaver-gl-extra xscreensaver-screensaver-bsod \
 	xscreensaver-screensaver-dizzy xscreensaver-screensaver-webcollage xsel zsh \
-	sqlite3 silversearcher-ag texlive-full
+	sqlite3 silversearcher-ag texlive-full inetutils-traceroute
 	sudo npm install -g yarn
 
 update:
