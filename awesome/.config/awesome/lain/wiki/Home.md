@@ -1,16 +1,16 @@
 Welcome to the Lain wiki!
 
-Dependencies
-------------------
+If you spot a typo or have a suggestion, please notify me opening an [issue](https://github.com/copycat-killer/lain/issues) format. Thank you.
 
-Package | Requested by | Reason of choice
+Dependency
+------------
+
+Package | Requested by | Reasons of choice
 --- | --- | ---
-alsa-utils | [alsa](https://github.com/copycat-killer/lain/wiki/alsa), [alsabar](https://github.com/copycat-killer/lain/wiki/alsabar) | /
-curl | widgets accessing network resources | Simpler to install and use than LuaSocket. 
-imagemagick | album arts in [mpd](https://github.com/copycat-killer/lain/wiki/mpd) notifications | Cairo doesn't do high quality filtering.
+[curl](https://curl.haxx.se) | `imap`, `mpd`, and `weather` widgets | 1. faster and simpler to use than [LuaSocket](https://github.com/diegonehab/luasocket); 2. it's in the core of almost every distro; 3. can be called [asynchronously](https://awesomewm.org/doc/api/libraries/awful.spawn.html#easy_async)
 
 Installation
----------------
+------------
 
 ### Arch Linux
 
@@ -18,14 +18,20 @@ Installation
 
 ### Other distributions
 
-    git clone https://github.com/copycat-killer/lain.git ~/.config/awesome/lain
+```shell
+git clone https://github.com/copycat-killer/lain.git ~/.config/awesome/lain
+```
+
+Also available via [LuaRocks](https://luarocks.org/modules/aajjbb/lain).
 
 Usage
 --------
 
 First, include it into your `rc.lua`:
 
-    local lain = require("lain")
+```lua
+local lain = require("lain")
+```
 
 Then check out the submodules you want:
 

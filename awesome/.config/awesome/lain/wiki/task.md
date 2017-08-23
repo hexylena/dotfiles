@@ -1,40 +1,47 @@
-[<- widgets](https://github.com/copycat-killer/lain/wiki/Widgets)
+## Usage
 
-Attaches a [taskwarrior](http://taskwarrior.org) notification to a widget, and lets to add/search tasks from the promptbox.
+[Read here.](https://github.com/copycat-killer/lain/wiki/Widgets#usage)
+
+### Description
+
+Attaches a [taskwarrior](http://taskwarrior.org) notifications to a widget, and lets you execute `task` commands from the promptbox.
 
 ```lua
-    lain.widgets.contrib.task:attach(widget, args)
+lain.widget.contrib.task.attach(widget, args)
 ```
 
 `args` is an optional table which can contain:
 
 Variable | Meaning | Type | Default
 --- | --- | --- | ---
-`font_size` | Notifcation font size | int | 12
-`fg` | Notification popup foreground color | string | `beautiful.fg_normal`
-`bg` | Notification popu background color | string | `beautiful.bg_normal`
-`position` | Notification popup position | string | "top_right"
-`timeout` | Notification timeout seconds | int | 7
-`scr_pos` | Notification screen | int | 1
-`followmouse` | Notification behaviour | boolean | false
+`show_cmd` | Taskwarrior command to show in the popup | string | "task next"
+`prompt_text` | Prompt text | string | "Enter task command: "
+`followtag` | Display the notification on currently focused screen | boolean | false
+`notification_preset` | Notification preset | table | See [default `notification_preset`](https://github.com/copycat-killer/lain/wiki/task#default-notification_preset)
 
-`position` possible values are defined [here](http://awesome.naquadah.org/doc/api/modules/naughty.html#notify).
+The tasks are shown in a notification popup when the mouse is moved over the attached `widget`, and the popup is hidden when the mouse is moved away. By default, the notification will show the output of `task next`. With `show_cmd`, the `task` popup command can be customized, for example if you want to [filter the tasks](https://taskwarrior.org/docs/filter.html) or show a [custom report](https://github.com/copycat-killer/lain/pull/213).
 
-Notification will show the output of `task` command.
+In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen. By setting `followtag` to `true` it will be shown on the currently focused tag screen.
 
-In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen. By setting `followmouse` to `true` it will be shown on the same screen containing the widget.
-
-You can call the notification with a key binding like this:
+You can call the notification with a keybinding like this:
 
 ```lua
-awful.key({ modkey, altkey }, "t", function () lain.widgets.contrib.task.show(scr) end),
+awful.key({ modkey, altkey }, "t", function () lain.widget.contrib.task.show(scr) end),
 ```
 
-where ``altkey = "Mod1"`` and `scr` indicates the screen which you want the notification in.
+where ``altkey = "Mod1"`` and `scr` (optional) indicates the screen which you want the notification in.
 
-And you can prompt to add/search a task with key bindings like these:
+And you can prompt to input a `task` command with a keybinding like this:
 
 ```lua
-awful.key({ modkey,         }, "t", lain.widgets.contrib.task.prompt_add),
-awful.key({ modkey, "Shift" }, "t", lain.widgets.contrib.task.prompt_search),
+awful.key({ altkey }, "t", lain.widget.contrib.task.prompt),
+```
+
+### Default `notification_preset`
+
+```lua
+notification_preset = {
+    font = "Monospace 10",
+    icon = helpers.icons_dir .. "/taskwarrior.png"
+}
 ```
