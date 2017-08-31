@@ -147,7 +147,7 @@ function jw(){
 }
 
 function yt(){
-    youtube-dl -i -x $@
+    youtube-dl -i -x --embed-thumbnail $@
 }
 
 function vol(){
