@@ -1,0 +1,26 @@
+#!/bin/sh
+f="$(dirname $0)/log.txt"
+
+if [ "$1" = "time" ]; then
+	last="$(cat "$f" | grep "# " | tail -n 1 | sed 's/^.*: //' | cut -d '-' -f 1)"
+	last=$(date +%s -d "$last")
+	now=$(date +%s)
+	diff=$(($now - $last))
+
+	printf "%02dh %02dm %02ds\n" $(($diff / 3600)) $(($diff % 3600 / 60)) $(($diff % 60))
+	exit 0
+fi
+
+d="# $(date +"%Y-%m-%d (%A)")"
+start="$(date +"%H:%M")"
+
+if ! cat "$f" | grep --fixed-strings "$d" >/dev/null 2>/dev/null; then
+	end="$(date --date 8hours +"%H:%M")"
+	str="$d: $start-$end"
+
+	echo >> "$f"
+	printf '%s\n\nTime  | Event\n----- | -----\n' "$str" >> "$f"
+	echo "$str"
+else
+	echo "$start | $@" >> "$f"
+fi

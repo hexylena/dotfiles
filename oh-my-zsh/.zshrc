@@ -90,12 +90,11 @@ alias byobu_new='byobu new -s'
 alias makep='make -f ~/dotfiles/oh-my-zsh/Makefile -f Makefile'
 
 
-export GOPATH=$HOME/work/go
+export GOPATH=$HOME/arbeit/go
 export GOROOT=$HOME/.go
 export PATH=$HOME/.local/bin/:/home/hxr/.linuxbrew/bin:$PATH:$GOROOT/bin:$GOPATH/bin
 
 . /home/hxr/.ssh-sock
-. /home/hxr/.gpg-sock
 
 function logme(){
 	sudo /home/hxr/work/go/bin/client --standalone;
@@ -148,7 +147,7 @@ function jw(){
 }
 
 function yt(){
-    youtube-dl -i -x $@
+    youtube-dl -i -x --embed-thumbnail $@
 }
 
 function vol(){
@@ -257,6 +256,12 @@ function pipi(){
 	pip install $1 && echo $1 >> requirements.txt;
 }
 
+function pipfreeze(){
+	tmpfile=$(mktemp);
+	pip freeze | grep -f requirements.txt > $tmpfile;
+	mv $tmpfile requirements.txt;
+}
+
 function aqr(){
 	tmpfile=$(mktemp --suffix .png)
 	qrencode -s 6 -m 2 -lH -o $tmpfile $1
@@ -288,6 +293,4 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 #. /home/hxr/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 . /home/hxr/.env.secret
 export PATH="$HOME/.cargo/bin:$PATH"
-
-
-#. /home/hxr/.deepforge/torch/install/bin/torch-activate
+export GPG_TTY=$BYOBU_TTY
