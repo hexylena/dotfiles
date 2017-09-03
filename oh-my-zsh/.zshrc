@@ -156,10 +156,20 @@ function vol(){
 }
 
 function volu(){
-    amixer -D pulse sset Master 5%+
+    increment="5%"
+	val=$(amixer -D pulse sget Master | grep '\[[0-9]*%\]' -o | sort -u | tr -d '[]%')
+	if (( $val < 30 )){
+		increment="2%"
+	}
+    amixer -D pulse sset Master $increment+
 }
 function vold(){
-    amixer -D pulse sset Master 5%-
+    increment="5%"
+	val=$(amixer -D pulse sget Master | grep '\[[0-9]*%\]' -o | sort -u | tr -d '[]%')
+	if (( $val < 30 )){
+		increment="2%"
+	}
+    amixer -D pulse sset Master $increment-
 }
 
 function docker_cleanup() {
@@ -244,8 +254,7 @@ function jsfmt(){
 }
 
 function pipi(){
-	pip install $1;
-	echo $1 >> requirements.txt;
+	pip install $1 && echo $1 >> requirements.txt;
 }
 
 function aqr(){
@@ -256,7 +265,11 @@ function aqr(){
 }
 
 function y2j(){
-	python -c 'import sys; import yaml; import json; sys.stdout.write(json.dumps(yaml.load(sys.stdin), indent=2))' < $1
+	python -c 'import sys; import yaml; import json; sys.stdout.write(json.dumps(yaml.load(sys.stdin), indent=2))'
+}
+
+function j2y(){
+	python -c 'import sys; import yaml; import json; yaml.dump(json.load(sys.stdin), sys.stdout)'
 }
 
 # I know what I'm doing, thank you.
@@ -275,3 +288,6 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 #. /home/hxr/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 . /home/hxr/.env.secret
 export PATH="$HOME/.cargo/bin:$PATH"
+
+
+#. /home/hxr/.deepforge/torch/install/bin/torch-activate
