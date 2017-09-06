@@ -34,16 +34,16 @@ apt: apt_docker apt_node ## Install packages
 	evince exifprobe exiftool fcrackzip fdupes ffmpeg figlet firefox fortune \
 	fortunes-de fortunes-off fortunes-spam fortunes-ubuntu-server gdal-bin \
 	ghostscript gimp git gnuplot htop hyphen-no iftop imagemagick inkscape \
-	inorwegian iotop jq keepassx language-pack-nb language-pack-nb-base \
+	iotop jq keepassx language-pack-nb language-pack-nb-base \
 	language-pack-nn libffi-dev libfreetype6-dev libjpeg62 libpng-dev libpq-dev \
 	libreoffice-l10n-nb libreoffice-l10n-nn libsdl2-dev libsdl2-image-dev \
 	libsdl2-mixer-dev libssl-dev libxml-xpath-perl mpd mpv mutt mutt-patched ncmpcpp nmap nodejs \
 	okular openconnect openjdk-8-jre openssh-client openssh-server openvpn pandoc \
-	pavucontrol pcmanfm pinentry-curses pm-utils postgresql-client-9.5 pv \
+	pavucontrol pcmanfm pinentry-curses pm-utils postgresql-client-9.6 pv \
 	python-dev python-pip python-virtualenv python3-dev python3-pip redshift \
 	rtmpdump sakura screenfetch scrot secure-delete shotwell shutter spacefm \
-	stow thunderbird tofrodos transmission-gtk unrar vim vlc wget wireshark \
-	wnorwegian xbacklight xdotool xscreensaver xscreensaver-data-extra \
+	stow thunderbird tofrodos unrar vim vlc wget wireshark \
+	xbacklight xdotool xscreensaver xscreensaver-data-extra \
 	xscreensaver-gl xscreensaver-gl-extra xscreensaver-screensaver-bsod \
 	xscreensaver-screensaver-dizzy xscreensaver-screensaver-webcollage xsel zsh \
 	sqlite3 inetutils-traceroute urlview silversearcher-ag

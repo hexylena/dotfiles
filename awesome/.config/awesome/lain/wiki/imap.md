@@ -1,8 +1,14 @@
-[<- widgets](https://github.com/copycat-killer/lain/wiki/Widgets)
+## Usage
 
-Shows mail count in a textbox fetching over IMAP.
+[Read here.](https://github.com/copycat-killer/lain/wiki/Widgets#usage)
 
-	myimapcheck = lain.widgets.imap(args)
+### Description
+
+Shows mails count fetching over IMAP.
+
+```lua
+local myimap = lain.widget.imap(args)
+```
 
 New mails are notified like this:
 
@@ -12,7 +18,9 @@ New mails are notified like this:
 	| +---+                                      |
 	+--------------------------------------------+
 
-The function takes a table as argument. Required table parameters are:
+## Input table
+
+Required parameters are:
 
 Variable | Meaning | Type
 --- | --- | ---
@@ -24,50 +32,63 @@ while the optional are:
 
 Variable | Meaning | Type | Default
 --- | --- | --- | ---
-`port` | IMAP port | int | 993
-`timeout` | Refresh timeout seconds | int | 60
-`is_plain` | Define whether `password` is a plain password (true) or a function that retrieves it (false) | boolean | false
-`followmouse` | Notification behaviour | boolean | false
+`port` | IMAP port | number | 993
+`timeout` | Refresh timeout seconds | number | 60
+`is_plain` | Define whether `password` is a plain password (true) or a command that retrieves it (false) | boolean | false
+`followtag` | Notification behaviour | boolean | false
+`notify` | Show notification popups | string | "on"
 `settings` | User settings | function | empty function
 
-Let's focus better on `is_plain`.
+The reason why `is_plain` is false by default is to discourage the habit of storing passwords in plain.
 
-The reason why it's false by default is to discourage the habit of storing passwords in plain.
+So, you can set your password in plain like this:
 
-So you can set your password in plain like this:
-
-    myimapcheck = lain.widgets.imap({
-        is_plain = true,
-        password = "myplainpassword",
-        [...]
-    })
+```lua
+myimapcheck = lain.widget.imap({
+    is_plain = true,
+    password = "mymailpassword",
+    -- [...]
+})
+```
 
 and you'll have the same security provided by `~/.netrc`.
 
-**Or** you can use a keyring, like [python keyring](https://pypi.python.org/pypi/keyring):
+**Or you can use a password manager**, like [spm](https://notabug.org/kl3/spm) or [pass](https://www.passwordstore.org):
 
-    myimapcheck = lain.widgets.imap({
-        password = "keyring get mymail",
-        [...]
-    })
+```lua
+myimapcheck = lain.widget.imap({
+    password = function()
+        -- return the output of "spm show mymail"
+    end,
+    -- [...]
+})
+```
 
-When `is_plain == false`, it *executes* `password` before using it, so you can also use whatever password fetching solution you want.
+When `is_plain == false` (default), `password` can be either a string, a table or a function: the widget will execute it asynchronously in the first two cases.
 
-`settings` can use the value `mailcount`, an integer greater or equal to zero, and can modify `mail_notification_preset` table, which will be the preset for the naughty notifications. Check [here](http://awesome.naquadah.org/doc/api/modules/naughty.html#notify) for the list of variables it can contain. 
+`settings` can use the value `mailcount`, an integer greater or equal to zero, and can modify `mail_notification_preset` table, which will be the preset for the naughty notifications. Check [here](https://awesomewm.org/apidoc/libraries/naughty.html#notify) for the list of variables it can contain. Default definition:
 
-Default definition:
-
-    mail_notification _preset = {
-       icon = lain/icons/mail.png,
-       position = "top_left"
-    }
+```lua
+mail_notification _preset = {
+    icon = lain/icons/mail.png,
+    position = "top_left"
+}
+```
 
 Note that `mailcount` is 0 either if there are no new mails or credentials are invalid, so make sure you get the right settings.
 
-In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen. By setting `followmouse` to `true` it will be shown on the current mouse screen.
+In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen. By setting `followtag` to `true` it will be shown on the currently focused tag screen.
 
-***This widget is asynchronous***, so you can have multiple instances at the same time.
+You can have multiple instances of this widget at the same time.
 
-### output 
+## Output table
 
-A textbox.
+Variable | Meaning | Type
+--- | --- | ---
+`widget` | The widget | `wibox.widget.textbox`
+`update` | Update `widget` | function
+`timer` | The widget timer | [`gears.timer`](https://awesomewm.org/doc/api/classes/gears.timer.html)
+
+The `update` function can be used to refresh the widget before `timeout` expires.
+
+You can use `timer` to start/stop the widget as you like.

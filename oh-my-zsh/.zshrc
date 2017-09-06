@@ -94,7 +94,8 @@ export GOPATH=$HOME/arbeit/go
 export GOROOT=$HOME/.go
 export PATH=$HOME/.local/bin/:/home/hxr/.linuxbrew/bin:$PATH:$GOROOT/bin:$GOPATH/bin
 
-. /home/hxr/.ssh-sock
+#. /home/hxr/.ssh-sock
+#. /home/hxr/.gpg-sock
 
 function logme(){
 	sudo /home/hxr/work/go/bin/client --standalone;

@@ -1,8 +1,14 @@
-[<- widgets](https://github.com/copycat-killer/lain/wiki/Widgets)
+## Usage
 
-Shows MPD status in a textbox.
+[Read here.](https://github.com/copycat-killer/lain/wiki/Widgets#usage)
 
-	mpdwidget = lain.widgets.mpd()
+### Description
+
+Shows MPD status.
+
+```lua
+local mympd = lain.widget.mpd()
+```
 
 Now playing songs are notified like this:
 
@@ -14,85 +20,153 @@ Now playing songs are notified like this:
 	| +-------+                                              |
 	+--------------------------------------------------------+
 
-You need a file like this
+**Note:** if MPD is turned off or not set correctly, the widget will constantly display "N/A" values.
 
-     (Front|front|Cover|cover|Art|art|Folder|folder)\.(jpg|jpeg|png|gif)
-
-in the album folder in order to show album art too.
-
-**Note:** if MPD is turned off or not set correctly, the widget will constantly display "N/A N/A".
-
-### input table
+## Input table
 
 Variable | Meaning | Type | Default
 --- | --- | --- | ---
-`timeout` | Refresh timeout seconds | int | 1
+`timeout` | Refresh timeout seconds | number | 2
 `password` | MPD password | string | ""
 `host` | MPD server | string | "127.0.0.1"
 `port` | MPD port | string | "6600"
 `music_dir` | Music directory | string | "~/Music"
-`cover_size` | Album art notification size | int | 100
-`default_art` | Default art | string | ""
-`followmouse` | Notification behaviour | boolean | false
-`echo_cmd` | custom call for `echo`* | string | "echo"
+`cover_size` | Album art notification size | number | 100
+`cover_pattern` | Pattern for the album art file | string | `*\\.(jpg|jpeg|png|gif)`*
+`default_art` | Default art | string | `nil`
+`notify` | Show notification popups | string | "on"
+`followtag` | Notification behaviour | boolean | false
 `settings` | User settings | function | empty function
 
-\* `echo` implementation is shell dependent, you may need to set this variable properly (`echo -e` [for instance](https://github.com/copycat-killer/lain/issues/112)) in order for the widget to fetch the data correctly.
+\* In Lua, "\\\\" means "\" escaped.
+
+Default `cover_pattern` definition will made the widget set the first jpg, jpeg, png or gif file found in the directory as the album art.
 
 Pay attention to case sensitivity when defining `music_dir`.
 
-`settings` can use `mpd_now` table, which contains the following string values:
+`settings` can use `mpd_now` table, which contains the following values:
 
+(**note:** the first four are boolean [flags](https://github.com/copycat-killer/lain/pull/205), the remaining are all strings)
+
+- random_mode
+- single_mode
+- repeat_mode
+- consume_mode
+- pls_pos (playlist position)
+- pls_len (playlist length)
 - state (possible values: "play", "pause", "stop")
 - file
 - artist
 - title
-- [name](https://github.com/copycat-killer/lain/pull/142)
+- name
 - album
+- track
+- genre
 - date
-- [time](https://github.com/copycat-killer/lain/pull/90)
-- [elapsed](https://github.com/copycat-killer/lain/pull/90) (seconds)
+- [time](https://github.com/copycat-killer/lain/pull/90) (length of current song, in seconds)
+- [elapsed](https://github.com/copycat-killer/lain/pull/90) (elapsed time of current song, in seconds)
 
-and can modify `mpd_notification_preset` table, which will be the preset for the naughty notifications. Check [here](http://awesome.naquadah.org/doc/api/modules/naughty.html#notify) for the list of variables it can contain. Default definition:
+and can modify `mpd_notification_preset` table, which will be the preset for the naughty notifications. Check [here](https://awesomewm.org/doc/api/libraries/naughty.html#notify) for the list of variables it can contain. Default definition:
 
-    mpd_notification_preset = {
-       title   = "Now playing",
-       timeout = 6,
-       text    = string.format("%s (%s) - %s\n%s", mpd_now.artist,
-                 mpd_now.album, mpd_now.date, mpd_now.title)
-    }
+```lua
+mpd_notification_preset = {
+   title   = "Now playing",
+   timeout = 6,
+   text    = string.format("%s (%s) - %s\n%s", mpd_now.artist,
+             mpd_now.album, mpd_now.date, mpd_now.title)
+}
+```
 
-In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen. By setting `followmouse` to `true` it will be shown on the current mouse screen.
+In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen. By setting `followtag` to `true` it will be shown on the currently focused tag screen.
 
-### output table
+## Output table
 
 Variable | Meaning | Type
 --- | --- | ---
 `widget` | The textbox | `wibox.widget.textbox`
-`update` | The notification | function
+`update` | Update `widget` | function
+`timer` | The widget timer | [`gears.timer`](https://awesomewm.org/doc/api/classes/gears.timer.html)
 
-You can control the widget with key bindings like these:
+The `update` function can be used to refresh the widget before `timeout` expires.
 
-    -- MPD control
-    awful.key({ altkey, "Control" }, "Up",
-        function ()
-            awful.util.spawn_with_shell("mpc toggle || ncmpcpp toggle || ncmpc toggle || pms toggle")
-            mpdwidget.update()
-        end),
-    awful.key({ altkey, "Control" }, "Down",
-        function ()
-            awful.util.spawn_with_shell("mpc stop || ncmpcpp stop || ncmpc stop || pms stop")
-            mpdwidget.update()
-        end),
-    awful.key({ altkey, "Control" }, "Left",
-        function ()
-            awful.util.spawn_with_shell("mpc prev || ncmpcpp prev || ncmpc prev || pms prev")
-            mpdwidget.update()
-        end),
-    awful.key({ altkey, "Control" }, "Right",
-        function ()
-            awful.util.spawn_with_shell("mpc next || ncmpcpp next || ncmpc next || pms next")
-            mpdwidget.update()
-        end),
+You can use `timer` to start/stop the widget as you like.
+
+## Keybindings
+
+You can control the widget with keybindings like these:
+
+```lua
+-- MPD control
+awful.key({ altkey, "Control" }, "Up",
+	function ()
+		awful.spawn.with_shell("mpc toggle || ncmpc toggle || pms toggle")
+		mympd.update()
+	end),
+awful.key({ altkey, "Control" }, "Down",
+	function ()
+		awful.spawn.with_shell("mpc stop || ncmpc stop || pms stop")
+		mympd.update()
+	end),
+awful.key({ altkey, "Control" }, "Left",
+	function ()
+		awful.spawn.with_shell("mpc prev || ncmpc prev || pms prev")
+		mympd.update()
+	end),
+awful.key({ altkey, "Control" }, "Right",
+	function ()
+		awful.spawn.with_shell("mpc next || ncmpc next || pms next")
+		mympd.update()
+	end),
+```
 
 where `altkey = "Mod1"`.
+
+If you don't use the widget for long periods and wish to spare CPU, you can toggle it with a keybinding like this:
+
+```lua
+-- disable MPD widget
+awful.key({ altkey }, "0",
+    function ()
+        local common = {
+            text = "MPD widget ",
+            position = "top_middle",
+            timeout = 2
+        }
+        if mympd.timer.started then
+            mympd.timer:stop()
+            common.text = common.text .. markup.bold("OFF")
+        else
+            mympd.timer:start()
+            common.text = common.text .. markup.bold("ON")
+        end
+        naughty.notify(common)
+    end),
+```
+
+## Notes
+
+### Always use `set_markup`
+
+In `settings`, if you use `widget:set_text`, [it will ignore Pango markup](https://github.com/copycat-killer/lain/issues/258), so be sure to always use `widget:set_markup`.
+
+### Volume fade in toggling MPD
+
+If you want a fade in/out in toggling MPD, you can put [this script](https://gist.github.com/copycat-killer/76e315bc27c6cdf7edd5021964b88df1) in your local `bin` directory:
+
+```shell
+$ curl https://gist.githubusercontent.com/copycat-killer/76e315bc27c6cdf7edd5021964b88df1/raw/97f7ba586418a4e07637cfbc91d2974278dfa623/mpd-fade -o ~/bin/mpc-fade
+$ chmod +x ~/bin/mpc-fade
+```
+
+Set your 1% decrease/increase commands [here](https://gist.github.com/copycat-killer/76e315bc27c6cdf7edd5021964b88df1#file-mpd-fade-L8-L9), then use a keybinding like this:
+
+```lua
+-- MPD toggle with volume fading
+awful.key({ "Shift" }, "Pause",
+    function()
+        awful.spawn.easy_async("mpc-fade 20 4", -- mpc-fade <percentage> <length in secs>
+        function(stdout, stderr, reason, exit_code)
+            mympd.update()
+        end)
+    end),
+```
