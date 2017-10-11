@@ -38,11 +38,12 @@ bind index gg first-entry
 bind index R group-reply
 #bind index <space> collapse-thread
 bind index V collapse-all
-macro index A ":set confirmappend=no delete=yes\n<save-message>=Archives/2017/\n<sync-mailbox>:set confirmappend=yes delete=ask-yes\n"
+macro index A "<save-message>=Archives/2017/\n"
 
 macro index <F8> "<shell-escape>mu find --clearlinks --format=links --linksdir=~/Maildir/search " "mu find"
 macro index <F9> "<change-folder-readonly>~/Maildir/search" "mu find results"
 
+set confirmappend=no
 set date_format="%Y-%m-%d"
 set index_format="%D %Z %-15.15L %s"
 set sort = reverse-date-received
