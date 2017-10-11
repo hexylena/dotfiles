@@ -263,6 +263,9 @@ function aqr(){
 function y2j(){
 	python -c 'import sys; import yaml; import json; sys.stdout.write(json.dumps(yaml.load(sys.stdin), indent=2))' < $1
 }
+function j2y(){
+	python -c 'import sys; import yaml; import json; yaml.safe_dump(json.load(sys.stdin), sys.stdout, indent=2, default_flow_style=False)' < $1
+}
 
 # I know what I'm doing, thank you.
 setopt rmstarsilent
@@ -281,3 +284,10 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 . /home/hxr/.env.secret
 export PATH="$HOME/.cargo/bin:$PATH"
 export GPG_TTY=$BYOBU_TTY
+
+function activate_conda(){
+	# by default this takes over the default python installation. I do NOT want
+	# this. It's bad news bears.
+	# added by Miniconda3 4.3.21 installer
+	export PATH="/home/hxr/arbeit/conda/bin:$PATH"
+}
