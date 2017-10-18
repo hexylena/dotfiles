@@ -113,6 +113,18 @@ local layouts = {
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
     awful.layout.suit.floating,
+
+
+    lain.layout.cascade,
+    lain.layout.centerfair,
+    lain.layout.centerwork,
+    lain.layout.termfair,
+    lain.layout.uselesspiral,
+    lain.layout.cascadetile,
+    lain.layout.centerhwork,
+    lain.layout.uselessfair,
+    lain.layout.uselesstile,
+
 }
 -- }}}
 
