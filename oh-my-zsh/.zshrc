@@ -155,10 +155,20 @@ function vol(){
 }
 
 function volu(){
-    amixer -D pulse sset Master 5%+
+    increment="5%"
+	val=$(amixer -D pulse sget Master | grep '\[[0-9]*%\]' -o | sort -u | tr -d '[]%')
+	if (( $val < 30 )){
+		increment="2%"
+	}
+    amixer -D pulse sset Master $increment+
 }
 function vold(){
-    amixer -D pulse sset Master 5%-
+    increment="5%"
+	val=$(amixer -D pulse sget Master | grep '\[[0-9]*%\]' -o | sort -u | tr -d '[]%')
+	if (( $val < 30 )){
+		increment="2%"
+	}
+    amixer -D pulse sset Master $increment-
 }
 
 function docker_cleanup() {
@@ -243,8 +253,7 @@ function jsfmt(){
 }
 
 function pipi(){
-	pip install $1;
-	echo $1 >> requirements.txt;
+	pip install $1 && echo $1 >> requirements.txt;
 }
 
 function pipfreeze(){
@@ -261,7 +270,11 @@ function aqr(){
 }
 
 function y2j(){
-	python -c 'import sys; import yaml; import json; sys.stdout.write(json.dumps(yaml.load(sys.stdin), indent=2))' < $1
+	python -c 'import sys; import yaml; import json; sys.stdout.write(json.dumps(yaml.load(sys.stdin), indent=2))'
+}
+
+function j2y(){
+	python -c 'import sys; import yaml; import json; yaml.dump(json.load(sys.stdin), sys.stdout)'
 }
 function j2y(){
 	python -c 'import sys; import yaml; import json; yaml.safe_dump(json.load(sys.stdin), sys.stdout, indent=2, default_flow_style=False)' < $1
