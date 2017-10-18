@@ -2,7 +2,7 @@ set sidebar_width=12
 set sidebar_visible=no
 set sidebar_delim='|'
 
-mailboxes =Inbox =gxsec =deNBI =Archive =Move =Drafts =property ~/Maildir/search
+mailboxes =Inbox =gxsec =deNBI =Archives.2017 =Move =Drafts =property ~/Maildir/search
 color sidebar_new yellow default
 bind index \CP sidebar-prev
 bind index \CN sidebar-next

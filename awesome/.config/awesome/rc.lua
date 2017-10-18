@@ -46,6 +46,7 @@ function run_once(cmd)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
 end
 
+run_once("/home/hxr/.screenlayout/default.sh")
 run_once("xscreensaver &")
 run_once("nm-applet &")
 run_once("setxkbmap -option compose:caps")
@@ -60,9 +61,9 @@ makesloppy = 1
 kbdcfg = {
     cmd = "setxkbmap",
     layout = {
+        { "de", "-option compose:caps" , "de" },
         { "us", "-option compose:caps" , "en" },
-        { "ua", "-variant phonetic" , "ua" },
-        { "de", "-option compose:caps" , "de" }
+        { "ua", "-variant phonetic" , "ua" }
     },
     current = 1,
     widget = wibox.widget.textbox(),
@@ -94,7 +95,7 @@ modkey     = "Mod4"
 altkey     = "Mod1"
 fnkey      = "Mod2"
 --terminal   = "sakura"
-terminal   = "xfce4-terminal"
+terminal   = "gnome-terminal"
 editor     = "vim"
 editor_cmd = terminal .. " -e " .. editor
 

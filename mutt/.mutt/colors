@@ -2,19 +2,19 @@
 
 # Palette for use with the Linux console.  Black background.
 
-color hdrdefault blue default
-color quoted blue default
-color signature green default
-color attachment brightred default
-color prompt black default
-color message brightblack default
-color error brightred default
-color indicator default cyan
-color normal black default
-color markers green default
-color search black default
-color tilde brightmagenta default
-color index blue default ~F
+#color hdrdefault blue default
+#color quoted blue default
+#color signature green default
+#color attachment brightred default
+#color prompt black default
+#color message brightblack default
+#color error brightred default
+#color indicator default cyan
+#color normal black default
+#color markers green default
+#color search black default
+#color tilde brightmagenta default
+#color index blue default ~F
 # Set by account change
 #color status default red
 

@@ -1,6 +1,6 @@
 
 --[[
-                                             
+				     
      Powerarrow Darker Awesome WM config 2.0 
      github.com/copycat-killer               
                                              
@@ -11,7 +11,7 @@ theme                               = {}
 themes_dir                          = os.getenv("HOME") .. "/.config/awesome/theme"
 theme.wallpaper                     = themes_dir .. "/wall.png"
 
-theme.font                          = "Terminus 9"
+theme.font                          = "Terminus 12"
 theme.fg_normal                     = "#DDDDFF"
 theme.fg_focus                      = "#F0DFAF"
 theme.fg_urgent                     = "#CC9393"

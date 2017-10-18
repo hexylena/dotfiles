@@ -19,6 +19,7 @@
 	stashes = stash list
 	unstage = reset -q HEAD --
 	discard = checkout --
+	undo = reset --mixed HEAD~
 	uncommit = reset --mixed HEAD~
 	amend = commit --amend
 	ammend = commit --amend
@@ -36,6 +37,7 @@
 	comit = commit
 	commti = commit
 	cmomit = commit
+	appraise = !/home/hxr/arbeit/go/bin/git-appraise
 
 [core]
 	whitespace = trailing-space,space-before-tab
@@ -46,3 +48,5 @@
 	fsckobjects = true
 [receive]
 	fsckObjects = true
+[gpg]
+	program = gpg2
