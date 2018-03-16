@@ -38,7 +38,7 @@ bind index gg first-entry
 bind index R group-reply
 #bind index <space> collapse-thread
 bind index V collapse-all
-macro index A "<save-message>=Archives/2017/\n"
+macro index A "<save-message>=Archives/2018/\n"
 
 macro index <F8> "<shell-escape>mu find --clearlinks --format=links --linksdir=~/Maildir/search " "mu find"
 macro index <F9> "<change-folder-readonly>~/Maildir/search" "mu find results"

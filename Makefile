@@ -53,6 +53,10 @@ update:
 	sudo apt-get dist-upgrade
 	sudo npm update -g yarn
 
+/home/hxr/.bin/trans: ## Install translation tool
+	curl -L git.io/trans -o $@
+	chmod +x $@
+
 /home/hxr/.bin/youtube-dl: ## Install youtube-dl
 	curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /home/hxr/.bin/youtube-dl
 	chmod +x /home/hxr/.bin/youtube-dl

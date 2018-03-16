@@ -95,7 +95,7 @@ modkey     = "Mod4"
 altkey     = "Mod1"
 fnkey      = "Mod2"
 --terminal   = "sakura"
-terminal   = "gnome-terminal"
+terminal   = "/home/hxr/.bin/alacritty"
 editor     = "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -146,56 +146,10 @@ if beautiful.wallpaper then
 end
 -- }}}
 
--- {{{ Menu
-mymainmenu = awful.menu.new({ items = require("menugen").build_menu(),
-                              theme = { height = 16, width = 130 }})
--- }}}
-
 -- {{{ Wibox
 markup = lain.util.markup
 separators = lain.util.separators
 
--- Textclock
-clockicon = wibox.widget.imagebox(beautiful.widget_clock)
-
-mytextclock = lain.widgets.abase({
-    timeout  = 20,
-    cmd      = "date '+%Y-%m-%d %H:%M %Z'",
-    settings = function()
-        widget:set_text(" " .. output)
-    end
-})
-
--- calendar
-lain.widgets.calendar:attach(mytextclock, {
-    font = "Ubuntu Mono",
-    font_size = 12,
-    cal = "/usr/bin/ncal",
-    post_cal = "-M -w"
-})
-
-
--- MPD
-mpdicon = wibox.widget.imagebox(beautiful.widget_music)
-mpdicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn_with_shell(musicplr) end)))
-mpdwidget = lain.widgets.mpd({
-    settings = function()
-        if mpd_now.state == "play" then
-            artist = " " .. mpd_now.artist .. " "
-            title  = mpd_now.title  .. " "
-            mpdicon:set_image(beautiful.widget_music_on)
-        elseif mpd_now.state == "pause" then
-            artist = " mpd "
-            title  = "▮▮ "
-        else
-            artist = ""
-            title  = ""
-            mpdicon:set_image(beautiful.widget_music)
-        end
-
-        widget:set_markup(markup("#EA6F81", artist) .. title)
-    end
-})
 
 -- Battery
 baticon = wibox.widget.imagebox(beautiful.widget_battery)
@@ -216,34 +170,6 @@ batwidget = lain.widgets.bat({
     end
 })
 
--- ALSA volume
-volicon = wibox.widget.imagebox(beautiful.widget_vol)
-volumewidget = lain.widgets.alsa({
-    settings = function()
-        if volume_now.status == "off" then
-            volicon:set_image(beautiful.widget_vol_mute)
-        elseif tonumber(volume_now.level) == 0 then
-            volicon:set_image(beautiful.widget_vol_no)
-        elseif tonumber(volume_now.level) <= 50 then
-            volicon:set_image(beautiful.widget_vol_low)
-        else
-            volicon:set_image(beautiful.widget_vol)
-        end
-
-        widget:set_text(" " .. volume_now.level .. "% ")
-    end
-})
-
--- Net
-neticon = wibox.widget.imagebox(beautiful.widget_net)
-neticon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn_with_shell(iptraf) end)))
-netwidget = lain.widgets.net({
-    settings = function()
-        widget:set_markup(markup("#7AC82E", " " .. net_now.received)
-                          .. " " ..
-                          markup("#46A8C3", " " .. net_now.sent .. " "))
-    end
-})
 
 -- Separators
 spr = wibox.widget.textbox(' ')
@@ -319,74 +245,12 @@ for s = 1, screen.count() do
     -- Create a tasklist widget
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
-    -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "left", orientation="north", screen = s })
 
-    -- Widgets that are aligned to the bottom
-    local bottom_layout = wibox.layout.fixed.horizontal()
-    --bottom_layout:add(wibox.layout.margin(mytextclock,0,5))
-    bottom_layout:add(spr)
-    bottom_layout:add(mytaglist[s])
-    bottom_layout:add(spr)
-
-    -- Widgets that are aligned to the upper right
-    local top_layout_toggle = true
-    local function top_layout_add (...)
-        local arg = {...}
-        if top_layout_toggle then
-            top_layout:add(arrl_ld)
-            for i, n in pairs(arg) do
-                top_layout:add(wibox.widget.background(n ,beautiful.bg_focus))
-            end
-        else
-            top_layout:add(arrl_dl)
-            for i, n in pairs(arg) do
-                top_layout:add(n)
-            end
-        end
-        top_layout_toggle = not top_layout_toggle
-    end
-
-    top_layout = wibox.layout.fixed.horizontal()
-
-    if s == 1 then top_layout:add(wibox.widget.systray()) end
-    --top_layout:add(arrl)
-    top_layout_add(mpdicon)
-    top_layout_add(volicon)
-    top_layout_add(kbdcfg.widget)
-    --top_layout_add(myipaddr.widget)
-    top_layout_add(batwidget)
-    top_layout_add(netwidget)
-    top_layout_add(mytextclock, spr)
-    top_layout_add(mylayoutbox[s])
-
-    --if s == 1 then bottom_layout:add(wibox.widget.systray()) end
-
-    -- Now bring it all together (with the tasklist in the middle)
-    local layout = wibox.layout.align.horizontal()
-    layout:set_first(bottom_layout)
-    layout:set_second(wibox.layout.margin(mytasklist[s],5,5))
-    layout:set_third(top_layout)
-
-    -- Rotate
-    -- http://comments.gmane.org/gmane.comp.window-managers.awesome/9676
-    local rotate = wibox.layout.rotate()
-    rotate:set_direction("east")
-    rotate:set_widget(layout)
-
-    -- Widgets from top to bottom
-    local wibox_layout = wibox.layout.fixed.vertical()
-    --wibox_layout:add(mylauncher)
-    --wibox_layout:add(wibox.layout.margin(mylayoutbox[s],0,0,5,5))
-    wibox_layout:add(rotate)
-
-    mywibox[s]:set_widget(wibox_layout)
 end
 -- }}}
 
 -- {{{ Mouse Bindings
 root.buttons(awful.util.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 ))
@@ -426,16 +290,10 @@ globalkeys = awful.util.table.join(
             awful.client.focus.bydirection("left")
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ altkey, "Control" }, "l",
+    awful.key({ modkey }, "l",
         function()
             awful.client.focus.bydirection("right")
             if client.focus then client.focus:raise() end
-        end),
-
-    -- Show Menu
-    awful.key({ modkey }, "w",
-        function ()
-            mymainmenu:show({ keygrabber = true })
         end),
 
     -- Layout manipulation
@@ -471,51 +329,13 @@ globalkeys = awful.util.table.join(
     awful.key({ altkey,           }, "h",      function () fswidget.show(7) end),
 
     -- ALSA volume control
-    awful.key({ altkey }, "Up",
-        function ()
-            os.execute(string.format("amixer set %s 1%%+", volumewidget.channel))
-            volumewidget.update()
-        end),
-    awful.key({ altkey }, "Down",
-        function ()
-            os.execute(string.format("amixer set %s 1%%-", volumewidget.channel))
-            volumewidget.update()
-        end),
-    awful.key({ altkey }, "m",
-        function ()
-            os.execute(string.format("amixer set %s toggle", volumewidget.channel))
-            volumewidget.update()
-        end),
-    awful.key({ altkey, "Control" }, "m",
-        function ()
-            os.execute(string.format("amixer set %s 100%%", volumewidget.channel))
-            volumewidget.update()
-        end),
-
-    -- MPD control
-    awful.key({ altkey, "Control" }, "Up",
-        function ()
-            awful.util.spawn_with_shell("mpc toggle")
-            mpdwidget.update()
-        end),
-    awful.key({ altkey, "Control" }, "Down",
-        function ()
-            awful.util.spawn_with_shell("mpc stop")
-            mpdwidget.update()
-        end),
-    awful.key({ altkey, "Control" }, "Left",
-        function ()
-            awful.util.spawn_with_shell("mpc prev")
-            mpdwidget.update()
-        end),
-    awful.key({ altkey, "Control" }, "Right",
-        function ()
-            awful.util.spawn_with_shell("mpc next")
-            mpdwidget.update()
-        end),
 
     -- Copy to clipboard
     awful.key({ modkey }, "c", function () os.execute("xsel -p -o | xsel -i -b") end),
+    awful.key({ modkey }, "m", function ()
+        awful.util.spawn(terminal .. " -e mutt")
+        awful.util.spawn(terminal .. " -e ssh -t enkidu mutt")
+    end),
 
     -- User programs
     awful.key({  }, "XF86MonBrightnessDown", function () awful.util.spawn("xbacklight -dec 5") end),
@@ -626,16 +446,16 @@ awful.rules.rules = {
 local sloppyfocus_last = {c=nil}
 client.connect_signal("manage", function (c, startup)
     -- Enable sloppy focus
-    client.connect_signal("mouse::enter", function(c)
-         if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-            and awful.client.focus.filter(c) then
-             -- Skip focusing the client if the mouse wasn't moved.
-             if c ~= sloppyfocus_last.c then
-                 client.focus = c
-                 sloppyfocus_last.c = c
-             end
-         end
-     end)
+    --client.connect_signal("mouse::enter", function(c)
+         --if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+            --and awful.client.focus.filter(c) then
+             ---- Skip focusing the client if the mouse wasn't moved.
+             --if c ~= sloppyfocus_last.c then
+                 --client.focus = c
+                 --sloppyfocus_last.c = c
+             --end
+         --end
+     --end)
 
     local titlebars_enabled = false
     if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then

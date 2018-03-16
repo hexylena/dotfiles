@@ -40,7 +40,19 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
- HIST_STAMPS="yyyy-mm-dd"
+HIST_STAMPS="yyyy-mm-dd"
+export HISTTIMEFORMAT="%Y-%m-%d-%H-%M-%S "
+export HISTSIZE=5000000000
+export SAVEHIST=${HISTSIZE}
+export HISTFILE=~/.zsh_history
+setopt append_history
+setopt extended_history
+setopt hist_reduce_blanks
+setopt hist_no_store
+setopt hist_ignore_dups
+setopt histignorespace
+setopt share_history
+setopt inc_append_history
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -147,7 +159,11 @@ function jw(){
 }
 
 function yt(){
-    youtube-dl -i -x --embed-thumbnail $@
+    youtube-dl -i -x --audio-format mp3 $@
+}
+
+function ytp(){
+    youtube-dl -i -x --audio-format mp3 -o '%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' $@
 }
 
 function vol(){
@@ -258,7 +274,10 @@ function pipi(){
 
 function pipfreeze(){
 	tmpfile=$(mktemp);
-	pip freeze | grep -f requirements.txt > $tmpfile;
+	unpinned_reqs=$(mktemp);
+	cat requirements.txt| sed 's/==.*//' > $unpinned_reqs;
+	pip freeze | grep -f $unpinned_reqs | sort > $tmpfile;
+	rm -f $unpinned_reqs
 	mv $tmpfile requirements.txt;
 }
 
@@ -304,3 +323,18 @@ function activate_conda(){
 	# added by Miniconda3 4.3.21 installer
 	export PATH="/home/hxr/arbeit/conda/bin:$PATH"
 }
+
+function random_mac_and_reconnect(){
+	nmcli connection down $1;
+	nmcli connection modify $1 wifi.cloned-mac-address $(openssl rand -hex 6 | sed 's/\([0-9a-f][0-9a-f]\)/\1:/g;s/:$//');
+	nmcli connection up $1;
+}
+
+function cdt(){
+	cd `mktemp -d`
+}
+
+function set_brightness() {
+	sudo tee $1 | /sys/class/backlight/intel_backlight/brightness
+}
+alias woman='man'
