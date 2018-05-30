@@ -1,13 +1,13 @@
 [user]
-	signingkey = C527B0FC0AF63592
-	name = E Rasche
+	;signingkey = C527B0FC0AF63592
+	name = Helena Rasche
 	email = hxr@hx42.org
 
 [push]
 	default = current
 
 [commit]
-	gpgsign = true
+	;gpgsign = true
 
 [diff]
 	tool = vimdiff
