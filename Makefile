@@ -46,7 +46,7 @@ apt: apt_docker apt_node ## Install packages
 	wnorwegian xbacklight xdotool xscreensaver xscreensaver-data-extra \
 	xscreensaver-gl xscreensaver-gl-extra xscreensaver-screensaver-bsod \
 	xscreensaver-screensaver-dizzy xscreensaver-screensaver-webcollage xsel zsh \
-	sqlite3 inetutils-traceroute silversearcher-a
+	sqlite3 inetutils-traceroute silversearcher-a trickle zbar-tools
 	sudo npm install -g yarn
 
 update:
