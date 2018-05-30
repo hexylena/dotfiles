@@ -270,13 +270,14 @@ function jsfmt(){
 
 function pipi(){
 	pip install $1 && echo $1 >> requirements.txt;
+	pipfreeze
 }
 
 function pipfreeze(){
 	tmpfile=$(mktemp);
 	unpinned_reqs=$(mktemp);
 	cat requirements.txt| sed 's/==.*//' > $unpinned_reqs;
-	pip freeze | grep -f $unpinned_reqs | sort > $tmpfile;
+	pip freeze | grep -i -f $unpinned_reqs | sort > $tmpfile;
 	rm -f $unpinned_reqs
 	mv $tmpfile requirements.txt;
 }
@@ -338,3 +339,15 @@ function set_brightness() {
 	sudo tee $1 | /sys/class/backlight/intel_backlight/brightness
 }
 alias woman='man'
+alias bundle='bundler'
+
+function audio_loopback() {
+
+	if [ -z "$(pactl list short modules | grep module-loopback)"  ]; then
+		pactl load-module module-loopback latency_msec=1
+	else
+		pactl unload-module module-loopback
+	fi
+}
+alias axe="awk '{print \$2}' | xargs kill"
+alias mpv="mpv --no-audio-display"
