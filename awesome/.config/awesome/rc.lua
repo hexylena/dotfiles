@@ -333,8 +333,8 @@ globalkeys = awful.util.table.join(
     -- Copy to clipboard
     awful.key({ modkey }, "c", function () os.execute("xsel -p -o | xsel -i -b") end),
     awful.key({ modkey }, "m", function ()
-        awful.util.spawn(terminal .. " -e mutt")
-        awful.util.spawn(terminal .. " -e ssh -t enkidu mutt")
+        awful.util.spawn(terminal .. " -e bash -c 'LANG=en_US.UTF-8 mutt'")
+        awful.util.spawn(terminal .. " -e ssh -t enkidu LANG=en_US.UTF-8 screen -R")
     end),
 
     -- User programs
