@@ -1,5 +1,5 @@
 --[[
-     Powerarrow Darker Awesome WM config 2.0 
+     Powerarrow Darker Awesome WM config 2.0
      github.com/copycat-killer
 --]]
 
@@ -47,6 +47,7 @@ function run_once(cmd)
 end
 
 run_once("/home/hxr/.screenlayout/default.sh")
+run_once("killall gnome-screensaver")
 run_once("xscreensaver &")
 run_once("nm-applet &")
 run_once("setxkbmap -option compose:caps")
@@ -130,8 +131,8 @@ local layouts = {
 
 -- {{{ Tags
 tags = {
-   names = { "Net", "Dev", "Net", "Com", "Sec"},
-   layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1] }
+   names = { "Net", "Dev", "Net", "Com", "Sec", "Etc"},
+   layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
    tags[s] = awful.tag(tags.names, s, tags.layout)
@@ -141,7 +142,7 @@ end
 -- {{{ Wallpaper
 if beautiful.wallpaper then
     for s = 1, screen.count() do
-        gears.wallpaper.maximized(os.getenv("HOME") .. "/.wallpaper.jpg", s, true)
+        gears.wallpaper.maximized(os.getenv("HOME") .. "/.wallpaper.jpg", s, false)
     end
 end
 -- }}}
@@ -317,12 +318,12 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "h",      function () awful.tag.incncol( 1)          end),
     awful.key({ modkey,           }, "space",  function () awful.layout.inc(layouts,  1)  end),
     awful.key({ modkey, "Shift"   }, "space",  function () awful.layout.inc(layouts, -1)  end),
-    awful.key({ modkey, "Control" }, "n",      awful.client.restore),
+    --awful.key({ modkey, "Control" }, "n",      awful.client.restore),
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r",      awesome.restart),
-    awful.key({ modkey, "Shift"   }, "q",      awesome.quit),
+    --awful.key({ modkey, "Shift"   }, "q",      awesome.quit),
 
     -- Widgets popups
     awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end),
@@ -331,10 +332,9 @@ globalkeys = awful.util.table.join(
     -- ALSA volume control
 
     -- Copy to clipboard
-    awful.key({ modkey }, "c", function () os.execute("xsel -p -o | xsel -i -b") end),
+    --awful.key({ modkey }, "c", function () os.execute("xsel -p -o | xsel -i -b") end),
     awful.key({ modkey }, "m", function ()
-        awful.util.spawn(terminal .. " -e bash -c 'LANG=en_US.UTF-8 mutt'")
-        awful.util.spawn(terminal .. " -e ssh -t enkidu LANG=en_US.UTF-8 screen -R")
+        awful.util.spawn(terminal .. " -e mail-work")
     end),
 
     -- User programs
@@ -349,20 +349,13 @@ globalkeys = awful.util.table.join(
     awful.key({  }, "Print",   function () awful.util.spawn("shutter -s") end),
 
     -- Prompt
-    awful.key({ modkey }, "r", function() menubar.show() end, "Applications menu bar"),
-    awful.key({ modkey }, "x",
-              function ()
-                  awful.prompt.run({ prompt = "Run Lua code: " },
-                  mypromptbox[mouse.screen].widget,
-                  awful.util.eval, nil,
-                  awful.util.getdir("cache") .. "/history_eval")
-              end)
+    awful.key({ modkey }, "r", function() menubar.show() end, "Applications menu bar")
 )
 
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
-    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
-    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end)
+    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end)
+    --awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end)
 )
 
 -- Bind all key numbers to tags.

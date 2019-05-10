@@ -53,6 +53,8 @@ setopt hist_ignore_dups
 setopt histignorespace
 setopt share_history
 setopt inc_append_history
+export LESSHISTFILE=/dev/null
+export XDG_CONFIG_HOME=/home/hxr/.config
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -65,7 +67,7 @@ plugins=(git)
 
 # User configuration
 
-export PATH="/home/hxr/.local/bin/:/home/hxr/.bin:/usr/local/texlive/2015/bin/x86_64-linux:/home/hxr/.sdkman/candidates/groovy/current/bin:/home/hxr/.sdkman/candidates/grails/current/bin:/home/hxr/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/hxr/.go/bin:/home/hxr/work/go/bin"
+export PATH="/home/hxr/.local/bin/:/home/hxr/.bin:/usr/local/texlive/2015/bin/x86_64-linux:/home/hxr/.sdkman/candidates/groovy/current/bin:/home/hxr/.sdkman/candidates/grails/current/bin:/home/hxr/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/hxr/arbeit/go-src/bin:/home/hxr/work/go/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -100,13 +102,15 @@ alias ll='ls -al'
 alias byobu_attach='byobu attach -t '
 alias byobu_new='byobu new -s'
 alias makep='make -f ~/dotfiles/oh-my-zsh/Makefile -f Makefile'
+alias qmv='qmv -fdo'
+alias cat='lolcat -t'
 
 
 export GOPATH=$HOME/arbeit/go
-export GOROOT=$HOME/.go
+export GOROOT=$HOME/arbeit/go-src
 export PATH=$HOME/.local/bin/:/home/hxr/.linuxbrew/bin:$PATH:$GOROOT/bin:$GOPATH/bin
 
-. /home/hxr/.ssh-sock
+#. /home/hxr/.ssh-sock
 
 function logme(){
 	sudo /home/hxr/work/go/bin/client --standalone;
@@ -131,7 +135,7 @@ bg() {
 }
 
 function keygen(){
-    ssh-keygen -t rsa -b 4096 -f .ssh/keys/id_rsa_$1
+    ssh-keygen -t rsa -b 4096 -f /home/hxr/.ssh/keys/id_rsa_$1
 }
 
 function _sshload(){
@@ -147,15 +151,11 @@ function mirror(){
 }
 
 function xw(){
-    tmp=$(mktemp)
-    cat $1 | xmllint --pretty 1 - > $tmp;
-    mv $tmp $1;
+    cat "$1" | xmllint --pretty 1 - | sponge "$1"
 }
 
 function jw(){
-    tmp=$(mktemp)
-    cat $1 | jq -S '.' > $tmp;
-    mv $tmp $1;
+    cat "$1" | jq -S '.' | sponge > "$1";
 }
 
 function yt(){
@@ -203,7 +203,6 @@ function alog(){
 	arecord -f cd -t raw | lame -x -r - $name
 }
 
-alias travis='docker run --rm -it -v $PWD:/repo -v ~/.travis:/travis travis'
 function venv(){
 	if [ ! -d '.venv' ];
 	then
@@ -216,6 +215,17 @@ function venv(){
 	then
 		pip install -r requirements.txt;
 	fi
+
+	if (( $# > 0 )); then
+		pip install $@;
+	fi
+}
+
+function indexify() {
+	if (( $# == 0 )); then
+		echo "indexify '*jpg' (find name filter)"
+	fi
+	find . -name "$1" | awk '{print "<img src="$0" height=300/>"}' > index.html
 }
 
 function venv2(){
@@ -242,9 +252,15 @@ function ignore_commit(){
 }
 
 function license(){
-	cp /usr/share/R/share/licenses/$1 LICENSE;
-	git add LICENSE;
-	git commit -m 'Added LICENSE';
+	wanted="/usr/share/R/share/licenses/$1"
+	if [[ -f $wanted ]]; then
+		cp $wanted LICENSE;
+		git add LICENSE;
+		git commit -m 'Added LICENSE';
+	else
+		echo "Unknown license. Choose from"
+		ls /usr/share/R/share/licenses
+	fi
 }
 
 function testUtf8(){
@@ -290,14 +306,18 @@ function aqr(){
 }
 
 function y2j(){
-	python -c 'import sys; import yaml; import json; sys.stdout.write(json.dumps(yaml.load(sys.stdin), indent=2))'
+	python -c 'import sys; import yaml; import json; [sys.stdout.write(json.dumps(doc, indent=2)) for doc in yaml.load_all(sys.stdin)]'
+}
+
+function y2js(){
+	python -c 'import sys; import yaml; import json; sys.stdout.write(json.dumps(yaml.safe_load(sys.stdin), indent=2))'
 }
 
 function j2y(){
 	python -c 'import sys; import yaml; import json; yaml.dump(json.load(sys.stdin), sys.stdout)'
 }
 function j2y(){
-	python -c 'import sys; import yaml; import json; yaml.safe_dump(json.load(sys.stdin), sys.stdout, indent=2, default_flow_style=False)' < $1
+	python -c 'import sys; import yaml; import json; yaml.safe_dump(json.load(sys.stdin), sys.stdout, indent=2, default_flow_style=False)'
 }
 
 # I know what I'm doing, thank you.
@@ -314,9 +334,9 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 #export SDKMAN_DIR="/home/hxr/.sdkman"
 #[[ -s "/home/hxr/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hxr/.sdkman/bin/sdkman-init.sh"
 #. /home/hxr/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-. /home/hxr/.env.secret
-export PATH="$HOME/.cargo/bin:$PATH"
+. /home/hxr/Personal/secrets/env.secret
 export GPG_TTY=$BYOBU_TTY
+export R_LIBS_USER=/home/hxr/arbeit/R/x86_64-pc-linux-gnu-library/3.2
 
 function activate_conda(){
 	# by default this takes over the default python installation. I do NOT want
@@ -327,19 +347,23 @@ function activate_conda(){
 
 function random_mac_and_reconnect(){
 	nmcli connection down $1;
-	nmcli connection modify $1 wifi.cloned-mac-address $(openssl rand -hex 6 | sed 's/\([0-9a-f][0-9a-f]\)/\1:/g;s/:$//');
+	nmcli connection modify $1 wifi.cloned-mac-address 00:$(openssl rand -hex 5 | sed 's/\([0-9a-f][0-9a-f]\)/\1:/g;s/:$//');
 	nmcli connection up $1;
 }
 
 function cdt(){
-	cd `mktemp -d`
+	if [[ $# -gt 0 ]]; then
+		cd `mktemp -d /tmp/$1.XXXXXXXXXX`
+	else
+		cd `mktemp -d`
+	fi
 }
+alias cda='cd ~/arbeit'
 
 function set_brightness() {
 	sudo tee $1 | /sys/class/backlight/intel_backlight/brightness
 }
 alias woman='man'
-alias bundle='bundler'
 
 function audio_loopback() {
 
@@ -351,3 +375,113 @@ function audio_loopback() {
 }
 alias axe="awk '{print \$2}' | xargs kill"
 alias mpv="mpv --no-audio-display"
+
+function wfdef() {
+	curl "https://www.mindsportsacademy.com/api/Wordcheck/CheckWord/$1" --compressed
+}
+
+function wfchk(){
+	grep '^'$1'$' /home/hxr/Personal/projects/sowpods/sowpods.txt
+}
+
+function wflen(){
+	awk '(length <= '$1'){ print $0 }'
+}
+
+ossec(){
+	if (( $# == 0 )); then
+        opts_a=$(grep OS_PASSWORD=${OS_PASSWORD:-no-match} ~/Personal/secrets/env.secret* -l)
+        opts_b=$(grep OS_AUTH_URL=${OS_AUTH_URL:-no-match} ~/Personal/secrets/env.secret* -l)
+        match=$(join <(echo "$opts_a") <(echo "$opts_b") | sed 's|/home/hxr/Personal/secrets/env.secret.cloud-||g')
+
+        echo "Current: $match"
+        echo
+		echo "Options:"
+		for x in $(find /home/hxr/Personal/secrets/env.secret.cloud-*); do
+			echo " "$(basename $x | cut -c 18-);
+		done;
+		return
+	fi
+
+	if [[ $1 == "add" ]]; then
+		if (( $# < 2 )); then
+			echo "ossec add <name>"
+			return
+		fi
+
+		vim /home/hxr/Personal/secrets/env.secret.cloud-$2
+		return
+	elif [[ $1 == "clear" ]]; then
+		for x in $(env | grep OS | awk -F= '{print $1}'); do unset $x; done;
+		return
+	fi
+
+	# Unset any existing OS env vars
+	for x in $(env | grep OS | awk -F= '{print $1}'); do unset $x; done;
+	# And set some new ones
+	source /home/hxr/Personal/secrets/env.secret.cloud-$1
+}
+
+function rz(){
+	if (( $# > 0 )); then
+		jrnl rz now: "$@"
+	else
+		jrnl rz
+	fi
+}
+
+function inf(){
+	if (( $# > 0 )); then
+		jrnl inf now: "$@"
+	else
+		jrnl inf
+	fi
+}
+
+function mountraw(){
+	if (( $# != 2 )); then
+		echo "mountraw img.raw /path"
+	else
+		mount -o loop,offset=$(( 512 * $(fdisk -lu | awk '/Linux/ {} END {print $3}') )) $1 $2
+	fi
+}
+
+wallpaper() {
+	if [[ ! -f "$@" ]]; then
+		echo "not existing"
+	else
+		rm -f /home/hxr/.wallpaper.jpg
+		ln -s "$(readlink -f "$@")" /home/hxr/.wallpaper.jpg
+	fi
+}
+
+shutter_session(){
+	SHUTTER_PID=$(ps aux | grep 'perl /usr/bin/shutter -s' | grep -v grep | awk '{print $2}')
+	kill ${SHUTTER_PID}
+	shutter &
+}
+
+
+weer(){
+	if (( $(tput cols) < 125 )); then
+		curl "https://wttr.in/${1:-Freiburg}?m&T&n"
+	else
+		curl "https://wttr.in/${1:-Freiburg}?m&T"
+	fi
+}
+
+#pgrep syndaemon > /dev/null || syndaemon -i 1 -d -K &
+#de.py
+
+# added by travis gem
+[ -f /home/hxr/.travis/travis.sh ] && source /home/hxr/.travis/travis.sh
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+export PGHOST=localhost
+export PGUSER=postgres
+export PGPASSWORD=postgres
+activate-circos() {
+	source /home/hxr/arbeit/galaxy/database/dependencies/_conda/envs/mulled-v1-03d8bba2abf2f466430f4512e06848dc70f8b3761e5e8e4f6b98e71e98b5a313/bin/activate mulled-v1-03d8bba2abf2f466430f4512e06848dc70f8b3761e5e8e4f6b98e71e98b5a313
+	export PS1="(circos-conda)$CONDA_PS1_BACKUP"
+}

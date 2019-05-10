@@ -30,14 +30,19 @@
 	glol = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	glol2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''		  %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
 	st = status -sbuno
+	changed-in = diff-tree --no-commit-id --name-only -r
 
 
 	# Typos
 	psuh = push
+	puhs = push
+	pul = pull
 	comit = commit
 	commti = commit
 	cmomit = commit
 	appraise = !/home/hxr/arbeit/go/bin/git-appraise
+	chekcout = checkout
+	co = checkout
 
 [core]
 	whitespace = trailing-space,space-before-tab

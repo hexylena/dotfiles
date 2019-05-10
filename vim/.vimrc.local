@@ -5,6 +5,7 @@ set mouse=
 "color Tomorrow
 color Monokai
 "color summerfruit256
+"color abbott
 set conceallevel=0 concealcursor=i
 let g:spf13_edit_config_mapping='<Leader>ev'
 let g:spf13_apply_config_mapping='<Leader>sv'
@@ -28,3 +29,4 @@ autocmd FileType javascript set backupcopy=yes
 inoremap jj <ESC>
 
 let g:spf13_no_omni_complete = 1
+let g:spf13_keep_trailing_whitespace = 0
