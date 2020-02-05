@@ -43,15 +43,22 @@
 	appraise = !/home/hxr/arbeit/go/bin/git-appraise
 	chekcout = checkout
 	co = checkout
+	sttus = status
+	mmend = commit --amend
+	mend = commit --amend
+	pukk = pull
+	staash = stash
 
 [core]
 	whitespace = trailing-space,space-before-tab
 
-[transfer]
-	fsckobjects = true
-[fetch]
-	fsckobjects = true
-[receive]
-	fsckObjects = true
+;[transfer]
+	;fsckobjects = true
+;[fetch]
+	;fsckobjects = true
+;[receive]
+	;fsckObjects = true
 [gpg]
 	program = gpg2
+[pull]
+	rebase = true

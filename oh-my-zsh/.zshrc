@@ -63,7 +63,7 @@ export XDG_CONFIG_HOME=/home/hxr/.config
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git history-substring-search)
 
 # User configuration
 
@@ -99,8 +99,20 @@ export EDITOR='vim'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias sl='ls'
 alias ll='ls -al'
-alias byobu_attach='byobu attach -t '
-alias byobu_new='byobu new -s'
+alias s='ls -al'
+alias ks='ls -al'
+alias cear='clear'
+alias ckear='clear'
+alias byobu-attach='byobu attach -t '
+alias byobu-att='byobu attach -t '
+
+byobu-new() {
+	if [[ "$1" != "" ]]; then
+		byobu new -s "$1"
+	else
+		byobu new -s $(openssl rand -hex 4)
+	fi
+}
 alias makep='make -f ~/dotfiles/oh-my-zsh/Makefile -f Makefile'
 alias qmv='qmv -fdo'
 alias cat='lolcat -t'
@@ -135,7 +147,7 @@ bg() {
 }
 
 function keygen(){
-    ssh-keygen -t rsa -b 4096 -f /home/hxr/.ssh/keys/id_rsa_$1
+    ssh-keygen -t ed25519 -f /home/hxr/.ssh/keys/id_rsa_$1
 }
 
 function _sshload(){
@@ -155,7 +167,9 @@ function xw(){
 }
 
 function jw(){
-    cat "$1" | jq -S '.' | sponge > "$1";
+	t=$(mktemp)
+    cat "$1" | jq -S '.' > $t
+	mv $t "$1"
 }
 
 function yt(){
@@ -203,17 +217,26 @@ function alog(){
 	arecord -f cd -t raw | lame -x -r - $name
 }
 
+function hashit() {
+	for x in `cat requirements.txt | grep '^[^ ].*[^\\]$' | sed 's/[<>=]=.*//'`; do
+		hashin $x -r requirements.txt;
+	done;
+}
+
 function venv(){
 	if [ ! -d '.venv' ];
 	then
-		virtualenv .venv -p $(which python3);
+		virtualenv .venv -p $(which python3.7);
 	fi
 
-	. .venv/bin/activate
+	. .venv/bin/activate  # commented out by conda initialize
 
-	if [ -e 'requirements.txt' ];
-	then
-		pip install -r requirements.txt;
+	if [ -e 'requirements.txt' ]; then
+		venv_age=$(stat -c %Y .venv)
+		reqs_age=$(stat -c %Y requirements.txt)
+		if (( reqs_age > venv_age )); then
+			pip install -r requirements.txt;
+		fi
 	fi
 
 	if (( $# > 0 )); then
@@ -233,20 +256,24 @@ function venv2(){
 	then
 		virtualenv .venv2 -p $(which python2.7);
 	fi
-	. .venv2/bin/activate
+	. .venv2/bin/activate  # commented out by conda initialize
 
 	if [ -e 'requirements.txt' ];
 	then
-		pip install -r requirements.txt;
+		venv_age=$(stat -c %Y .venv2)
+		reqs_age=$(stat -c %Y requirements.txt)
+		if (( reqs_age > venv_age )); then
+			pip install -r requirements.txt;
+		fi
 	fi
 }
 
 function ignore(){
-	curl https://www.gitignore.io/api/$1 >> .gitignore;
+	curl --silent https://www.gitignore.io/api/$1 >> .gitignore;
 	git add .gitignore;
 }
-function ignore_commit(){
-	curl https://www.gitignore.io/api/$1 >> .gitignore;
+function ignore-commit(){
+	curl --silent https://www.gitignore.io/api/$1 >> .gitignore;
 	git add .gitignore;
 	git commit -m 'Added gitignore';
 }
@@ -269,10 +296,6 @@ function testUtf8(){
 
 alias -g gzc='gzip | base64 | xsel -b'
 alias -g gzd='xsel -b | base64 -d | gzip -d'
-
-function activateConda(){
-	export PATH=/opt/miniconda3/bin:$PATH
-}
 
 function krup(){
 	docker-compose kill $1;
@@ -338,13 +361,6 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 export GPG_TTY=$BYOBU_TTY
 export R_LIBS_USER=/home/hxr/arbeit/R/x86_64-pc-linux-gnu-library/3.2
 
-function activate_conda(){
-	# by default this takes over the default python installation. I do NOT want
-	# this. It's bad news bears.
-	# added by Miniconda3 4.3.21 installer
-	export PATH="/home/hxr/arbeit/conda/bin:$PATH"
-}
-
 function random_mac_and_reconnect(){
 	nmcli connection down $1;
 	nmcli connection modify $1 wifi.cloned-mac-address 00:$(openssl rand -hex 5 | sed 's/\([0-9a-f][0-9a-f]\)/\1:/g;s/:$//');
@@ -358,7 +374,7 @@ function cdt(){
 		cd `mktemp -d`
 	fi
 }
-alias cda='cd ~/arbeit'
+alias cdw='cd ~/arbeit'
 
 function set_brightness() {
 	sudo tee $1 | /sys/class/backlight/intel_backlight/brightness
@@ -455,6 +471,10 @@ wallpaper() {
 	fi
 }
 
+raise() {
+	wmctrl -x -a $@
+}
+
 shutter_session(){
 	SHUTTER_PID=$(ps aux | grep 'perl /usr/bin/shutter -s' | grep -v grep | awk '{print $2}')
 	kill ${SHUTTER_PID}
@@ -481,7 +501,31 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export PGHOST=localhost
 export PGUSER=postgres
 export PGPASSWORD=postgres
-activate-circos() {
-	source /home/hxr/arbeit/galaxy/database/dependencies/_conda/envs/mulled-v1-03d8bba2abf2f466430f4512e06848dc70f8b3761e5e8e4f6b98e71e98b5a313/bin/activate mulled-v1-03d8bba2abf2f466430f4512e06848dc70f8b3761e5e8e4f6b98e71e98b5a313
-	export PS1="(circos-conda)$CONDA_PS1_BACKUP"
+export GOPATH=~/arbeit/go-src GOROOT=~/arbeit/go
+
+activate-nvm() {
+	export NVM_DIR="$HOME/.config"
+	[ -s "$NVM_DIR/nvm.sh"  ] && \. "$NVM_DIR/nvm.sh" #
+	[ -s "$NVM_DIR/bash_completion"  ] && \. "$NVM_DIR/bash_completion" #
+}
+
+# Use vim bindings
+set -o vi
+# but let ctrl-r still work
+bindkey "^R" history-incremental-search-backward
+
+
+
+activate-conda() {
+	__conda_setup="$('/home/hxr/arbeit/miniconda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+	if [ $? -eq 0 ]; then
+		eval "$__conda_setup"
+	else
+		if [ -f "/home/hxr/arbeit/miniconda/etc/profile.d/conda.sh" ]; then
+			. "/home/hxr/arbeit/miniconda/etc/profile.d/conda.sh"
+		else
+			export PATH="/home/hxr/arbeit/miniconda/bin:$PATH"
+		fi
+	fi
+	unset __conda_setup
 }
