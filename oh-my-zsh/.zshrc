@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/hxr/.oh-my-zsh
+export ZSH=/home/hxr/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -67,7 +67,7 @@ plugins=(git history-substring-search)
 
 # User configuration
 
-export PATH="/home/hxr/.local/bin/:/home/hxr/.bin:/usr/local/texlive/2015/bin/x86_64-linux:/home/hxr/.sdkman/candidates/groovy/current/bin:/home/hxr/.sdkman/candidates/grails/current/bin:/home/hxr/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/hxr/arbeit/go-src/bin:/home/hxr/work/go/bin"
+#export PATH="/home/hxr/.local/bin/:/home/hxr/.bin:/usr/local/texlive/2015/bin/x86_64-linux:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/hxr/arbeit/go-src/bin:/home/hxr/work/go/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -76,60 +76,49 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 export EDITOR='vim'
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+export TEXMFHOME='~/.texmf'
+export GOPATH=$HOME/arbeit/go
+export GOROOT=$HOME/arbeit/go-src
+export PATH=$HOME/.local/bin/:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/.rvm/bin
+# The folders are too damn annoying.
+export PYTHONDONTWRITEBYTECODE=1
+export ANSIBLE_NOCOWS=1
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+export GPG_TTY=$BYOBU_TTY
+export R_LIBS_USER=~/arbeit/R/x86_64-pc-linux-gnu-library/3.2
+export PGHOST=localhost
+export PGUSER=postgres
+export PGPASSWORD=postgres
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
+# Use vim bindings
+set -o vi
+# but let ctrl-r still work
+bindkey "^R" history-incremental-search-backward
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# Secrets
+. ~/Personal/secrets/env.secret
+
+
 alias sl='ls'
 alias ll='ls -al'
 alias s='ls -al'
 alias ks='ls -al'
+alias mkae='make'
+alias woman='man'
 alias cear='clear'
 alias ckear='clear'
 alias byobu-attach='byobu attach -t '
 alias byobu-att='byobu attach -t '
-
-byobu-new() {
-	if [[ "$1" != "" ]]; then
-		byobu new -s "$1"
-	else
-		byobu new -s $(openssl rand -hex 4)
-	fi
-}
+alias python=python3
+alias j=jrnl
+alias axe="awk '{print \$2}' | xargs kill"
+alias mpv="mpv --no-audio-display"
 alias makep='make -f ~/dotfiles/oh-my-zsh/Makefile -f Makefile'
 alias qmv='qmv -fdo'
 alias cat='lolcat -t'
 
-
-export GOPATH=$HOME/arbeit/go
-export GOROOT=$HOME/arbeit/go-src
-export PATH=$HOME/.local/bin/:/home/hxr/.linuxbrew/bin:$PATH:$GOROOT/bin:$GOPATH/bin
-
-#. /home/hxr/.ssh-sock
-
-function logme(){
-	sudo /home/hxr/work/go/bin/client --standalone;
-	# When we exit, please date so we know how much time we're missing.
-	date
-}
-
+# ???
 fg() {
     if [[ $# -eq 1 && $1 = -  ]]; then
         builtin fg %-
@@ -146,83 +135,10 @@ bg() {
     fi
 }
 
-function keygen(){
-    ssh-keygen -t ed25519 -f /home/hxr/.ssh/keys/id_rsa_$1
-}
+# Fun
+#fortune | cowsay -W 60
 
-function _sshload(){
-    ssh-add $(find ~/.ssh/keys -not -name '*.pub' -type f)
-}
-
-function logme(){
-    sudo /home/hxr/work/go/bin/client --standalone
-}
-
-function mirror(){
-    vlc v4l2:///dev/video0
-}
-
-function xw(){
-    cat "$1" | xmllint --pretty 1 - | sponge "$1"
-}
-
-function jw(){
-	t=$(mktemp)
-    cat "$1" | jq -S '.' > $t
-	mv $t "$1"
-}
-
-function yt(){
-    youtube-dl -i -x --audio-format mp3 $@
-}
-
-function ytp(){
-    youtube-dl -i -x --audio-format mp3 -o '%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' $@
-}
-
-function vol(){
-    amixer -D pulse sset Master $@
-}
-
-function volu(){
-    increment="5%"
-	val=$(amixer -D pulse sget Master | grep '\[[0-9]*%\]' -o | sort -u | tr -d '[]%')
-	if (( $val < 30 )){
-		increment="2%"
-	}
-    amixer -D pulse sset Master $increment+
-}
-function vold(){
-    increment="5%"
-	val=$(amixer -D pulse sget Master | grep '\[[0-9]*%\]' -o | sort -u | tr -d '[]%')
-	if (( $val < 30 )){
-		increment="2%"
-	}
-    amixer -D pulse sset Master $increment-
-}
-
-function docker_cleanup() {
-    docker images | grep '<none' | awk '{print $3}' | xargs --no-run-if-empty docker rmi;
-	docker ps -a |grep -v 'Up' | awk '(NR>1){print $1}' | xargs --no-run-if-empty docker rm;
-}
-
-if [ -x /usr/games/cowsay -a -x /usr/games/fortune -a -x /usr/games/lolcat  ]; then
-	fortune | cowsay -W 60
-fi
-
-function alog(){
-	user_description=$(echo "-$1 $2 $3 $4 $5 $6 $7 $8 $9" | sed 's/\s*$//g;s/ /_/g;s/[^A-Za-z0-9_-]//g')
-	name=$(date "+%Y-%m-%dT%H:%M")"$user_description".mp3
-	echo "Saving to $name"
-	arecord -f cd -t raw | lame -x -r - $name
-}
-
-function hashit() {
-	for x in `cat requirements.txt | grep '^[^ ].*[^\\]$' | sed 's/[<>=]=.*//'`; do
-		hashin $x -r requirements.txt;
-	done;
-}
-
+# venv
 function venv(){
 	if [ ! -d '.venv' ];
 	then
@@ -244,13 +160,6 @@ function venv(){
 	fi
 }
 
-function indexify() {
-	if (( $# == 0 )); then
-		echo "indexify '*jpg' (find name filter)"
-	fi
-	find . -name "$1" | awk '{print "<img src="$0" height=300/>"}' > index.html
-}
-
 function venv2(){
 	if [ ! -d '.venv2' ];
 	then
@@ -268,141 +177,12 @@ function venv2(){
 	fi
 }
 
-function ignore(){
-	curl --silent https://www.gitignore.io/api/$1 >> .gitignore;
-	git add .gitignore;
-}
-function ignore-commit(){
-	curl --silent https://www.gitignore.io/api/$1 >> .gitignore;
-	git add .gitignore;
-	git commit -m 'Added gitignore';
-}
-
-function license(){
-	wanted="/usr/share/R/share/licenses/$1"
-	if [[ -f $wanted ]]; then
-		cp $wanted LICENSE;
-		git add LICENSE;
-		git commit -m 'Added LICENSE';
-	else
-		echo "Unknown license. Choose from"
-		ls /usr/share/R/share/licenses
-	fi
-}
-
-function testUtf8(){
-	curl http://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt;
-}
-
-alias -g gzc='gzip | base64 | xsel -b'
-alias -g gzd='xsel -b | base64 -d | gzip -d'
-
-function krup(){
-	docker-compose kill $1;
-	docker-compose rm -f $1;
-	docker-compose up -d $1;
-}
-
-function jsfmt(){
-	eslint --fix -c ~/.eslintrc $1
-}
-
-function pipi(){
-	pip install $1 && echo $1 >> requirements.txt;
-	pipfreeze
-}
-
-function pipfreeze(){
-	tmpfile=$(mktemp);
-	unpinned_reqs=$(mktemp);
-	cat requirements.txt| sed 's/==.*//' > $unpinned_reqs;
-	pip freeze | grep -i -f $unpinned_reqs | sort > $tmpfile;
-	rm -f $unpinned_reqs
-	mv $tmpfile requirements.txt;
-}
-
-function aqr(){
-	tmpfile=$(mktemp --suffix .png)
-	qrencode -s 6 -m 2 -lH -o $tmpfile $1
-	feh $tmpfile
-	rm -f $tmpfile
-}
-
-function y2j(){
-	python -c 'import sys; import yaml; import json; [sys.stdout.write(json.dumps(doc, indent=2)) for doc in yaml.load_all(sys.stdin)]'
-}
-
-function y2js(){
-	python -c 'import sys; import yaml; import json; sys.stdout.write(json.dumps(yaml.safe_load(sys.stdin), indent=2))'
-}
-
-function j2y(){
-	python -c 'import sys; import yaml; import json; yaml.dump(json.load(sys.stdin), sys.stdout)'
-}
-function j2y(){
-	python -c 'import sys; import yaml; import json; yaml.safe_dump(json.load(sys.stdin), sys.stdout, indent=2, default_flow_style=False)'
-}
-
 # I know what I'm doing, thank you.
 setopt rmstarsilent
 setopt no_nomatch
 # Feck off with huping my stuff.
 setopt nohup
 setopt no_check_jobs
-# The folders are too damn annoying.
-export PYTHONDONTWRITEBYTECODE=1
-
-export ANSIBLE_NOCOWS=1
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
-#export SDKMAN_DIR="/home/hxr/.sdkman"
-#[[ -s "/home/hxr/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hxr/.sdkman/bin/sdkman-init.sh"
-#. /home/hxr/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-. /home/hxr/Personal/secrets/env.secret
-export GPG_TTY=$BYOBU_TTY
-export R_LIBS_USER=/home/hxr/arbeit/R/x86_64-pc-linux-gnu-library/3.2
-
-function random_mac_and_reconnect(){
-	nmcli connection down $1;
-	nmcli connection modify $1 wifi.cloned-mac-address 00:$(openssl rand -hex 5 | sed 's/\([0-9a-f][0-9a-f]\)/\1:/g;s/:$//');
-	nmcli connection up $1;
-}
-
-function cdt(){
-	if [[ $# -gt 0 ]]; then
-		cd `mktemp -d /tmp/$1.XXXXXXXXXX`
-	else
-		cd `mktemp -d`
-	fi
-}
-alias cdw='cd ~/arbeit'
-
-function set_brightness() {
-	sudo tee $1 | /sys/class/backlight/intel_backlight/brightness
-}
-alias woman='man'
-
-function audio_loopback() {
-
-	if [ -z "$(pactl list short modules | grep module-loopback)"  ]; then
-		pactl load-module module-loopback latency_msec=1
-	else
-		pactl unload-module module-loopback
-	fi
-}
-alias axe="awk '{print \$2}' | xargs kill"
-alias mpv="mpv --no-audio-display"
-
-function wfdef() {
-	curl "https://www.mindsportsacademy.com/api/Wordcheck/CheckWord/$1" --compressed
-}
-
-function wfchk(){
-	grep '^'$1'$' /home/hxr/Personal/projects/sowpods/sowpods.txt
-}
-
-function wflen(){
-	awk '(length <= '$1'){ print $0 }'
-}
 
 ossec(){
 	if (( $# == 0 )); then
@@ -413,7 +193,7 @@ ossec(){
         echo "Current: $match"
         echo
 		echo "Options:"
-		for x in $(find /home/hxr/Personal/secrets/env.secret.cloud-*); do
+		for x in $(find ~/Personal/secrets/env.secret.cloud-*); do
 			echo " "$(basename $x | cut -c 18-);
 		done;
 		return
@@ -425,7 +205,7 @@ ossec(){
 			return
 		fi
 
-		vim /home/hxr/Personal/secrets/env.secret.cloud-$2
+		vim ~/Personal/secrets/env.secret.cloud-$2
 		return
 	elif [[ $1 == "clear" ]]; then
 		for x in $(env | grep OS | awk -F= '{print $1}'); do unset $x; done;
@@ -435,44 +215,7 @@ ossec(){
 	# Unset any existing OS env vars
 	for x in $(env | grep OS | awk -F= '{print $1}'); do unset $x; done;
 	# And set some new ones
-	source /home/hxr/Personal/secrets/env.secret.cloud-$1
-}
-
-function rz(){
-	if (( $# > 0 )); then
-		jrnl rz now: "$@"
-	else
-		jrnl rz
-	fi
-}
-
-function inf(){
-	if (( $# > 0 )); then
-		jrnl inf now: "$@"
-	else
-		jrnl inf
-	fi
-}
-
-function mountraw(){
-	if (( $# != 2 )); then
-		echo "mountraw img.raw /path"
-	else
-		mount -o loop,offset=$(( 512 * $(fdisk -lu | awk '/Linux/ {} END {print $3}') )) $1 $2
-	fi
-}
-
-wallpaper() {
-	if [[ ! -f "$@" ]]; then
-		echo "not existing"
-	else
-		rm -f /home/hxr/.wallpaper.jpg
-		ln -s "$(readlink -f "$@")" /home/hxr/.wallpaper.jpg
-	fi
-}
-
-raise() {
-	wmctrl -x -a $@
+	source ~/Personal/secrets/env.secret.cloud-$1
 }
 
 shutter_session(){
@@ -481,27 +224,10 @@ shutter_session(){
 	shutter &
 }
 
-
-weer(){
-	if (( $(tput cols) < 125 )); then
-		curl "https://wttr.in/${1:-Freiburg}?m&T&n"
-	else
-		curl "https://wttr.in/${1:-Freiburg}?m&T"
-	fi
-}
-
 #pgrep syndaemon > /dev/null || syndaemon -i 1 -d -K &
 #de.py
 
-# added by travis gem
-[ -f /home/hxr/.travis/travis.sh ] && source /home/hxr/.travis/travis.sh
-
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-export PGHOST=localhost
-export PGUSER=postgres
-export PGPASSWORD=postgres
-export GOPATH=~/arbeit/go-src GOROOT=~/arbeit/go
 
 activate-nvm() {
 	export NVM_DIR="$HOME/.config"
@@ -509,15 +235,8 @@ activate-nvm() {
 	[ -s "$NVM_DIR/bash_completion"  ] && \. "$NVM_DIR/bash_completion" #
 }
 
-# Use vim bindings
-set -o vi
-# but let ctrl-r still work
-bindkey "^R" history-incremental-search-backward
-
-
-
 activate-conda() {
-	__conda_setup="$('/home/hxr/arbeit/miniconda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+	__conda_setup="$(~/arbeit/miniconda/bin/conda 'shell.bash' 'hook' 2> /dev/null)"
 	if [ $? -eq 0 ]; then
 		eval "$__conda_setup"
 	else
@@ -528,4 +247,24 @@ activate-conda() {
 		fi
 	fi
 	unset __conda_setup
+}
+
+activate-circos() {
+	export PERL5LIB=~/arbeit/perl5/lib/perl5
+	export PATH=$(find ~/arbeit/circos/circos-tools-0.22/tools/*/bin -maxdepth 0 | paste -s -d:):$PATH
+
+	# find latest circos
+	if (( $# == 0 )); then
+		latest=$(find ~/arbeit/circos/ -maxdepth 1 -name 'circos-[0-9.-]*' -type d | sort | tail -n 1)
+		echo "Activating $latest"
+	else
+		latest=$(find ~/arbeit/circos/ -maxdepth 1 -name 'circos-[0-9.-]*' -type d | grep "$1" | sort | tail -n 1)
+		if [[ "$latest" != "" ]]; then
+			echo "Activating $latest"
+		else
+			echo "Could not activate circos"
+		fi
+	fi
+
+	export PATH="$latest/bin:$PATH"
 }

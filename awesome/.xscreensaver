@@ -1,6 +1,6 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-demo 5.34 for hxr on Thu Apr  6 22:26:02 2017.
-# http://www.jwz.org/xscreensaver/
+# Written by xscreensaver-demo 5.36 for hxr on Sun Jul  7 17:47:11 2019.
+# https://www.jwz.org/xscreensaver/
 
 timeout:	0:10:00
 cycle:		0:03:00
@@ -31,15 +31,15 @@ dpmsSuspend:	2:00:00
 dpmsOff:	4:00:00
 grabDesktopImages:  False
 grabVideoFrames:    False
-chooseRandomImages: False
-imageDirectory:	
+chooseRandomImages: True
+imageDirectory:
 
-mode:		random
-selected:	-1
+mode:		off
+selected:	143
 
 textMode:	url
 textLiteral:	XScreenSaver
-textFile:	
+textFile:
 textProgram:	fortune startrek
 textURL:	http://localhost:5000/
 
@@ -189,7 +189,8 @@ programs:								      \
 - GL: 				gleidescope -root			    \n\
 - GL: 				glknots -root				    \n\
   GL: 				glmatrix -root -mode dna		    \n\
-- GL: 				glslideshow -root			    \n\
+- GL: 				glslideshow -root -delay 100000 -duration     \
+				  300 -zoom 100 -pan 1 -fade 0		    \n\
 - GL: 				hypertorus -root			    \n\
 - GL: 				jigglypuff -root			    \n\
 -				metaballs -root				    \n\
@@ -262,6 +263,16 @@ programs:								      \
   GL: 				winduprobot -root			    \n\
 - GL: 				splitflap -root				    \n\
 -				testx11 -root				    \n\
+  GL: 				cubestack -root				    \n\
+  GL: 				cubetwist -root				    \n\
+  GL: 				discoball -root				    \n\
+  GL: 				dymaxionmap -root			    \n\
+  GL: 				energystream -root			    \n\
+  GL: 				hexstrut -root				    \n\
+  GL: 				hydrostat -root				    \n\
+  GL: 				raverhoop -root				    \n\
+  GL: 				splodesic -root				    \n\
+  GL: 				unicrud -root				    \n\
 
 
 pointerPollTime:    0:00:05

@@ -5,6 +5,7 @@
 
 [push]
 	default = current
+	followTags = true
 
 [commit]
 	;gpgsign = true
@@ -51,6 +52,7 @@
 
 [core]
 	whitespace = trailing-space,space-before-tab
+	excludesfile = /home/hxr/.gitignore_global
 
 ;[transfer]
 	;fsckobjects = true

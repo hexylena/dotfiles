@@ -48,7 +48,7 @@ end
 
 run_once("/home/hxr/.screenlayout/default.sh")
 run_once("killall gnome-screensaver")
-run_once("xscreensaver &")
+--run_once("xscreensaver &")
 run_once("nm-applet &")
 run_once("setxkbmap -option compose:caps")
 -- }}}
@@ -142,7 +142,7 @@ end
 -- {{{ Wallpaper
 if beautiful.wallpaper then
     for s = 1, screen.count() do
-        gears.wallpaper.maximized(os.getenv("HOME") .. "/.wallpaper.jpg", s, false)
+        gears.wallpaper.maximized(os.getenv("HOME") .. "/Personal/screenlock/goes16.png", s, false)
     end
 end
 -- }}}
@@ -327,7 +327,7 @@ globalkeys = awful.util.table.join(
 
     -- Widgets popups
     awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end),
-    awful.key({ altkey,           }, "h",      function () fswidget.show(7) end),
+    --awful.key({ altkey,           }, "h",      function () fswidget.show(7) end),
 
     -- ALSA volume control
 
@@ -342,8 +342,8 @@ globalkeys = awful.util.table.join(
     awful.key({  }, "XF86MonBrightnessUp",   function () awful.util.spawn("xbacklight -inc 5") end),
     awful.key({ modkey }, "q", function() awful.util.spawn("xscreensaver-command -lock") end),
 
-    awful.key({  }, "XF86AudioLowerVolume",   function () awful.util.spawn("amixer -D pulse sset Master 5%-") end),
-    awful.key({  }, "XF86AudioRaiseVolume",   function () awful.util.spawn("amixer -D pulse sset Master 5%+") end),
+    awful.key({  }, "XF86AudioLowerVolume",   function () awful.util.spawn("pactl set-sink-volume 0 -5%") end),
+    awful.key({  }, "XF86AudioRaiseVolume",   function () awful.util.spawn("pactl set-sink-volume 0 +5%") end),
     awful.key({  }, "XF86AudioMute",   function () awful.util.spawn("amixer -D pulse sset Master 0%") end),
 
     awful.key({  }, "Print",   function () awful.util.spawn("shutter -s") end),

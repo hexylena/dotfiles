@@ -1,32 +1,41 @@
-let g:tex_conceal = ""
 set rtp+=~/.fzf
 set mouse=
 "color molokai
 "color Tomorrow
-color Monokai
+"color Monokai
 "color summerfruit256
+color hxr
 "color abbott
 set conceallevel=0 concealcursor=i
 let g:spf13_edit_config_mapping='<Leader>ev'
 let g:spf13_apply_config_mapping='<Leader>sv'
 
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
-au FileType go nmap <leader>c <Plug>(go-coverage)
-au FileType go nmap <Leader>gd <Plug>(go-doc)
-au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
-au FileType go nmap <Leader>s <Plug>(go-implements)
-au FileType go nmap <Leader>i <Plug>(go-info)
-au FileType go nmap <Leader>e <Plug>(go-rename)
-
 let g:syntastic_python_checkers = ['pylint']
-set nospell
+set nospell " Spell checking is annoying.
 
-set noexpandtab
-autocmd FileType javascript set backupcopy=yes
+" todo: per file
+"set noexpandtab
 inoremap jj <ESC>
 
 let g:spf13_no_omni_complete = 1
 let g:spf13_keep_trailing_whitespace = 0
+
+" set the leader to comma, per preference
+let mapleader = ","
+
+" Number relative to cursor position. Kinda nice? Also kinda doubles up what
+" the fancy motion plugin does. Meh.
+"set relativenumber
+"
+if filereadable(expand("~/.vimrc.color"))
+    source ~/.vimrc.color
+endif
+
+autocmd BufWritePre * :%s/\s\+$//e
+set wrap
+set noexpandtab
+" Fixes snippets in training materials.
+set nofixendofline
+
+noremap <leader>tm :VoomToggle markdown<CR>
+noremap <leader>tp :VoomToggle python<CR>
