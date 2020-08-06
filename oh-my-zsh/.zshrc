@@ -272,3 +272,15 @@ activate-circos() {
 
 	export PATH="$latest/bin:$PATH"
 }
+
+activate-rust() {
+	source $HOME/.cargo/env
+}
+
+cdt() {
+	if [[ $# -gt 0 ]]; then
+		cd `mktemp -d /tmp/$1.XXXXXXXXXX`
+	else
+		cd `mktemp -d`
+	fi
+}
