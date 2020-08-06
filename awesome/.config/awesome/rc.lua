@@ -66,14 +66,14 @@ fnkey      = "Mod2"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
     awful.layout.suit.spiral,
     awful.layout.suit.spiral.dwindle,
+    awful.layout.suit.tile,
+    awful.layout.suit.tile.left,
+    awful.layout.suit.tile.bottom,
+    awful.layout.suit.tile.top,
     awful.layout.suit.max,
     awful.layout.suit.max.fullscreen,
     awful.layout.suit.magnifier,
@@ -170,11 +170,11 @@ end)
 -- }}}
 
 -- {{{ Mouse bindings
-root.buttons(gears.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
-))
+--root.buttons(gears.table.join(
+    --awful.button({ }, 3, function () mymainmenu:toggle() end),
+    --awful.button({ }, 4, awful.tag.viewnext),
+    --awful.button({ }, 5, awful.tag.viewprev)
+--))
 -- }}}
 
 -- {{{ Key bindings
@@ -275,10 +275,10 @@ clientkeys = gears.table.join(
               {description = "close", group = "client"}),
     awful.key({ modkey,           }, "m",
         function (c)
-            c.maximized = not c.maximized
+            c.maximized = false
             c:raise()
         end ,
-        {description = "(un)maximize", group = "client"})
+        {description = "unmaximize", group = "client"})
 )
 
 -- Bind all key numbers to tags.
