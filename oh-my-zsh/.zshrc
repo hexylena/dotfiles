@@ -143,9 +143,10 @@ bg() {
 
 # venv
 function venv(){
-	if [ ! -d '.venv' ];
-	then
+	new_venv=0
+	if [ ! -d '.venv' ]; then
 		virtualenv .venv -p $(which python3.7);
+		new_venv=1
 	fi
 
 	. .venv/bin/activate  # commented out by conda initialize
@@ -153,7 +154,7 @@ function venv(){
 	if [ -e 'requirements.txt' ]; then
 		venv_age=$(stat -c %Y .venv)
 		reqs_age=$(stat -c %Y requirements.txt)
-		if (( reqs_age > venv_age )); then
+		if (( new_venv == 1 )) || (( reqs_age > venv_age )); then
 			pip install -r requirements.txt;
 		fi
 	fi
@@ -239,6 +240,7 @@ activate-nvm() {
 }
 
 activate-conda() {
+	unset R_LIBS_USER
 	__conda_setup="$(~/arbeit/miniconda/bin/conda 'shell.bash' 'hook' 2> /dev/null)"
 	if [ $? -eq 0 ]; then
 		eval "$__conda_setup"
@@ -253,7 +255,6 @@ activate-conda() {
 }
 
 activate-circos() {
-	export PERL5LIB=~/arbeit/perl5/lib/perl5
 	export PATH=$(find ~/arbeit/circos/circos-tools-0.22/tools/*/bin -maxdepth 0 | paste -s -d:):$PATH
 
 	# find latest circos
