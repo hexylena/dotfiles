@@ -65,3 +65,13 @@
 	program = gpg2
 [pull]
 	rebase = true
+
+[merge "merge-changelog"]
+	name = GNU-style ChangeLog merge driver
+	driver = /usr/bin/git-merge-changelog %O %A %B
+
+[color "diff"]
+	meta = bold
+	frag = magenta bold
+	old = strike reverse
+	new = blue dim reverse
