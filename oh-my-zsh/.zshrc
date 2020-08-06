@@ -78,17 +78,18 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR='vim'
 export TEXMFHOME='~/.texmf'
 export GOPATH=$HOME/arbeit/go
-export GOROOT=$HOME/arbeit/go-src
+export GOROOT=$HOME/arbeit/deps/go
 export PATH=$HOME/.local/bin/:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/.rvm/bin
 # The folders are too damn annoying.
 export PYTHONDONTWRITEBYTECODE=1
 export ANSIBLE_NOCOWS=1
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 export GPG_TTY=$BYOBU_TTY
-export R_LIBS_USER=~/arbeit/R/x86_64-pc-linux-gnu-library/3.2
+export R_LIBS_USER=~/arbeit/deps/R/x86_64-pc-linux-gnu-library/3.2
 export PGHOST=localhost
 export PGUSER=postgres
 export PGPASSWORD=postgres
+export PERL5LIB=~/arbeit/deps/perl5/lib/perl5
 
 
 # Use vim bindings
@@ -103,7 +104,9 @@ bindkey "^R" history-incremental-search-backward
 alias sl='ls'
 alias ll='ls -al'
 alias s='ls -al'
+alias k='ls'
 alias ks='ls -al'
+alias kr='ls -al --sort=t -r'
 alias mkae='make'
 alias woman='man'
 alias cear='clear'
