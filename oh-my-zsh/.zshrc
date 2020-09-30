@@ -90,6 +90,8 @@ export PGHOST=localhost
 export PGUSER=postgres
 export PGPASSWORD=postgres
 export PERL5LIB=~/arbeit/deps/perl5/lib/perl5
+export TERM=xterm-256color # 'screen' screws p home/end.
+export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring # https://github.com/pypa/pip/issues/7883 GO AWAY.
 
 
 # Use vim bindings
@@ -113,13 +115,14 @@ alias cear='clear'
 alias ckear='clear'
 alias byobu-attach='byobu attach -t '
 alias byobu-att='byobu attach -t '
-alias python=python3
+alias python=python3.8
+alias pip=pip3
 alias j=jrnl
 alias axe="awk '{print \$2}' | xargs kill"
 alias mpv="mpv --no-audio-display"
 alias makep='make -f ~/dotfiles/oh-my-zsh/Makefile -f Makefile'
 alias qmv='qmv -fdo'
-alias cat='lolcat -t'
+#alias cat='lolcat -t'
 
 # ???
 fg() {
@@ -145,7 +148,8 @@ bg() {
 function venv(){
 	new_venv=0
 	if [ ! -d '.venv' ]; then
-		virtualenv .venv -p $(which python3.7);
+		#virtualenv .venv -p $(which python3.7);
+		python3.8 -mvenv .venv
 		new_venv=1
 	fi
 

@@ -10,7 +10,7 @@ local etc="%{$fg[gray]%}%~%{$reset_color%}"
 return_code="%(?..%{$fg[red]%}%?%{$reset_color%})"
 
 PROMPT='$(git_prompt_info)[%{$fg[$NCOLOR]%}$user@$host%{$reset_color%}:$etc]$return_code%(!.#.$) '
-RPROMPT=''
+RPROMPT='$(date --rfc-3339=seconds)'
 
 # git theming
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[gray]%}(%{$fg_no_bold[red]%}%B"
