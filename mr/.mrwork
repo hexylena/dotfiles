@@ -1,0 +1,156 @@
+
+[arbeit/thesis]
+checkout = git clone 'git@github.com:shiltemann/thesis' 'thesis'
+
+[arbeit/grants]
+checkout = git clone 'git@github.com:shiltemann/grants' 'grants'
+
+[arbeit/cv]
+checkout = git clone 'git@github.com:erasche/cv.git' 'cv'
+
+[arbeit/presentations]
+checkout = git clone 'git@github.com:erasche/presentations.git' 'presentations'
+
+[arbeit/galaxy/tools-star]
+checkout = git clone 'git@github.com:galaxyproject/usegalaxy-tools.git' 'tools-star'
+
+[arbeit/galaxy/gxadmin]
+checkout = git clone 'git@github.com:usegalaxy-eu/gxadmin' 'gxadmin'
+
+[arbeit/galaxy/tools-blast]
+checkout = git clone 'git@github.com:peterjc/galaxy_blast.git' 'tools-blast'
+
+[arbeit/galaxy/training-material]
+checkout = git clone 'git@github.com:galaxyproject/training-material.git' 'training-material'
+
+[arbeit/galaxy/video-lectures]
+checkout = git clone 'https://github.com/galaxyproject/video-lectures' 'video-lectures'
+
+[arbeit/galaxy/ansible-galaxy]
+checkout = git clone 'git@github.com:galaxyproject/ansible-galaxy.git' 'ansible-galaxy'
+
+[arbeit/galaxy/ansible-influxdb]
+checkout = git clone 'git@github.com:usegalaxy-eu/ansible-influxdb.git' 'ansible-influxdb'
+
+[arbeit/galaxy/tools-bag]
+checkout = git clone 'git@github.com:bgruening/galaxytools.git' 'tools-bag'
+
+[arbeit/galaxy/shared-data]
+checkout = git clone 'git@github.com:usegalaxy-eu/shared-data.git' 'shared-data'
+
+[arbeit/galaxy/iReport]
+checkout = git clone 'https://github.com/shiltemann/iReport' 'iReport'
+
+[arbeit/galaxy/galaxyxml]
+checkout = git clone 'git@github.com:hexylena/galaxyxml.git' 'galaxyxml'
+
+[arbeit/galaxy/argparse2tool]
+checkout = git clone 'git@github.com:hexylena/argparse2tool.git' 'argparse2tool'
+
+[arbeit/galaxy/tools-cpt]
+checkout = git clone 'https://github.com/tamu-cpt/galaxy-tools' 'tools-cpt'
+
+[arbeit/galaxy/ansible-galaxy-systemd]
+checkout = git clone 'git@github.com:usegalaxy-eu/ansible-galaxy-systemd' 'ansible-galaxy-systemd'
+
+[arbeit/galaxy/cheatsheets]
+checkout = git clone 'git://github.com/shiltemann/cheatsheets.git' 'cheatsheets'
+
+[arbeit/galaxy/ephemeris]
+checkout = git clone 'git@github.com:galaxyproject/ephemeris.git' 'ephemeris'
+
+[arbeit/galaxy/tiaas2]
+checkout = git clone 'git@github.com:usegalaxy-eu/tiaas2' 'tiaas2'
+
+[arbeit/galaxy/galaxy]
+checkout = git clone 'git@github.com:hexylena/galaxy' 'galaxy'
+
+[arbeit/galaxy/tools-gga]
+checkout = git clone 'git@github.com:galaxy-genome-annotation/galaxy-tools.git' 'tools-gga'
+
+[arbeit/galaxy/grt]
+checkout = git clone 'git@github.com:erasche/galactic-radio-telescope' 'grt'
+
+[arbeit/galaxy/bioblend]
+checkout = git clone 'git@github.com:erasche/bioblend.git' 'bioblend'
+
+[arbeit/galaxy/bioconda-recipes]
+checkout = git clone 'git@github.com:erasche/bioconda-recipes.git' 'bioconda-recipes'
+
+[arbeit/galaxy/python-apollo]
+checkout = git clone 'git@github.com:galaxy-genome-annotation/python-apollo.git' 'python-apollo'
+
+[arbeit/galaxy/WeFaceNano]
+checkout = git clone 'https://github.com/ErasmusMC-Bioinformatics/WeFaceNano/' 'WeFaceNano'
+
+[arbeit/galaxy/hub]
+checkout = git clone 'git@github.com:galaxyproject/galaxy-hub' 'hub'
+
+[arbeit/galaxy/parsec]
+checkout = git clone 'git@github.com:galaxy-iuc/parsec' 'parsec'
+
+[arbeit/galaxy/docker-galaxy-volume]
+checkout = git clone 'git@github.com:erasche/docker-galaxy-volume.git' 'docker-galaxy-volume'
+
+[arbeit/galaxy/wap]
+checkout = git clone 'git@github.com:hexylena/wap.git' 'wap'
+
+[arbeit/galaxy/tools-eu]
+checkout = git clone 'git@github.com:usegalaxy-eu/usegalaxy-eu-tools' 'tools-eu'
+
+[arbeit/galaxy/ansible-cvmfs]
+checkout = git clone 'git@github.com:galaxyproject/ansible-cvmfs.git' 'ansible-cvmfs'
+
+[arbeit/galaxy/galaxy-workflow-plotter]
+checkout = git clone 'git@github.com:hexylena/galaxy-workflow-plotter.git' 'galaxy-workflow-plotter'
+
+[arbeit/galaxy/store]
+checkout = git clone 'https://github.com/sivers/store/' 'store'
+
+[arbeit/galaxy/ansible-nginx]
+checkout = git clone 'git@github.com:galaxyproject/ansible-nginx.git' 'ansible-nginx'
+
+[arbeit/galaxy/tools-devteam]
+checkout = git clone 'git@github.com:galaxyproject/tools-devteam.git' 'tools-devteam'
+
+[arbeit/galaxy/dagobah-gat]
+checkout = git clone 'git@github.com:galaxyproject/dagobah-training.git' 'dagobah-gat'
+
+[arbeit/galaxy/tools-phac]
+checkout = git clone 'git@github.com:hexylena/galaxy_tools.git' 'tools-phac'
+
+[arbeit/galaxy/eu/website]
+checkout = git clone 'git@github.com:usegalaxy-eu/website' 'website'
+
+[arbeit/galaxy/eu/temporary-tools]
+checkout = git clone 'git@github.com:usegalaxy-eu/temporary-tools' 'temporary-tools'
+
+[arbeit/galaxy/eu/vgcn-infrastructure]
+checkout = git clone 'git@github.com:usegalaxy-eu/vgcn-infrastructure.git' 'vgcn-infrastructure'
+
+[arbeit/galaxy/eu/galaxy-webhooks]
+checkout = git clone 'git@github.com:usegalaxy-eu/galaxy-webhooks' 'galaxy-webhooks'
+
+[arbeit/galaxy/eu/infrastructure]
+checkout = git clone 'git@github.com:usegalaxy-eu/infrastructure.git' 'infrastructure'
+
+[arbeit/galaxy/eu/infrastructure-playbook]
+checkout = git clone 'git@github.com:usegalaxy-eu/infrastructure-playbook' 'infrastructure-playbook'
+
+[arbeit/galaxy/eu/sorting-hat]
+checkout = git clone 'git@github.com:usegalaxy-eu/sorting-hat.git' 'sorting-hat'
+
+[arbeit/deps/cool-retro-term]
+checkout = git clone 'https://github.com/Swordfish90/cool-retro-term' 'cool-retro-term'
+
+[arbeit/deps/libxlsxwriter]
+checkout = git clone 'https://github.com/jmcnamara/libxlsxwriter.git' 'libxlsxwriter'
+
+[arbeit/deps/sc-im]
+checkout = git clone 'https://github.com/andmarti1424/sc-im' 'sc-im'
+
+[arbeit/deps/keepassxc]
+checkout = git clone 'https://github.com/keepassxreboot/keepassxc' 'keepassxc'
+
+[arbeit/deps/alacritty]
+checkout = git clone 'https://github.com/jwilm/alacritty' 'alacritty'
