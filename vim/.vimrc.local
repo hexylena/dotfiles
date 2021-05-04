@@ -39,3 +39,17 @@ set nofixendofline
 
 noremap <leader>tm :VoomToggle markdown<CR>
 noremap <leader>tp :VoomToggle python<CR>
+
+autocmd BufNewFile,BufRead *.ink set filetype=ink
+let g:NERDCustomDelimiters = { 'ink': { 'left': '// ' } }
+
+let g:goyo_width = "80%"
+let g:goyo_height = "80%"
+
+autocmd BufNewFile,BufRead /home/hxr/Personal/projects/writing/* set ts=4
+autocmd BufNewFile,BufRead /home/hxr/Personal/projects/writing/* :Voom markdown
+
+"augroup md
+  "autocmd!
+  "autocmd BufReadPost,BufWritePre,BufWritePost /home/hxr/Personal/projects/gigglepig/* normal ggg?G``
+"augroup END

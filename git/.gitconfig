@@ -51,6 +51,8 @@
 	pukk = pull
 	staash = stash
 
+	fix-ssh = !/home/hxr/.bin/git-fix-ssh
+
 [core]
 	whitespace = trailing-space,space-before-tab
 	excludesfile = /home/hxr/.gitignore_global
@@ -75,3 +77,6 @@
 	frag = magenta bold
 	old = strike reverse
 	new = blue dim reverse
+[init]
+	defaultBranch = main
+	templateDir = ~/arbeit/tpl.git

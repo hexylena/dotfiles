@@ -42,11 +42,11 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 HIST_STAMPS="yyyy-mm-dd"
 export HISTTIMEFORMAT="%Y-%m-%d-%H-%M-%S "
-export HISTSIZE=5000000000
-export SAVEHIST=${HISTSIZE}
+export HISTSIZE=1000000001
+export SAVEHIST=$HISTSIZE
 export HISTFILE=~/.zsh_history
 setopt append_history
-setopt extended_history
+setopt EXTENDED_HISTORY
 setopt hist_reduce_blanks
 setopt hist_no_store
 setopt hist_ignore_dups
@@ -92,6 +92,8 @@ export PGPASSWORD=postgres
 export PERL5LIB=~/arbeit/deps/perl5/lib/perl5
 export TERM=xterm-256color # 'screen' screws p home/end.
 export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring # https://github.com/pypa/pip/issues/7883 GO AWAY.
+export GREP_COLORS='mt=1;37;4;40'
+export TZ_LIST="Europe/Amsterdam,Australia/Melbourne,Asia/Kolkata,US/Pacific,US/Central,US/Eastern"
 
 
 # Use vim bindings
@@ -109,6 +111,7 @@ alias s='ls -al'
 alias k='ls'
 alias ks='ls -al'
 alias kr='ls -al --sort=t -r'
+alias rm='rm -i'
 alias mkae='make'
 alias woman='man'
 alias cear='clear'
@@ -117,11 +120,11 @@ alias byobu-attach='byobu attach -t '
 alias byobu-att='byobu attach -t '
 alias python=python3.8
 alias pip=pip3
-alias j=jrnl
 alias axe="awk '{print \$2}' | xargs kill"
 alias mpv="mpv --no-audio-display"
 alias makep='make -f ~/dotfiles/oh-my-zsh/Makefile -f Makefile'
 alias qmv='qmv -fdo'
+alias ploc='plocate -d ~/.cache/plocate.db'
 #alias cat='lolcat -t'
 
 # ???
@@ -194,36 +197,33 @@ setopt no_check_jobs
 
 ossec(){
 	if (( $# == 0 )); then
-        opts_a=$(grep OS_PASSWORD=${OS_PASSWORD:-no-match} ~/Personal/secrets/env.secret* -l)
-        opts_b=$(grep OS_AUTH_URL=${OS_AUTH_URL:-no-match} ~/Personal/secrets/env.secret* -l)
-        match=$(join <(echo "$opts_a") <(echo "$opts_b") | sed 's|/home/hxr/Personal/secrets/env.secret.cloud-||g')
-
-        echo "Current: $match"
-        echo
-		echo "Options:"
-		for x in $(find ~/Personal/secrets/env.secret.cloud-*); do
-			echo " "$(basename $x | cut -c 18-);
-		done;
+		echo "Current: ${_OSSEC:-none}"
+		echo
+		find ~/Personal/secrets/env.secret.* | sed 's/.*env.secret./  /g'
+		echo
+		echo "ossec clear - wipes out vars."
 		return
 	fi
 
-	if [[ $1 == "add" ]]; then
-		if (( $# < 2 )); then
-			echo "ossec add <name>"
-			return
+	# TODO: support multiple
+	if [[ $1 == "clear" ]]; then
+		if [[ -n "$_OSSEC" ]]; then
+			$(cat ~/Personal/secrets/env.secret.ansible | sed 's/export/unset/g;s/=.*//g')
+			export _OSSEC=""
+		else
+			echo "No currently active environment(s)"
 		fi
-
-		vim ~/Personal/secrets/env.secret.cloud-$2
-		return
-	elif [[ $1 == "clear" ]]; then
-		for x in $(env | grep OS | awk -F= '{print $1}'); do unset $x; done;
 		return
 	fi
 
-	# Unset any existing OS env vars
-	for x in $(env | grep OS | awk -F= '{print $1}'); do unset $x; done;
 	# And set some new ones
-	source ~/Personal/secrets/env.secret.cloud-$1
+	source ~/Personal/secrets/env.secret.$1
+
+	if [[ -n "$_OSSEC" ]]; then
+		export _OSSEC="$_OSSEC:$1"
+	else
+		export _OSSEC=$1
+	fi
 }
 
 shutter_session(){
@@ -245,17 +245,7 @@ activate-nvm() {
 
 activate-conda() {
 	unset R_LIBS_USER
-	__conda_setup="$(~/arbeit/miniconda/bin/conda 'shell.bash' 'hook' 2> /dev/null)"
-	if [ $? -eq 0 ]; then
-		eval "$__conda_setup"
-	else
-		if [ -f "/home/hxr/arbeit/miniconda/etc/profile.d/conda.sh" ]; then
-			. "/home/hxr/arbeit/miniconda/etc/profile.d/conda.sh"
-		else
-			export PATH="/home/hxr/arbeit/miniconda/bin:$PATH"
-		fi
-	fi
-	unset __conda_setup
+	eval "$(/home/hxr/arbeit/deps/miniconda3/bin/conda shell.bash hook)"
 }
 
 activate-circos() {
@@ -288,3 +278,9 @@ cdt() {
 		cd `mktemp -d`
 	fi
 }
+
+eval "$(direnv hook zsh)"
+# again? idk.
+export HISTSIZE=1000000000
+export SAVEHIST=$HISTSIZE
+setopt EXTENDED_HISTORY

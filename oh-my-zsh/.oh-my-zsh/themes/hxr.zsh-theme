@@ -9,14 +9,15 @@ local host="%m"
 local etc="%{$fg[gray]%}%~%{$reset_color%}"
 return_code="%(?..%{$fg[red]%}%?%{$reset_color%})"
 
-PROMPT='$(git_prompt_info)[%{$fg[$NCOLOR]%}$user@$host%{$reset_color%}:$etc]$return_code%(!.#.$) '
-RPROMPT='$(date --rfc-3339=seconds)'
+PROMPT='$(date '+%H:%M:%S')|$(git_prompt_info)[%{$fg[$NCOLOR]%}$user@$host%{$reset_color%}:$etc]$return_code%(!.#.$) '
+#RPROMPT=''
 
 # git theming
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[gray]%}(%{$fg_no_bold[red]%}%B"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%b%{$fg_bold[gray]%})%{$reset_color%} "
 ZSH_THEME_GIT_PROMPT_CLEAN=""
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[red]%}✱"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[red]%}‽"
+
 
 ### LS colors, made with http://geoff.greer.fm/lscolors/
 export LSCOLORS="Gxfxcxdxbxegedabagacad"

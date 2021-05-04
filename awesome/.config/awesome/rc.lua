@@ -31,6 +31,20 @@ if awesome.startup_errors then
                      text = awesome.startup_errors })
 end
 
+
+-- {{{ Autostart applications
+function run_once(cmd)
+  findme = cmd
+  firstspace = cmd:find(" ")
+  if firstspace then
+     findme = cmd:sub(0, firstspace-1)
+  end
+  awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
+end
+
+run_once("compton --invert-color-include 'class_g=\"Microsoft Teams - Preview\"'")
+-- }}}
+
 -- Handle runtime errors after startup
 do
     local in_error = false
@@ -263,11 +277,12 @@ globalkeys = gears.table.join(
     awful.key({  }, "XF86MonBrightnessUp",   function () awful.util.spawn("xbacklight -inc 5") end),
     awful.key({ modkey }, "q", function() awful.util.spawn("xscreensaver-command -lock") end),
 
-    awful.key({  }, "XF86AudioLowerVolume",   function () awful.util.spawn("pactl set-sink-volume 0 -5%") end),
-    awful.key({  }, "XF86AudioRaiseVolume",   function () awful.util.spawn("pactl set-sink-volume 0 +5%") end),
+    awful.key({  }, "XF86AudioLowerVolume",   function () awful.util.spawn("/home/hxr/.bin/pactl-active-down") end),
+    awful.key({  }, "XF86AudioRaiseVolume",   function () awful.util.spawn("/home/hxr/.bin/pactl-active-up") end),
     awful.key({  }, "XF86AudioMute",   function () awful.util.spawn("amixer -D pulse sset Master 0%") end),
 
-	awful.key({  }, "Print",   function () awful.util.spawn("shutter -s") end)
+	awful.key({  }, "Print",   function () awful.util.spawn("flameshot gui -p /home/hxr/screenshots") end)
+	--awful.key({  }, "Print",   function () awful.util.spawn("shutter -s") end)
 	--awful.key({  }, "Print",   function () awful.util.spawn("gnome-screenshot -c -a") end)
 )
 
