@@ -27,6 +27,8 @@ build-essential
 cmake
 jq
 okular
+element-desktop
+docker-ce docker-ce-cli containerd.io
 
 # graphics / media / av
 ffmpeg
@@ -38,6 +40,7 @@ mpv
 rtmpdump
 exifprobe
 exiftool
+gxlgears
 
 # utils
 fdupes
@@ -55,7 +58,9 @@ silversearcher-ag
 agedu
 apache2-utils
 transmission-gtk
-
+peek
+direnv
+flameshot
 
 # WM
 awesome

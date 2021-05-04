@@ -18,14 +18,17 @@ apt: # apt_docker apt_node ## Install packages
 	sudo snap install spotify
 	sudo snap install --classic slack
 	sudo snap install zoom-client
+	sudo snap install keepassxc
+	sudo snap install telegram-desktop
 	sudo apt install -q -y $$(cat packages.txt  | grep -v '^#' | paste -s)
 
-/home/hxr/.bin/trans: ## Install translation tool
-	curl -L git.io/trans -o $@
-	chmod +x $@
+other-peoples-repos:
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+	echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+	sudo wget -O /usr/share/keyrings/riot-im-archive-keyring.gpg https://packages.riot.im/debian/riot-im-archive-keyring.gpg
+	echo "deb [signed-by=/usr/share/keyrings/riot-im-archive-keyring.gpg] https://packages.riot.im/debian/ default main" | sudo tee /etc/apt/sources.list.d/riot-im.list
 
-/home/hxr/.spf13-vim-3: ## Install spf13-vim
-	echo 'installing spf'
-	#curl http://j.mp/spf13-vim3 -L -o - | sh
+omzsh:
+	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 .PHONY: apt bootstrap fix-origin
