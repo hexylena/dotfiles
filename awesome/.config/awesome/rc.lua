@@ -42,7 +42,7 @@ function run_once(cmd)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
 end
 
-run_once("compton --invert-color-include 'class_g=\"Microsoft Teams - Preview\"'")
+--run_once("compton --invert-color-include 'class_g=\"Microsoft Teams - Preview\"'")
 -- }}}
 
 -- Handle runtime errors after startup
@@ -61,9 +61,6 @@ do
 end
 -- }}}
 
-
-
-
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/theme/theme.lua")
@@ -78,9 +75,9 @@ editor_cmd = terminal .. " -e " .. editor
 -- If you do not like this or do not have such a key,
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
-modkey     = "Mod4"
-altkey     = "Mod1"
-fnkey      = "Mod2"
+modkey = "Mod4"
+altkey = "Mod1"
+fnkey  = "Mod2"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {

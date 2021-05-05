@@ -13,6 +13,8 @@ pv
 apt-transport-https
 aptitude
 wireshark
+wakeonlan
+gnupg2
 
 # work / office
 firefox
@@ -40,7 +42,7 @@ mpv
 rtmpdump
 exifprobe
 exiftool
-gxlgears
+#glxgears
 
 # utils
 fdupes
@@ -74,4 +76,4 @@ xscreensaver-screensaver-dizzy
 xscreensaver-screensaver-webcollage
 pcmanfm
 spacefm
-
+redshift

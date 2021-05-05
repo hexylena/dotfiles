@@ -99,7 +99,7 @@ export EDITOR='vim'
 export TEXMFHOME='~/.texmf'
 export GOPATH=$HOME/arbeit/go
 export GOROOT=$HOME/arbeit/deps/go
-export PATH=$HOME/.local/bin/:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/.rvm/bin
+export PATH=$HOME/.bin/:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/.rvm/bin
 # The folders are too damn annoying.
 export PYTHONDONTWRITEBYTECODE=1
 export ANSIBLE_NOCOWS=1
@@ -150,27 +150,26 @@ alias python=python3.8
 alias pip=pip3
 alias axe="awk '{print \$2}' | xargs kill"
 alias mpv="mpv --no-audio-display"
-alias makep='make -f ~/dotfiles/oh-my-zsh/Makefile -f Makefile'
 alias qmv='qmv -fdo'
 alias ploc='plocate -d ~/.cache/plocate.db'
 #alias cat='lolcat -t'
 
-# ???
-#fg() {
-#    if [[ $# -eq 1 && $1 = -  ]]; then
-#        builtin fg %-
-#    else
-#        builtin fg %"$@"
-#    fi
-#}
-#
-#bg() {
-#    if [[ $# -eq 1 && $1 = -  ]]; then
-#        builtin bg %-
-#    else
-#        builtin bg %"$@"
-#    fi
-#}
+# Needed for zsh to work like I expect.
+fg() {
+    if [[ $# -eq 1 && $1 = -  ]]; then
+        builtin fg %-
+    else
+        builtin fg %"$@"
+    fi
+}
+
+bg() {
+    if [[ $# -eq 1 && $1 = -  ]]; then
+        builtin bg %-
+    else
+        builtin bg %"$@"
+    fi
+}
 
 
 # venv
@@ -258,9 +257,9 @@ ossec(){
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 
 activate-nvm() {
-	export NVM_DIR="$HOME/.config"
-	[ -s "$NVM_DIR/nvm.sh"  ] && \. "$NVM_DIR/nvm.sh" #
-	[ -s "$NVM_DIR/bash_completion"  ] && \. "$NVM_DIR/bash_completion" #
+	export NVM_DIR="$HOME/.config/nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
 
 activate-conda() {
