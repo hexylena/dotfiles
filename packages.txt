@@ -31,6 +31,9 @@ jq
 okular
 element-desktop
 docker-ce docker-ce-cli containerd.io
+libxml-xpath-perl
+codegroup
+qrencode
 
 # graphics / media / av
 ffmpeg
@@ -77,3 +80,4 @@ xscreensaver-screensaver-webcollage
 pcmanfm
 spacefm
 redshift
+fonts-*
