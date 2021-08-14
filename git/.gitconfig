@@ -81,4 +81,6 @@
 	defaultBranch = main
 	templateDir = ~/arbeit/tpl.git
 [merge]
-	tool = vimdiff
+	tool = meld
+[credential]
+	helper = cache

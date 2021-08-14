@@ -1,0 +1,11 @@
+[Unit]
+Description=Backup
+Requires=backup.service
+
+[Timer]
+Unit=backup.service
+OnCalendar=Mon..Sun 12:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

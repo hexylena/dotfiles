@@ -1,0 +1,10 @@
+[Unit]
+Description=Backup
+Wants=backup.timer
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /home/hxr/.bin/backup.sh
+
+[Install]
+WantedBy=multi-user.target
