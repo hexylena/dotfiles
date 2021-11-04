@@ -15,8 +15,6 @@ set nospell " Spell checking is annoying.
 
 " todo: per file
 "set noexpandtab
-inoremap jj <ESC>
-
 let g:spf13_no_omni_complete = 1
 let g:spf13_keep_trailing_whitespace = 0
 
