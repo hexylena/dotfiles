@@ -17,6 +17,7 @@ set nospell " Spell checking is annoying.
 "set noexpandtab
 let g:spf13_no_omni_complete = 1
 let g:spf13_keep_trailing_whitespace = 0
+let g:NERDTrimTrailingWhitespace = 0
 
 " set the leader to comma, per preference
 let mapleader = ","
@@ -29,7 +30,7 @@ if filereadable(expand("~/.vimrc.color"))
     source ~/.vimrc.color
 endif
 
-autocmd BufWritePre * :%s/\s\+$//e
+"autocmd BufWritePre * :%s/\s\+$//e
 set wrap
 set noexpandtab
 " Fixes snippets in training materials.
@@ -37,6 +38,8 @@ set nofixendofline
 
 noremap <leader>tm :VoomToggle markdown<CR>
 noremap <leader>tp :VoomToggle python<CR>
+noremap <leader>w :set wrap<CR>
+noremap <leader>ww :set nowrap<CR>
 
 autocmd BufNewFile,BufRead *.ink set filetype=ink
 let g:NERDCustomDelimiters = { 'ink': { 'left': '// ' } }
