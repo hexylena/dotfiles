@@ -1,14 +1,15 @@
 [user]
 	;signingkey = C527B0FC0AF63592
 	name = Helena Rasche
-	email = hxr@hx42.org
+	email = hexylena@galaxians.org
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJe1sBt2d35BHWZgZBc6+UpKygB8t2pRT9aR2wuqeha0
 
 [push]
 	default = current
 	followTags = true
 
 [commit]
-	;gpgsign = true
+	gpgsign = true
 
 [diff]
 	tool = vimdiff
@@ -44,7 +45,7 @@
 	comit = commit
 	commti = commit
 	cmomit = commit
-	appraise = !/home/hxr/arbeit/go/bin/git-appraise
+	appraise = !/home/user/arbeit/go/bin/git-appraise
 	chekcout = checkout
 	co = checkout
 	sttus = status
@@ -53,11 +54,11 @@
 	pukk = pull
 	staash = stash
 
-	fix-ssh = !/home/hxr/.bin/git-fix-ssh
+	fix-ssh = !/home/user/.bin/git-fix-ssh
 
 [core]
 	whitespace = trailing-space,space-before-tab
-	excludesfile = /home/hxr/.gitignore_global
+	excludesfile = /home/user/.gitignore_global
 
 ;[transfer]
 	;fsckobjects = true
@@ -67,6 +68,8 @@
 	;fsckObjects = true
 [gpg]
 	program = gpg2
+	format = ssh
+
 [pull]
 	rebase = true
 
@@ -77,15 +80,15 @@
 [color "diff"]
 	meta = bold
 	frag = magenta bold
-	old = strike reverse
-	new = blue dim reverse
+	old = magenta strike reverse
+	new = reverse
 [init]
 	defaultBranch = main
 	templateDir = ~/arbeit/tpl.git
 [merge]
 	tool = meld
 [credential]
-	helper = cache
+	helper = store
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -93,3 +96,5 @@
 	required = true
 [diff "ansible-vault"]
 	textconv = ansible-vault view
+[gpg "ssh"]
+	allowedSignersFile = /home/user/.ssh/allowed_signers

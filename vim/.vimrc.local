@@ -1,3 +1,7 @@
+if exists('+autochdir')
+    set autochdir
+endif
+
 set rtp+=~/.fzf
 set mouse=
 "color molokai
@@ -30,27 +34,21 @@ if filereadable(expand("~/.vimrc.color"))
     source ~/.vimrc.color
 endif
 
-"autocmd BufWritePre * :%s/\s\+$//e
 set wrap
 set noexpandtab
-" Fixes snippets in training materials.
-set nofixendofline
 
-noremap <leader>tm :VoomToggle markdown<CR>
-noremap <leader>tp :VoomToggle python<CR>
 noremap <leader>w :set wrap<CR>
 noremap <leader>ww :set nowrap<CR>
 
 autocmd BufNewFile,BufRead *.ink set filetype=ink
 let g:NERDCustomDelimiters = { 'ink': { 'left': '// ' } }
 
-let g:goyo_width = "80%"
-let g:goyo_height = "80%"
+set conceallevel=0
+let g:vim_json_syntax_conceal=0
 
-autocmd BufNewFile,BufRead /home/hxr/Personal/projects/writing/* set ts=4
-autocmd BufNewFile,BufRead /home/hxr/Personal/projects/writing/* :Voom markdown
+"noremap L :tabn<CR>
+"noremap H :tabp<CR>
 
-"augroup md
-  "autocmd!
-  "autocmd BufReadPost,BufWritePre,BufWritePost /home/hxr/Personal/projects/gigglepig/* normal ggg?G``
-"augroup END
+"set hlsearch
+"set number
+"set ignorecase "smartcase
