@@ -267,23 +267,22 @@ activate-nvm() {
 	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
 
-function npm {
-	activate-nvm
-	npm "${@}"
-}
-
-function node {
-	activate-nvm
-	node "${@}"
-}
-
 function conda {
 	unset R_LIBS_USER
 	unset -f conda
 
 	# shellcheck disable=SC1090
-	eval "$(/home/user/arbeit/deps/miniconda3.9/bin/conda shell.zsh hook)"
+	eval "$(/home/user/arbeit/deps/miniconda3/bin/conda shell.zsh hook)"
 	conda "${@}"
+}
+
+function rvm {
+	unset -f rvm
+
+	# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+	export PATH="$HOME/.rvm/bin:$PATH:$HOME/.rvm/bin"
+
+	rvm "${@}"
 }
 
 circos() {
@@ -325,9 +324,6 @@ cdt() {
 eval "$(direnv hook zsh)"
 
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=fg:#000000,bg:#ffffff,hl:#0000ff,fg+:#ffffff,bg+:#000000,hl+:#ffff00"
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$HOME/.rvm/bin:$PATH:$HOME/.rvm/bin"
 # Faster CD
 alias cd='z'
 # MOAR FZF
@@ -425,3 +421,4 @@ if [ "$SSH_VAULT_VM" != "" ]; then
   export SSH_AUTH_SOCK="/home/user/.SSH_AGENT_$SSH_VAULT_VM"
 fi
 # <<< SPLIT SSH CONFIGURATION
+export SHELL=/usr/bin/zsh
