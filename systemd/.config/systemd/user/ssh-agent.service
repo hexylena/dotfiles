@@ -1,0 +1,13 @@
+[Unit]
+Description=SSH key agent
+
+[Service]
+Type=simple
+Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
+ExecStart=/usr/bin/ssh-agent -D -a $SSH_AUTH_SOCK
+#ExecStartPost=/usr/bin/ssh-add /home/user/.ssh/keys/id_rsa_sign@git
+Restart=on-failure
+RestartSec=60s
+
+[Install]
+WantedBy=default.target
