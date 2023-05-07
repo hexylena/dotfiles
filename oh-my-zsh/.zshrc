@@ -159,6 +159,7 @@ alias axe="awk '{print \$2}' | xargs kill"
 alias mpv="mpv --no-audio-display"
 alias qmv='qmv -fdo'
 alias ploc='plocate -d ~/.cache/plocate.db'
+alias tssh='SSH_AUTH_SOCK="" tailscale ssh'
 #alias cat='lolcat -t'
 
 # Needed for zsh to work like I expect.
