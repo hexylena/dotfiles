@@ -95,11 +95,11 @@ source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
-export EDITOR='vim'
+export EDITOR='nvim'
 export TEXMFHOME='~/.texmf'
-export GOPATH=$HOME/arbeit/deps/go-path
-export GOROOT=$HOME/arbeit/deps/go
-export PATH=$HOME/bin/:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/.local/bin
+#export GOPATH=$HOME/arbeit/deps/go-path
+#export GOROOT=$HOME/arbeit/deps/go
+export PATH="$HOME/.local/bin:$HOME/bin/:$PATH"
 # The folders are too damn annoying.
 export PYTHONDONTWRITEBYTECODE=1
 export ANSIBLE_NOCOWS=1
@@ -287,6 +287,7 @@ function rvm {
 }
 
 circos() {
+	unset -f circos
 	export PATH=$(find ~/arbeit/circos/circos-tools-0.22/tools/*/bin -maxdepth 0 | paste -s -d:):$PATH
 
 	# find latest circos
