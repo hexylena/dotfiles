@@ -8,7 +8,8 @@ endif
 " Todo: tabularize
 
 
-" Visual shifting (does not exit Visual mode)
+" Visual shifting (does not exit Visual mode), allowing you to do it multiple
+" times.
 vnoremap < <gv
 vnoremap > >gv
 
@@ -84,8 +85,12 @@ set wildmode=longest,list   " get bash-like tab completions
 set cc=120                  " set an 80 column border for good coding style
 
 call plug#begin()
+	" Enable copilot
 	Plug 'https://github.com/github/copilot.vim'
+	" select and then ,c will comment the selection
 	Plug 'https://github.com/terrortylor/nvim-comment'
+	" Allows you to do a visual selection and then :Tabularize/<CHR> and
+	" it will align based on those.
 	Plug 'https://github.com/godlygeek/tabular'
 call plug#end()
 
@@ -94,8 +99,10 @@ call plug#end()
 let mapleader=","
 noremap <leader>c :CommentToggle<CR>
 
-" Restore Cursor Position
+" Restore Cursor Position when re-opening a file.
 autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
      \   exe "normal! g`\"" |
      \ endif
+
+colorscheme hxr
