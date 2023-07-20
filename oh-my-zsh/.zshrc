@@ -85,7 +85,7 @@ REPORTTIME=4
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git history-substring-search fzf-tab zoxide)
+plugins=(git history-substring-search fzf fzf-tab zoxide)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -120,7 +120,7 @@ export PERL_MM_OPT="INSTALL_BASE=${HXR_PERL_HOME}";
 export TERM=xterm-256color # 'screen' screws p home/end.
 export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring # https://github.com/pypa/pip/issues/7883 GO AWAY.
 export GREP_COLORS='mt=1;37;4;40'
-export TZ_LIST="Pacific/Auckland,Australia/Melbourne,Asia/Tokyo,Asia/Kolkata,Europe/London,US/Pacific,US/Central,US/Eastern"
+export TZ_LIST="Pacific/Auckland,Australia/Melbourne,Asia/Tokyo,Asia/Kolkata,Europe/London,US/Pacific,US/Central,US/Eastern,Pacific/Midway"
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -286,23 +286,13 @@ function rvm {
 	rvm "${@}"
 }
 
-circos() {
+function circos {
 	unset -f circos
 	export PATH=$(find ~/arbeit/circos/circos-tools-0.22/tools/*/bin -maxdepth 0 | paste -s -d:):$PATH
 
 	# find latest circos
-	if (( $# == 0 )); then
-		latest=$(find ~/arbeit/circos/ -maxdepth 1 -name 'circos-[0-9.-]*' -type d | sort | tail -n 1)
-		echo "Activating $latest"
-	else
-		latest=$(find ~/arbeit/circos/ -maxdepth 1 -name 'circos-[0-9.-]*' -type d | grep "$1" | sort | tail -n 1)
-		if [[ "$latest" != "" ]]; then
-			echo "Activating $latest"
-		else
-			echo "Could not activate circos"
-		fi
-	fi
-
+	latest=$(find ~/arbeit/circos/ -maxdepth 1 -name 'circos-[0-9.-]*' -type d | sort | tail -n 1)
+	echo "Activating $latest"
 	export PATH="$latest/bin:$PATH"
 	circos "${@}"
 }
@@ -324,13 +314,11 @@ cdt() {
 }
 
 eval "$(direnv hook zsh)"
+. /usr/share/fzf/shell/key-bindings.zsh
 
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=fg:#000000,bg:#ffffff,hl:#0000ff,fg+:#ffffff,bg+:#000000,hl+:#ffff00"
 # Faster CD
 alias cd='z'
-# MOAR FZF
-#. /usr/share/doc/fzf/examples/key-bindings.zsh
-
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
 # set descriptions format to enable group support

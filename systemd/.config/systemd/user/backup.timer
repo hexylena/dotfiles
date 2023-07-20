@@ -1,11 +1,12 @@
 [Unit]
 Description=Backup
-Requires=backup.service
+#Requires=backup.service
 
 [Timer]
 Unit=backup.service
-OnCalendar=Mon..Sun 12:00
-Persistent=true
+OnBootSec=15min
+OnUnitActiveSec=6h
+#Persistent=true
 
 [Install]
 WantedBy=timers.target
