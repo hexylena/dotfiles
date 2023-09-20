@@ -378,7 +378,8 @@ _atuin_search(){
 	echoti rmkx
 	# swap stderr and stdout, so that the tui stuff works
 	# TODO: not this
-	output=$(RUST_LOG=error atuin search -i $BUFFER 3>&1 1>&2 2>&3)
+	output=$(RUST_LOG=error atuin search --format "{time}\t{duration}\t{host}\t{directory}$\t{command}"  -i $BUFFER 3>&1 1>&2 2>&3)
+	
 	echoti smkx
 
 	if [[ -n $output ]] ; then
