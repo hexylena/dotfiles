@@ -16,7 +16,7 @@
 
 [alias]
 	# http://gggritso.com/human-git-aliases
-	br = !git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(refname:short) | (%(committerdate:relative))' | column -t -s'|'
+	br = !git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(refname:short) | (%(committerdate:relative)) | %(subject)' | column -t -s'|'
 	branches = branch -a
 	tags = tag
 	stashes = stash list
