@@ -104,6 +104,7 @@ export PATH="$HOME/.local/bin:$HOME/bin/:$PATH"
 # The folders are too damn annoying.
 export PYTHONDONTWRITEBYTECODE=1
 export ANSIBLE_NOCOWS=1
+export NOCOLOR=1
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 export GPG_TTY=$BYOBU_TTY
 export R_LIBS_USER=~/arbeit/deps/R/x86_64-pc-linux-gnu-library/3.2
@@ -161,6 +162,7 @@ alias mpv="mpv --no-audio-display"
 alias qmv='qmv -fdo'
 alias ploc='plocate -d ~/.cache/plocate.db'
 alias tssh='SSH_AUTH_SOCK="" tailscale ssh'
+alias xpq='xpath -q -e'
 #alias cat='lolcat -t'
 
 # Needed for zsh to work like I expect.
