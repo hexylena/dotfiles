@@ -1,5 +1,4 @@
 [user]
-	;signingkey = C527B0FC0AF63592
 	name = Helena Rasche
 	email = hexylena@galaxians.org
 	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJe1sBt2d35BHWZgZBc6+UpKygB8t2pRT9aR2wuqeha0
@@ -13,6 +12,7 @@
 
 [diff]
 	tool = vimdiff
+	colorMoved = default
 
 [alias]
 	# http://gggritso.com/human-git-aliases
@@ -36,7 +36,6 @@
 	st = status -sbuno
 	changed-in = diff-tree --no-commit-id --name-only -r
 
-
 	# Typos
 	psuh = push
 	puhs = push
@@ -53,12 +52,56 @@
 	mend = commit --amend
 	pukk = pull
 	staash = stash
+	lp = log -p --word-diff=color
 
 	fix-ssh = !/home/user/.bin/git-fix-ssh
 
 [core]
 	whitespace = trailing-space,space-before-tab
 	excludesfile = /home/user/.gitignore_global
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	line-numbers = true
+	light = true
+	minus-style = "#ffffff" purple strike
+	minus-emph-style = "#ffffff" darkmagenta strike
+	minus-non-emph-style = "#ffffff" purple
+
+	; plus-style = black orange
+	; plus-style = "#ffffff" black
+	; plus-emph-style = "#ffffff" grey
+	; plus-non-emph-style = "#ffffff" black
+	plus-style = black orange
+	plus-emph-style = black orange
+	plus-non-emph-style = black orange
+
+
+	file-added-label = [+]
+	file-copied-label = [==]
+	file-modified-label = [*]
+	file-removed-label = [-]
+	file-renamed-label = [->]
+	features = unobtrusive-line-numbers decorations
+
+[delta "unobtrusive-line-numbers"]
+	line-numbers = true
+	line-numbers-zero-style = black
+	line-numbers-minus-style = purple
+	line-numbers-plus-style = blue
+	line-numbers-left-format = "{nm:>4}"
+	line-numbers-right-format = "{np:>4}"
+
+[delta "decorations"]
+	commit-decoration-style = box ul
+	file-style = bold black ul
+	file-decoration-style = none
+	hunk-header-decoration-style = yellow box
+
 
 ;[transfer]
 	;fsckobjects = true
@@ -87,6 +130,8 @@
 	templateDir = ~/arbeit/tpl.git
 [merge]
 	tool = meld
+	conflictstyle = diff3
+
 [credential]
 	helper = store
 [filter "lfs"]
