@@ -86,7 +86,7 @@ REPORTTIME=4
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git history-substring-search fzf fzf-tab zoxide)
+plugins=(history-substring-search fzf fzf-tab zoxide)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -163,6 +163,7 @@ alias qmv='qmv -fdo'
 alias ploc='plocate -d ~/.cache/plocate.db'
 alias tssh='SSH_AUTH_SOCK="" tailscale ssh'
 alias xpq='xpath -q -e'
+alias gcam='git commit --all --message'
 #alias cat='lolcat -t'
 
 # Needed for zsh to work like I expect.
