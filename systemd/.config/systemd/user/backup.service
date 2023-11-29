@@ -4,4 +4,4 @@ Wants=backup.timer
 
 [Service]
 Type=oneshot
-ExecStart=env -i HOME=/home/user /home/user/.local/bin/borgmatic --verbosity 2
+ExecStart=env -i HOME=/home/user borgmatic --verbosity 2

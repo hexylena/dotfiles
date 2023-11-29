@@ -155,7 +155,6 @@ alias cear='clear'
 alias ckear='clear'
 alias byobu-attach='byobu attach -t '
 alias byobu-att='byobu attach -t '
-alias python=python3.10
 alias pip=pip3
 alias axe="awk '{print \$2}' | xargs kill"
 alias mpv="mpv --no-audio-display"
@@ -188,7 +187,7 @@ function venv(){
 	new_venv=0
 	if [ ! -d '.venv' ]; then
 		#virtualenv .venv -p $(which python3.7);
-		python3.10 -mvenv .venv
+		python3 -mvenv .venv
 		new_venv=1
 	fi
 
