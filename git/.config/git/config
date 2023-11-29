@@ -13,6 +13,7 @@
 [diff]
 	tool = vimdiff
 	colorMoved = default
+	colormovedws = "allow-indentation-change"
 	algorithm = histogram
 
 [alias]
