@@ -3,7 +3,7 @@ TARGETS= $(TARGETS_IN:/=.x)
 TARGETS:=$(filter-out media.x,$(TARGETS))
 
 help:
-	@egrep '^[^ ]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^[^ ]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 stow: $(TARGETS) ## Stow all folders
 
@@ -37,5 +37,8 @@ rvm:
 
 omzsh:
 	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+spell: nvim/.config/nvim/spell/en.utf-8.add.spl
+	vim '+mkspell!~/.config/nvim/spell/en.utf-8.add' +q
 
 .PHONY: apt bootstrap fix-origin
