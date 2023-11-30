@@ -6,7 +6,7 @@ repositories:
   label: rsync.net
 #- ssh://borg@quark/./backups/hexylena
 
-upload_rate_limit: 2000
+upload_rate_limit: 1000
 
 exclude_caches: true
 exclude_patterns:

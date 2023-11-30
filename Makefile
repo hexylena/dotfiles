@@ -38,6 +38,11 @@ rvm:
 omzsh:
 	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
+backup-units:
+	systemctl --user daemon-reload
+	systemctl --user status backup.timer
+	systemctl --user status backup.service
+
 spell: nvim/.config/nvim/spell/en.utf-8.add.spl
 	vim '+mkspell!~/.config/nvim/spell/en.utf-8.add' +q
 
