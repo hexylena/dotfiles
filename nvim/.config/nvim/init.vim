@@ -106,3 +106,4 @@ autocmd BufReadPost *
      \ endif
 
 colorscheme hxr
+" colorscheme hxrdark

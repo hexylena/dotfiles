@@ -6,8 +6,10 @@ font:
   size: 9.0
 colors:
   primary:
-    background: '#ffffff'
-    foreground: '#000000'
+    # background: '#ffffff'
+    # foreground: '#000000'
+    background: '#000000'
+    foreground: '#ffffff'
   search:
     matches:
       foreground: '0xffff00'
