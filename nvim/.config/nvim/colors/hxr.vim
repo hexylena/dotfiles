@@ -235,21 +235,21 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 
     " Global
     call <SID>X("Normal", "000000", "ffffff", "")
-    call <SID>X("NonText", "4444cc", "ddddff", "") " after the end of a file.
+    call <SID>X("NonText", "ff0000", "000000", "") " after the end of a file.
 
     " Search
-    call <SID>X("Search", "000000", "ff00ff", "")
+    call <SID>X("Search", "000000", "ff0000", "")
     call <SID>X("IncSearch", "ffff00", "000000", "")
 
     " Interface Elements
-    call <SID>X("StatusLine", "ffffff", "43c464", "bold")
-    call <SID>X("StatusLineNC", "9bd4a9", "51b069", "")
+    call <SID>X("StatusLine", "ffffff", "ff0000", "bold")
+    call <SID>X("StatusLineNC", "000000", "ffffff", "")
     call <SID>X("VertSplit", "ffffff", "000000", "")
     call <SID>X("Folded", "000000", "aaaaaa", "")
     call <SID>X("Pmenu", "ffffff", "cb2f27", "")
     call <SID>X("SignColumn", "", "", "")
-    call <SID>X("CursorLine", "", "ccffcc", "")
-    call <SID>X("LineNr", "ffffff", "4488cc", "")
+    call <SID>X("CursorLine", "", "ff8888", "")
+    call <SID>X("LineNr", "ffffff", "000000", "")
     call <SID>X("MatchParen", "", "", "")
     call <SID>X("Visual", "eeeeee", "333333", "")
 
