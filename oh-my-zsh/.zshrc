@@ -124,6 +124,8 @@ export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring # https://github.com
 export GREP_COLORS='mt=1;37;4;40'
 export TZ_LIST="Pacific/Auckland,Australia/Melbourne,Asia/Tokyo,Asia/Kolkata,Europe/London,US/Pacific,US/Central,US/Eastern,Pacific/Midway"
 
+export GOPATH=/home/user/arbeit/deps/go/
+
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'

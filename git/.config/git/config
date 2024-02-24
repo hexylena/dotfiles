@@ -13,6 +13,7 @@
 [diff]
 	tool = vimdiff
 	colorMoved = default
+	algorithm = histogram
 
 [alias]
 	# http://gggritso.com/human-git-aliases
@@ -61,8 +62,8 @@
 	excludesfile = /home/user/.gitignore_global
 	pager = delta
 
-[interactive]
-	diffFilter = delta --color-only
+; [interactive]
+; 	diffFilter = delta --color-only
 
 [delta]
 	navigate = true
@@ -143,3 +144,15 @@
 	textconv = ansible-vault view
 [gpg "ssh"]
 	allowedSignersFile = /home/user/.ssh/allowed_signers
+[format]
+	signature = hexylena
+
+[notes "rewrite"]        
+  amend = true           
+  rebase = true
+
+[rebase]
+	autostash = true
+
+[url "git@github.com:"]
+	pushInsteadOf = "https://github.com/"
