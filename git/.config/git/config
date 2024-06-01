@@ -62,6 +62,7 @@
 	whitespace = trailing-space,space-before-tab
 	excludesfile = /home/user/.gitignore_global
 	pager = delta
+	preloadIndex = true
 
 ; [interactive]
 ; 	diffFilter = delta --color-only
