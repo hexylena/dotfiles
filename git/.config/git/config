@@ -10,11 +10,11 @@
 [commit]
 	gpgsign = true
 
-[diff]
-	tool = vimdiff
-	colorMoved = default
-	colormovedws = "allow-indentation-change"
-	algorithm = histogram
+; [diff]
+; 	tool = vimdiff
+; 	colorMoved = default
+; 	colormovedws = "allow-indentation-change"
+; 	algorithm = histogram
 
 [alias]
 	# http://gggritso.com/human-git-aliases
@@ -61,7 +61,7 @@
 [core]
 	whitespace = trailing-space,space-before-tab
 	excludesfile = /home/user/.gitignore_global
-	pager = delta
+	; pager = delta
 	preloadIndex = true
 
 ; [interactive]
@@ -156,5 +156,8 @@
 [rebase]
 	autostash = true
 
-[url "git@github.com:"]
-	pushInsteadOf = "https://github.com/"
+; [url "git@github.com:"]
+; 	pushInsteadOf = "https://github.com/"
+[http]
+	postBuffer = 1048576000
+	maxRequestBuffer = 100M

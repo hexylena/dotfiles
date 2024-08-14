@@ -60,6 +60,8 @@ set mousehide               " Hide the mouse cursor while typing
 scriptencoding utf-8
 set background=light
 
+set signcolumn=yes " Force signcolumn on.
+
 
 noremap L :tabn<CR>
 noremap H :tabp<CR>
@@ -93,6 +95,8 @@ call plug#begin()
 	" it will align based on those.
 	Plug 'https://github.com/godlygeek/tabular'
 	" Plug 'https://github.com/mileszs/ack.vim'
+	Plug 'https://github.com/rickhowe/diffchar.vim'
+	Plug 'https://github.com/neovim/nvim-lspconfig.git'
 call plug#end()
 
 " let g:ackprg = 'ag --vimgrep'
@@ -125,5 +129,9 @@ autocmd BufReadPost *
      \   exe "normal! g`\"" |
      \ endif
 
+" set diffopt+=internal,algorithm:patience
 colorscheme hxr
 " colorscheme hxrdark
+
+:source /home/user/.config/nvim/main.lua
+noremap grn :lua vim.lsp.buf.rename()<CR>

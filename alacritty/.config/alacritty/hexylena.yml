@@ -6,10 +6,10 @@ font:
   size: 9.0
 colors:
   primary:
-    # background: '#ffffff'
-    # foreground: '#000000'
-    background: '#000000'
-    foreground: '#ffffff'
+    background: '#ffffff'
+    foreground: '#000000'
+    # background: '#000000'
+    # foreground: '#ffffff'
   search:
     matches:
       foreground: '0xffff00'
@@ -33,7 +33,7 @@ shell:
     - --login
 hints:
   enabled:
-  - regex: "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
+  - regex: "(doi:|ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
     command: xdg-open
     post_processing: true
     mouse:

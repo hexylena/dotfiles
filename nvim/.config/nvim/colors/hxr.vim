@@ -235,7 +235,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 
     " Global
     call <SID>X("Normal", "000000", "ffffff", "")
-    call <SID>X("NonText", "ff0000", "000000", "") " after the end of a file.
+    call <SID>X("NonText", "ff0000", "ffffff", "") " after the end of a file.
 
     " Search
     call <SID>X("Search", "000000", "ff0000", "")
@@ -262,13 +262,14 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 "hi VertSplit ctermfg=241 ctermbg=241 cterm=NONE guifg=#64645e guibg=#64645e gui=NONE
 
     " Syntax Elements
-    call <SID>X("String", "000066", "", "")
-    call <SID>X("Constant", "0086d2", "", "")
-    call <SID>X("Number", "8600d2", "", "")
+    call <SID>X("String", "c00000", "", "")
+    call <SID>X("Constant", "c00000", "", "")
+    call <SID>X("Number", "c00000", "", "")
     call <SID>X("Statement", "000000", "", "")
-    call <SID>X("Function", "ff0086", "", "")
+    call <SID>X("Function", "ff2222", "", "")
     call <SID>X("PreProc", "000000", "", "")
     call <SID>X("Comment", "000000", "", "bold")
+    " call <SID>X("Comment", "cccccc", "", "")
     call <SID>X("Type", "333333", "", "")
     call <SID>X("Error", "ffffff", "d40000", "")
     call <SID>X("Identifier", "000000", "", "")

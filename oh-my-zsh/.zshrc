@@ -1,9 +1,11 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-#zmodload zsh/zprof
+# zmodload zsh/zprof
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export TZ=Europe/Amsterdam
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -100,7 +102,7 @@ export EDITOR='nvim'
 export TEXMFHOME='~/.texmf'
 #export GOPATH=$HOME/arbeit/deps/go-path
 #export GOROOT=$HOME/arbeit/deps/go
-export PATH="$HOME/.local/bin:$HOME/bin/:$PATH"
+export PATH="$HOME/.local/bin:$HOME/bin/:$HOME/arbeit/deps/go/bin:$PATH"
 # The folders are too damn annoying.
 export PYTHONDONTWRITEBYTECODE=1
 export ANSIBLE_NOCOWS=1
@@ -165,6 +167,7 @@ alias ploc='plocate -d ~/.cache/plocate.db'
 alias tssh='SSH_AUTH_SOCK="" tailscale ssh'
 alias xpq='xpath -q -e'
 alias gcam='git commit --all --message'
+alias convert='magick convert'
 #alias cat='lolcat -t'
 
 # Needed for zsh to work like I expect.
@@ -407,7 +410,6 @@ if [[ -z $ATUIN_NOBIND ]]; then
 fi
 
 export SSH_AUTH_SOCK=/run/user/1000/ssh-agent.socket;
-#zprof
 
 # SPLIT SSH CONFIGURATION >>>
 # replace "vault" with your AppVM name which stores the ssh private key(s)
@@ -418,3 +420,5 @@ if [ "$SSH_VAULT_VM" != "" ]; then
 fi
 # <<< SPLIT SSH CONFIGURATION
 export SHELL=/usr/bin/zsh
+
+# zprof
