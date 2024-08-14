@@ -159,7 +159,6 @@ alias cear='clear'
 alias ckear='clear'
 alias byobu-attach='byobu attach -t '
 alias byobu-att='byobu attach -t '
-alias pip=pip3
 alias axe="awk '{print \$2}' | xargs kill"
 alias mpv="mpv --no-audio-display"
 alias qmv='qmv -fdo'
