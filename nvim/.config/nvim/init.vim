@@ -129,6 +129,9 @@ autocmd BufReadPost *
      \   exe "normal! g`\"" |
      \ endif
 
+" Fix commenting in bibtex
+au BufRead,BufNewFile *.bib :lua vim.bo.commentstring = '%%s'
+
 " set diffopt+=internal,algorithm:patience
 colorscheme hxr
 " colorscheme hxrdark

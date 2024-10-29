@@ -11,4 +11,6 @@ lspconfig.gopls.setup({
   },
 })
 
-lspconfig.pyright.setup{}
+lspconfig.pyright.setup({})
+
+-- vim.api.nvim_command('set commentstring=//%s')
