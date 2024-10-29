@@ -130,7 +130,7 @@
 	new = reverse
 [init]
 	defaultBranch = main
-	templateDir = ~/arbeit/tpl.git
+	; templateDir = ~/arbeit/tpl.git
 [merge]
 	tool = meld
 	conflictstyle = diff3

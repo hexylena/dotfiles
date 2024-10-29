@@ -421,3 +421,6 @@ fi
 export SHELL=/usr/bin/zsh
 
 # zprof
+
+# Be more conservative about what filenames we render.
+export LC_ALL=C
