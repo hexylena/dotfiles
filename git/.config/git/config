@@ -8,7 +8,7 @@
 	followTags = true
 
 [commit]
-	gpgsign = true
+	gpgsign = false
 
 ; [diff]
 ; 	tool = vimdiff

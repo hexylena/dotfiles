@@ -88,39 +88,26 @@ set cc=120                  " set an 80 column border for good coding style
 
 call plug#begin()
 	" Enable copilot
-	Plug 'https://github.com/github/copilot.vim'
+	" Plug 'https://github.com/github/copilot.vim'
+	" Plug 'https://github.com/huggingface/llm.nvim'
+	Plug 'https://github.com/nvim-lua/plenary.nvim'
+	Plug 'https://github.com/nvim-telescope/telescope.nvim'
 	" select and then ,c will comment the selection
 	Plug 'https://github.com/terrortylor/nvim-comment'
 	" Allows you to do a visual selection and then :Tabularize/<CHR> and
 	" it will align based on those.
 	Plug 'https://github.com/godlygeek/tabular'
 	" Plug 'https://github.com/mileszs/ack.vim'
-	Plug 'https://github.com/rickhowe/diffchar.vim'
+	" Plug 'https://github.com/rickhowe/diffchar.vim'
 	Plug 'https://github.com/neovim/nvim-lspconfig.git'
+	Plug 'https://github.com/nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
-
-" let g:ackprg = 'ag --vimgrep'
-" set grepprg=ag\ --vimgrep
-set grepprg=ag\ --vimgrep\ --smart-case\ --hidden\ --follow
-
-
-" https://www.reddit.com/r/vim/comments/bmh977/automatically_open_quickfix_window_after/
-function! Grep(...)
-    return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
-endfunction
-command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr Grep(<f-args>)
-command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr Grep(<f-args>)
-cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() ==# 'grep')  ? 'Grep'  : 'grep'
-cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'LGrep' : 'lgrep'
-augroup quickfix
-    autocmd!
-    autocmd QuickFixCmdPost cgetexpr cwindow
-    autocmd QuickFixCmdPost lgetexpr lwindow
-augroup END
 
 :lua require('nvim_comment').setup()
 
 let mapleader=","
+
+" Commenting
 noremap <leader>c :CommentToggle<CR>
 
 " Restore Cursor Position when re-opening a file.
@@ -132,9 +119,15 @@ autocmd BufReadPost *
 " Fix commenting in bibtex
 au BufRead,BufNewFile *.bib :lua vim.bo.commentstring = '%%s'
 
-" set diffopt+=internal,algorithm:patience
 colorscheme hxr
 " colorscheme hxrdark
 
+" Plugin configuration
 :source /home/user/.config/nvim/main.lua
 noremap grn :lua vim.lsp.buf.rename()<CR>
+
+" Telescope
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fd <cmd>Telescope diagnostics<cr>
