@@ -92,6 +92,7 @@ call plug#begin()
 	" Plug 'https://github.com/huggingface/llm.nvim'
 	Plug 'https://github.com/nvim-lua/plenary.nvim'
 	Plug 'https://github.com/nvim-telescope/telescope.nvim'
+
 	" select and then ,c will comment the selection
 	Plug 'https://github.com/terrortylor/nvim-comment'
 	" Allows you to do a visual selection and then :Tabularize/<CHR> and

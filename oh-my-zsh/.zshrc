@@ -102,7 +102,7 @@ export EDITOR='nvim'
 export TEXMFHOME='~/.texmf'
 #export GOPATH=$HOME/arbeit/deps/go-path
 #export GOROOT=$HOME/arbeit/deps/go
-export PATH="$HOME/.local/bin:$HOME/bin/:$HOME/arbeit/deps/go/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/bin/:$HOME/arbeit/deps/go/bin:$HOME/.pixi/bin:$PATH"
 # The folders are too damn annoying.
 export PYTHONDONTWRITEBYTECODE=1
 export ANSIBLE_NOCOWS=1
@@ -420,11 +420,9 @@ SSH_VAULT_VM="vault-ssh"
 if [ "$SSH_VAULT_VM" != "" ]; then
   export SSH_AUTH_SOCK="/home/user/.SSH_AGENT_$SSH_VAULT_VM"
 fi
-# <<< SPLIT SSH CONFIGURATION
 export SHELL=/usr/bin/zsh
 
 # zprof
 
 # Be more conservative about what filenames we render.
 #export LC_ALL=C
-export PATH="/home/user/.pixi/bin:$PATH"
