@@ -12,7 +12,7 @@ lspconfig.gopls.setup({
 })
 
 lspconfig.pyright.setup({
-  cmd = {"/home/user/.config/nvm/versions/node/v20.10.0/bin/pyright-langserver", "--stdio"},
+  cmd = {"pyright-langserver", "--stdio"},
 })
 
 lspconfig.gleam.setup({})
