@@ -127,6 +127,7 @@ export GREP_COLORS='mt=1;37;4;40'
 export TZ_LIST="Pacific/Auckland,Australia/Melbourne,Asia/Tokyo,Asia/Kolkata,Europe/London,US/Pacific,US/Central,US/Eastern,Pacific/Midway"
 
 export GOPATH=/home/user/arbeit/deps/go/
+export MANPAGER='nvim +Man!' # Use nvim to go through the man pages, it's really nice tbh
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -167,6 +168,7 @@ alias tssh='SSH_AUTH_SOCK="" tailscale ssh'
 alias xpq='xpath -q -e'
 alias gcam='git commit --all --message'
 alias convert='magick convert'
+
 #alias cat='lolcat -t'
 
 # Needed for zsh to work like I expect.
@@ -425,3 +427,4 @@ export SHELL=/usr/bin/zsh
 
 # Be more conservative about what filenames we render.
 #export LC_ALL=C
+export PATH="/home/user/.pixi/bin:$PATH"
