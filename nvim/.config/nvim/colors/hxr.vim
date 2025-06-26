@@ -243,8 +243,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 
     " Interface Elements
     call <SID>X("StatusLine", "ffffff", "ff0000", "bold")
-    call <SID>X("StatusLineNC", "000000", "ffffff", "")
-    call <SID>X("VertSplit", "ffffff", "000000", "")
+    call <SID>X("StatusLineNC", "ffffff", "770000", "")
+    call <SID>X("VertSplit", "ff0000", "00ffff", "")
     call <SID>X("Folded", "000000", "aaaaaa", "")
     call <SID>X("Pmenu", "ffffff", "cb2f27", "")
     call <SID>X("SignColumn", "", "", "")

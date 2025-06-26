@@ -6,11 +6,11 @@ if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="darkgray"; fi
 # prompt
 local user="%B%n%b"
 local host="%m"
-local etc="%{$fg[gray]%}%~%{$reset_color%}"
+local etc="%~"
 return_code="%(?..%{$fg[red]%}%?%{$reset_color%})"
 
 NEWLINE=$'\n'
-PROMPT='$(date '+%H:%M:%S') %{$fg_bold[red]%}$host%{$reset_color%}:[$etc$(git_prompt_info)]$return_code%(!.#.$) '
+PROMPT='$(date '+%H:%M:%S') %{$fg_bold[red]%}$host%{$reset_color%}:[$etc$(git_prompt_info)]$return_code%(!.#.$)%k%b%f '
 RPROMPT=''
 
 # git theming

@@ -235,42 +235,42 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 
     " Global
     call <SID>X("Normal", "ffffff", "000000", "")
-    "call <SID>X("NonText", "aaaaaa", "000000", "") " after the end of a file.
-
+    call <SID>X("NonText", "ff0000", "220000", "") " after the end of a file.
 
     " Search
     call <SID>X("Search", "000000", "ff0000", "")
-    call <SID>X("IncSearch", "ffff00", "000000", "")
+    call <SID>X("IncSearch", "ff0000", "00ffff", "")
 
     " Interface Elements
     call <SID>X("StatusLine", "ffffff", "ff0000", "bold")
-    call <SID>X("StatusLineNC", "000000", "ffffff", "")
+    call <SID>X("StatusLineNC", "ffffff", "000000", "")
     call <SID>X("VertSplit", "ffffff", "000000", "")
-    call <SID>X("Folded", "000000", "aaaaaa", "")
-    call <SID>X("Pmenu", "ffffff", "000000", "")
+    call <SID>X("Folded", "ff9999", "333333", "")
+    call <SID>X("Pmenu", "ffffff", "cb2f27", "")
     call <SID>X("SignColumn", "", "", "")
-    call <SID>X("CursorLine", "", "600000", "")
+    call <SID>X("CursorLine", "", "440000", "")
     call <SID>X("LineNr", "ffffff", "000000", "")
     call <SID>X("MatchParen", "", "", "")
     call <SID>X("Visual", "eeeeee", "333333", "")
 
     " Specials
     call <SID>X("Todo", "ff0000", "ffffff", "bold")
-    call <SID>X("Title", "000000", "", "")
-    call <SID>X("Special", "000000", "", "")
-    call <SID>X("SpecialKey", "eeeeee", "333333", "") " tab
+    call <SID>X("Title", "ffffff", "", "")
+    call <SID>X("Special", "ffffff", "", "")
+    call <SID>X("SpecialKey", "333333", "eeeeee", "") " tab
 
+"hi VertSplit ctermfg=241 ctermbg=241 cterm=NONE guifg=#64645e guibg=#64645e gui=NONE
 
     " Syntax Elements
-    call <SID>X("String", "f03030", "", "")
-    call <SID>X("Constant", "c00000", "", "")
-    call <SID>X("Number", "c00000", "", "")
+    call <SID>X("String", "ff0000", "", "")
+    call <SID>X("Constant", "ff3333", "", "")
+    call <SID>X("Number", "ff1111", "", "")
     call <SID>X("Statement", "ffffff", "", "")
     call <SID>X("Function", "ff2222", "", "")
     call <SID>X("PreProc", "ffffff", "", "")
     call <SID>X("Comment", "ffffff", "", "bold")
     " call <SID>X("Comment", "cccccc", "", "")
-    call <SID>X("Type", "333333", "", "")
+    call <SID>X("Type", "aaaaaa", "", "")
     call <SID>X("Error", "ffffff", "d40000", "")
     call <SID>X("Identifier", "ffffff", "", "")
     call <SID>X("Label", "ffffff", "", "")

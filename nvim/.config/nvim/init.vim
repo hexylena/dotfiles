@@ -124,12 +124,11 @@ autocmd BufReadPost *
 " Fix commenting in bibtex
 au BufRead,BufNewFile *.bib :lua vim.bo.commentstring = '%%s'
 
-colorscheme hxr
-" colorscheme hxrdark
-
 " Plugin configuration
 :source /home/user/.config/nvim/main.lua
 noremap grn :lua vim.lsp.buf.rename()<CR>
+source /home/user/.config/nvim/color.vim
+
 
 " Telescope
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
