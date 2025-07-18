@@ -133,6 +133,10 @@
     name = mergiraf
     driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P
 
+# if you haven't got a global gitattributes file yet
+[core]
+	attributesfile = ~/.config/git/attributes
+	hooksPath = /home/user/.config/git/hooks/
 
 [color "diff"]
 	meta = bold
