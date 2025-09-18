@@ -234,65 +234,46 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     " }}}
 
     " Global
-	call <SID>X("Normal", "ffffff", "000000", "")
-	"call <SID>X("NonText", "aaaaaa", "000000", "") " after the end of a file.
-
-    "" Search
-    "call <SID>X("Search", "000000", "ffff00", "")
-    "call <SID>X("IncSearch", "000000", "ffff00", "")
-
-    "" Interface Elements
-    "call <SID>X("StatusLine", "000000", "43c464", "bold")
-    "call <SID>X("StatusLineNC", "9bd4a9", "51b069", "")
-    "call <SID>X("VertSplit", "000000", "ffffff", "")
-    "call <SID>X("Folded", "ffffff", "333333", "")
-    "call <SID>X("IncSearch", "ffff00", "000000", "")
-    "call <SID>X("Pmenu", "000000", "cb2f27", "")
-    "call <SID>X("SignColumn", "", "", "")
-    "call <SID>X("CursorLine", "", "333366", "")
-    "call <SID>X("LineNr", "4488cc", "000000", "")
-    "call <SID>X("MatchParen", "", "", "")
-    "call <SID>X("Visual", "333333", "eeeeee", "")
-
-    "" Specials
-    "call <SID>X("Todo", "ffffff", "ff0000", "bold")
-    "call <SID>X("Title", "ffffff", "", "")
-    "call <SID>X("Special", "ffffff", "", "")
-    "call <SID>X("SpecialKey", "eeeeee", "333333", "") " tab
-
-""hi VertSplit ctermfg=241 ctermbg=241 cterm=NONE guifg=#64645e guibg=#64645e gui=NONE
-
-    "" Syntax Elements
-    "call <SID>X("String", "ffffff", "", "")
-    "call <SID>X("Constant", "00ffff", "", "")
-    "call <SID>X("Number", "ff88ff", "", "")
-    "call <SID>X("Statement", "ffffff", "", "")
-    "call <SID>X("Function", "ff88ff", "", "")
-    "call <SID>X("PreProc", "ffffff", "", "")
-    "call <SID>X("Comment", "00ff00", "", "bold")
-    "call <SID>X("Type", "ffffff", "", "")
-    "call <SID>X("Error", "000000", "33ffff", "")
-    "call <SID>X("Identifier", "ffffff", "", "")
-    "call <SID>X("Label", "ffffff", "", "")
-
-hi Character       guifg=#C5A3FF guibg=None guisp=None gui=bold ctermfg=183 ctermbg=None cterm=bold
-hi Comment         guifg=#BFBFBF guibg=None guisp=None gui=None ctermfg=07 ctermbg=None cterm=None
-hi Constant        guifg=#C5A3FF guibg=None guisp=None gui=bold ctermfg=183 ctermbg=None cterm=bold
-hi Cursor          guifg=None guibg=#F8F8F0 guisp=None gui=None ctermfg=None ctermbg=255 cterm=None
-hi CursorLine      guifg=None guibg=#131218 guisp=None gui=None ctermfg=None ctermbg=233 cterm=None
-hi Function        guifg=#DCC8FF guibg=None guisp=None gui=None ctermfg=189 ctermbg=None cterm=None
-hi Identifier      guifg=#F8F8F2 guibg=None guisp=None gui=None ctermfg=255 ctermbg=None cterm=None
-hi Keyword         guifg=#81FFBE guibg=None guisp=None gui=None ctermfg=121 ctermbg=None cterm=None
-hi LineNr          guifg=None guibg=None guisp=None gui=None ctermfg=None ctermbg=None cterm=None
-hi Normal          guifg=#F8F8F2 guibg=#282634 guisp=None gui=None ctermfg=255 ctermbg=235 cterm=None
-hi Number          guifg=#FFF9A3 guibg=None guisp=None gui=None ctermfg=229 ctermbg=None cterm=None
-hi StorageClass    guifg=#FFB8D1 guibg=None guisp=None gui=None ctermfg=218 ctermbg=None cterm=None
-hi String          guifg=#81EEFF guibg=None guisp=None gui=None ctermfg=123 ctermbg=None cterm=None
-hi Type            guifg=#A3F3FF guibg=None guisp=None gui=bold ctermfg=159 ctermbg=None cterm=bold
-hi Visual          guifg=None guibg=#8077A8 guisp=None gui=None ctermfg=None ctermbg=103 cterm=None
+    call <SID>X("Normal", "ffffff", "000000", "")
+    "call <SID>X("NonText", "aaaaaa", "000000", "") " after the end of a file.
 
 
+    " Search
+    call <SID>X("Search", "000000", "ff0000", "")
+    call <SID>X("IncSearch", "ffff00", "000000", "")
 
+    " Interface Elements
+    call <SID>X("StatusLine", "ffffff", "ff0000", "bold")
+    call <SID>X("StatusLineNC", "000000", "ffffff", "")
+    call <SID>X("VertSplit", "ffffff", "000000", "")
+    call <SID>X("Folded", "000000", "aaaaaa", "")
+    call <SID>X("Pmenu", "ffffff", "000000", "")
+    call <SID>X("SignColumn", "", "", "")
+    call <SID>X("CursorLine", "", "600000", "")
+    call <SID>X("LineNr", "ffffff", "000000", "")
+    call <SID>X("MatchParen", "", "", "")
+    call <SID>X("Visual", "eeeeee", "333333", "")
+
+    " Specials
+    call <SID>X("Todo", "ff0000", "ffffff", "bold")
+    call <SID>X("Title", "000000", "", "")
+    call <SID>X("Special", "000000", "", "")
+    call <SID>X("SpecialKey", "eeeeee", "333333", "") " tab
+
+
+    " Syntax Elements
+    call <SID>X("String", "f03030", "", "")
+    call <SID>X("Constant", "c00000", "", "")
+    call <SID>X("Number", "c00000", "", "")
+    call <SID>X("Statement", "ffffff", "", "")
+    call <SID>X("Function", "ff2222", "", "")
+    call <SID>X("PreProc", "ffffff", "", "")
+    call <SID>X("Comment", "ffffff", "", "bold")
+    " call <SID>X("Comment", "cccccc", "", "")
+    call <SID>X("Type", "333333", "", "")
+    call <SID>X("Error", "ffffff", "d40000", "")
+    call <SID>X("Identifier", "ffffff", "", "")
+    call <SID>X("Label", "ffffff", "", "")
 
     " delete functions {{{
     delf <SID>X
@@ -308,4 +289,3 @@ hi Visual          guifg=None guibg=#8077A8 guisp=None gui=None ctermfg=None cte
 endif
 
 " vim: set fdl=0 fdm=marker:
-
