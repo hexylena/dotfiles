@@ -63,6 +63,7 @@
 	excludesfile = /home/user/.gitignore_global
 	; pager = delta
 	preloadIndex = true
+	autocrlf = input
 
 ; [interactive]
 ; 	diffFilter = delta --color-only
@@ -123,6 +124,9 @@
 	name = GNU-style ChangeLog merge driver
 	driver = /usr/bin/git-merge-changelog %O %A %B
 
+[core]
+        attributesfile = ~/.config/git/attributes
+	hooksPath = /home/user/.config/git/hooks/
 [color "diff"]
 	meta = bold
 	frag = magenta bold
@@ -137,11 +141,6 @@
 
 [credential]
 	helper = store
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
 [diff "ansible-vault"]
 	textconv = ansible-vault view
 [gpg "ssh"]

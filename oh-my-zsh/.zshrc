@@ -1,5 +1,9 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+#
+export LANG="nl_NL.UTF8"
+export LANGUAGE="nl_NL.UTF8"
+export LC_ALL="nl_NL.UTF8"
 
 # zmodload zsh/zprof
 
@@ -109,7 +113,7 @@ export ANSIBLE_NOCOWS=1
 export NOCOLOR=1
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 export GPG_TTY=$BYOBU_TTY
-export R_LIBS_USER=~/arbeit/deps/R/x86_64-pc-linux-gnu-library/3.2
+# export R_LIBS_USER=~/arbeit/deps/R/x86_64-pc-linux-gnu-library/3.2
 export PGHOST=localhost
 export PGUSER=postgres
 export PGPASSWORD=postgres
@@ -375,3 +379,5 @@ export SHELL=/usr/bin/zsh
 
 # Be more conservative about what filenames we render.
 #export LC_ALL=C
+export PATH="/home/user/.pixi/bin:$PATH"
+export TMP=~/TMP TEMP=~/TMP TMPDIR=~/TMP

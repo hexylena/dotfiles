@@ -60,6 +60,10 @@ set mousehide               " Hide the mouse cursor while typing
 scriptencoding utf-8
 set background=light
 
+" Diff at the word/character level rather than line.
+" set diffopt+=inline:char
+set diffopt=internal,filler,closeoff ",inline:char
+
 set signcolumn=yes " Force signcolumn on.
 
 
