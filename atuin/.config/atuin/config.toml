@@ -87,6 +87,9 @@ history_format = "{host}\t{time}\t{command}\t{duration}"
 #   "^secret-cmd",
 #   "^innocuous-cmd .*--secret=.+",
 # ]
+history_filter = [
+	"^TELOXIDE",
+]
 
 ## prevent commands run with cwd matching any of these regexes from being written
 ## to history. Note that these regular expressions are unanchored, i.e. if they don't
@@ -188,3 +191,7 @@ enter_accept = false
 # This ensures that sync v2 is enabled for new installs only
 # In a later release it will become the default across the board
 records = true
+
+
+
+
