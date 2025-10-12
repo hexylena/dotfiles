@@ -124,14 +124,10 @@
 	name = GNU-style ChangeLog merge driver
 	driver = /usr/bin/git-merge-changelog %O %A %B
 
-# if you haven't got a global gitattributes file yet
-[core]
-	attributesfile = ~/.config/git/attributes
-	hooksPath = /home/user/.config/git/hooks/
 
-[merge "mergiraf"]
-    name = mergiraf
-    driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P
+; [merge "mergiraf"]
+;     name = mergiraf
+;     driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P
 
 # if you haven't got a global gitattributes file yet
 [core]
