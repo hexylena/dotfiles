@@ -104,20 +104,16 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 export EDITOR='nvim'
 export TEXMFHOME='~/.texmf'
-#export GOPATH=$HOME/arbeit/deps/go-path
-#export GOROOT=$HOME/arbeit/deps/go
-export PATH="$HOME/.local/bin:$HOME/bin/:$HOME/arbeit/deps/go/bin:$HOME/.pixi/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/bin/:$HOME/.pixi/bin:$PATH"
 # The folders are too damn annoying.
 export PYTHONDONTWRITEBYTECODE=1
 export ANSIBLE_NOCOWS=1
 export NOCOLOR=1
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 export GPG_TTY=$BYOBU_TTY
-# export R_LIBS_USER=~/arbeit/deps/R/x86_64-pc-linux-gnu-library/3.2
 export PGHOST=localhost
 export PGUSER=postgres
 export PGPASSWORD=postgres
-export HXR_PERL_HOME=/home/user/arbeit/deps/perl5/
 
 export PERL5LIB="${HXR_PERL_HOME}/lib/perl5"
 export PATH="${HXR_PERL_HOME}/bin:$PATH"
@@ -130,7 +126,6 @@ export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring # https://github.com
 export GREP_COLORS='mt=1;37;4;40'
 export TZ_LIST="Pacific/Auckland,Australia/Melbourne,Asia/Tokyo,Asia/Kolkata,Europe/London,US/Pacific,US/Central,US/Eastern,Pacific/Midway"
 
-export GOPATH=/home/user/arbeit/deps/go/
 export MANPAGER='nvim +Man!' # Use nvim to go through the man pages, it's really nice tbh
 
 # Preferred editor for local and remote sessions
@@ -170,8 +165,10 @@ alias qmv='qmv -fdo'
 alias ploc='plocate -d ~/.cache/plocate.db'
 alias tssh='SSH_AUTH_SOCK="" tailscale ssh'
 alias xpq='xpath -q -e'
-alias gcam='git commit --all --message'
+# alias gcam='git commit --all --message'
 alias convert='magick convert'
+alias vim=nvim
+alias vimdiff='nvim -d'
 
 #alias cat='lolcat -t'
 
