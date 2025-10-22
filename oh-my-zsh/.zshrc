@@ -316,9 +316,11 @@ cdt() {
 }
 
 eval "$(direnv hook zsh)"
-. /usr/share/fzf/shell/key-bindings.zsh
+# . /usr/share/fzf/shell/key-bindings.zsh
 
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=fg:#000000,bg:#ffffff,hl:#0000ff,fg+:#ffffff,bg+:#000000,hl+:#ffff00"
+export FZF_DEFAULT_OPTS="--reverse --walker=file,dir,follow --scheme=path -m --color=fg:#000000,bg:#ffffff,hl:#0000ff,fg+:#ffffff,bg+:#000000,hl+:#ffff00"
+# FZF_DEFAULT_OPTS=$(__fzf_defaults "--reverse --walker=file,dir,follow,hidden --scheme=path" "${FZF_CTRL_T_OPTS-} -m")
+
 # Faster CD
 alias cd='z'
 # disable sort when completing `git checkout`
