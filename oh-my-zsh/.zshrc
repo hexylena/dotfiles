@@ -278,15 +278,6 @@ activate-nvm() {
 	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
 
-function conda {
-	unset R_LIBS_USER
-	unset -f conda
-
-	# shellcheck disable=SC1090
-	eval "$(/home/user/arbeit/deps/miniconda3/bin/conda shell.zsh hook)"
-	conda "${@}"
-}
-
 function rvm {
 	unset -f rvm
 
